@@ -1,4 +1,4 @@
-package com.provectus.budgetrush.services;
+package com.provectus.budgetrush.service;
 
 import java.util.List;
 

@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.provectus.budgetrush.data.Account;
 import com.provectus.budgetrush.data.Currency;
 import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.services.AccountService;
-import com.provectus.budgetrush.services.AccountServiceBean;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.AccountServiceBean;
 
 public class AccountTest {
 

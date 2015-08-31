@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.repository.CategoryRepository;
-import com.provectus.budgetrush.services.CategoryService;
+import com.provectus.budgetrush.service.CategoryService;
 import com.provectus.budgetrush.utils.HibernateConfig;
 
 @DirtiesContext

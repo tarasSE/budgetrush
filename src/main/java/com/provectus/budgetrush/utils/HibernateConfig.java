@@ -17,6 +17,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:app.properties")
@@ -29,7 +32,6 @@ public class HibernateConfig {
     private static final String PROP_DATABASE_USERNAME = "db.username";
     private static final String PROP_HIBERNATE_DIALECT = "db.hibernate.dialect";
     private static final String PROP_HIBERNATE_SHOW_SQL = "db.hibernate.show_sql";
-    private static final String PROP_ENTITYMANAGER_PACKAGES_TO_SCAN = "db.entitymanager.packages.to.scan";
     private static final String PROP_HIBERNATE_HBM2DDL_AUTO = "db.hibernate.hbm2ddl.auto";
 
     @Resource
@@ -37,7 +39,7 @@ public class HibernateConfig {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        System.out.println("Check point.");
+        log.info("Start entity manager");
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
 
