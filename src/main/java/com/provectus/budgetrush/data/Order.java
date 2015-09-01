@@ -40,14 +40,6 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private Category category;
-/*
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JoinColumn(name = "expense_id", nullable = false)
-    private Order expenseOrder;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JoinColumn(name = "income_id", nullable = false)
-    private Order incomeOrder;*/
 
 
 }
