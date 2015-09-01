@@ -1,15 +1,10 @@
 package com.provectus.budgetrush.datatest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import com.provectus.budgetrush.data.Currency;
+import com.provectus.budgetrush.service.CurrencyService;
+import com.provectus.budgetrush.service.CurrencyServiceBean;
+import com.provectus.budgetrush.utils.HibernateConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,12 +15,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Currency;
-import com.provectus.budgetrush.service.CurrencyService;
-import com.provectus.budgetrush.service.CurrencyServiceBean;
-import com.provectus.budgetrush.utils.HibernateConfig;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.*;
 
 @Slf4j
 @DirtiesContext
@@ -52,7 +47,7 @@ public class CurrencyTest {
         Currency currency = new Currency();
 
         currency.setName("USD");
-        currency.setCode("840");
+        currency.setCode(840);
         currency.setShortname("USD");
         currency.setSymbol('$');
         return service.addCurrency(currency);
