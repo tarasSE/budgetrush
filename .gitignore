@@ -6,5 +6,10 @@ target
 .settings
 .classpath
 
+# Idea
+budgetrush.iml
+.idea
+
 # Spring
 .springBeans
+
