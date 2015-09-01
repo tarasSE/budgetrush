@@ -97,6 +97,18 @@ public class CategoriesTest {
             assertEquals(category.getId(), category1.getId());
             log.info("id1 " + category.getId() + " id2 " + category1.getId());
         }
+
+        @Test
+        @Transactional
+        public void changeParentTest() throws Exception {
+            Category category = saveTestCategory();
+            Category category1 = saveTestCategory();
+
+            service.changeParent(category.getId(), category1.getId());
+
+            assertNotNull(category.getParent());
+            log.info("id1 " + category.getId() + " id2 " + category1.getId());
+        }
     }
 
 
