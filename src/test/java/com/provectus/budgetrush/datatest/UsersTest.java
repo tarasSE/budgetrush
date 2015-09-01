@@ -81,7 +81,7 @@ public class UsersTest {
         User user2 = service.getByName(user.getName());
 
         assertEquals(user.getName(), user2.getName());
-        //assertEquals(user.getId(), user2.getId());
+        assertEquals(user.getId(), user2.getId());
         log.info("id1 " + user.getId() + " id2 " + user2.getId());
     }
 
