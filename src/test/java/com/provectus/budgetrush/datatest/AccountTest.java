@@ -86,7 +86,8 @@ public class AccountTest {
 
         Account account = saveTestAccount();
         assertNotNull(account.getId());
-
+        assertNotNull(account.getCurrency());
+        assertNotNull(account.getUser());
     }
 
     @Test
