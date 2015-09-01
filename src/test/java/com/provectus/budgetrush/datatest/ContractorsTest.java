@@ -89,10 +89,23 @@ public class ContractorsTest {
 
         @Test
         @Transactional
-        public void пetByIdTest() throws Exception {
+        public void getByIdTest() throws Exception {
             Contractor contractor = saveTestContractor();
             Contractor contractor1 = service.getByID(contractor.getId());
 
+            assertEquals(contractor.getId(), contractor1.getId());
+            log.info("id1 " + contractor.getId() + " id2 " + contractor1.getId());
+        }
+
+        @Test
+        @Transactional
+        public void editContractorTest() throws Exception {
+            Contractor contractor = saveTestContractor();
+            Contractor contractor1 = service.getByID(contractor.getId());
+
+            contractor1.setName("test_name");
+
+            service.editContractor(contractor1);
             assertEquals(contractor.getId(), contractor1.getId());
             log.info("id1 " + contractor.getId() + " id2 " + contractor1.getId());
         }
