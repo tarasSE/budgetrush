@@ -6,10 +6,11 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "orders")
 @DiscriminatorValue("transfer")
-@EqualsAndHashCode(callSuper = false)
+
 public class TransferOrder extends Order {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
