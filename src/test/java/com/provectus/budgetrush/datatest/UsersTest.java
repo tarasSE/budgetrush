@@ -29,7 +29,6 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = { HibernateConfig.class, UserServiceBean.class })
 @WebAppConfiguration
 public class UsersTest {
-    private final String USER_NAME = "Ivan";
     private final Random random = new Random();
     @Resource
     private EntityManagerFactory emf;
@@ -79,7 +78,7 @@ public class UsersTest {
     @Transactional
     public void testGetByName() throws Exception {
         User user = saveTestUser();
-        User user2 = service.getByName(USER_NAME);
+        User user2 = service.getByName(user.getName());
 
         assertEquals(user.getName(), user2.getName());
         //assertEquals(user.getId(), user2.getId());
