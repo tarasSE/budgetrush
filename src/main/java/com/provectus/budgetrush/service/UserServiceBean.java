@@ -1,15 +1,19 @@
 package com.provectus.budgetrush.service;
 
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.repository.UserRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.repository.UserRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Created by taras on 28.08.15.
  */
+@Slf4j
 @Service
 public class UserServiceBean implements UserService {
 
@@ -17,8 +21,9 @@ public class UserServiceBean implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User addUser(User userDTO) {
-        return userRepository.saveAndFlush(userDTO);
+    public User addUser(User user) {
+        log.info("Start tosave user " + user.getName());
+        return userRepository.saveAndFlush(user);
     }
 
     @Override

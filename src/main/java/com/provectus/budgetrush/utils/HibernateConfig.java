@@ -33,6 +33,7 @@ public class HibernateConfig {
     private static final String PROP_HIBERNATE_DIALECT = "db.hibernate.dialect";
     private static final String PROP_HIBERNATE_SHOW_SQL = "db.hibernate.show_sql";
     private static final String PROP_HIBERNATE_HBM2DDL_AUTO = "db.hibernate.hbm2ddl.auto";
+    private static final String PROP_HIBERNATE_PACAGES_TO_SCAN = "db.entitymanager.packages.to.scan";
 
     @Resource
     private Environment env;
@@ -46,7 +47,7 @@ public class HibernateConfig {
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
         entityManagerFactoryBean.setJpaProperties(getHibernateProperties());
-        entityManagerFactoryBean.setPackagesToScan("com.provectus.budgetrush.data");
+        entityManagerFactoryBean.setPackagesToScan(env.getRequiredProperty(PROP_HIBERNATE_PACAGES_TO_SCAN));
 
         return entityManagerFactoryBean;
     }
