@@ -44,6 +44,12 @@ public class CategoryServiceBean implements CategoryService {
         return categoryRepository.findAll();
     }
 
+    public void changeParent(Integer childId, Integer parentId) {
+        Category category = categoryRepository.getOne(childId);
+        category.setParent(parentId);
+        categoryRepository.saveAndFlush(category);
+    }
+
 
     public Category getByName(String name) {
         return categoryRepository.findByName(name);

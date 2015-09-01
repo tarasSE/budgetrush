@@ -18,4 +18,6 @@ public interface CategoryService {
 
     List<Category> getAll();
 
+    void changeParent(Integer childId, Integer parentId);
+
 }
