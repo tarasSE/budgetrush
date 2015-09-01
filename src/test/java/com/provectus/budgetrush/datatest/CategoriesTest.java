@@ -109,6 +109,15 @@ public class CategoriesTest {
             assertNotNull(category.getParent());
             log.info("id1 " + category.getId() + " id2 " + category1.getId());
         }
+
+        @Test
+        @Transactional
+        public void deleteCategoryTest() throws Exception {
+            Category category = saveTestCategory();
+            service.delete(category.getId());
+
+            log.info("id  " + category.getId());
+        }
     }
 
 

@@ -104,11 +104,19 @@ public class ContractorsTest {
             Contractor contractor1 = service.getByID(contractor.getId());
 
             contractor1.setName("test_name");
-
             service.editContractor(contractor1);
             assertEquals(contractor.getId(), contractor1.getId());
             log.info("id1 " + contractor.getId() + " id2 " + contractor1.getId());
         }
-    }
+
+        @Test
+        @Transactional
+        public void deleteContractorTest() throws Exception {
+            Contractor contractor = saveTestContractor();
+            service.delete(contractor.getId());
+
+            log.info("id  " + contractor.getId());
+        }
+        }
 
 

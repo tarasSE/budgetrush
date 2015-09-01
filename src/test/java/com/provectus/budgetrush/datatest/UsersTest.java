@@ -94,4 +94,13 @@ public class UsersTest {
         assertEquals(user.getId(), user2.getId());
         log.info("id1 " + user.getId() + " id2 " + user2.getId());
     }
+
+    @Test
+    @Transactional
+    public void deleteContractorTest() throws Exception {
+        User user = saveTestUser();
+        service.delete(user.getId());
+
+        log.info("id  " + user.getId());
+    }
 }
