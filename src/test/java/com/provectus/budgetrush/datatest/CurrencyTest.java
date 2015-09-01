@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -35,8 +34,6 @@ import lombok.extern.slf4j.Slf4j;
 @WebAppConfiguration
 public class CurrencyTest {
 
-    private final Random random = new Random();
-
     @Resource
     private EntityManagerFactory emf;
     protected EntityManager em;
@@ -54,7 +51,10 @@ public class CurrencyTest {
         log.info("Start save test category");
         Currency currency = new Currency();
 
-        currency.setName(Integer.toString(random.nextInt()));
+        currency.setName("USD");
+        currency.setCode("840");
+        currency.setShortname("USD");
+        currency.setSymbol('$');
         return service.addCurrency(currency);
     }
 

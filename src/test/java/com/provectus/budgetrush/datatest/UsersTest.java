@@ -1,10 +1,16 @@
 package com.provectus.budgetrush.datatest;
 
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.UserService;
-import com.provectus.budgetrush.service.UserServiceBean;
-import com.provectus.budgetrush.utils.HibernateConfig;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,13 +21,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import java.util.List;
-import java.util.Random;
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.service.UserService;
+import com.provectus.budgetrush.service.UserServiceBean;
+import com.provectus.budgetrush.utils.HibernateConfig;
 
-import static org.junit.Assert.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
@@ -49,6 +54,19 @@ public class UsersTest {
 
         user.setName(Integer.toString(random.nextInt()));
         return service.addUser(user);
+    }
+
+    @Test(expected = Exception.class)
+    @Transactional
+    public void testDuplicateUserName() throws Exception {
+        String name = "Petya";
+        User user = new User();
+        user.setName(name);
+        user = service.addUser(user);
+
+        User user2 = new User();
+        user2.setName(name);
+        user2 = service.addUser(user2);
     }
 
     @Test
