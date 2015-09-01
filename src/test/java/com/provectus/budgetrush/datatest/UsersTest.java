@@ -97,7 +97,7 @@ public class UsersTest {
 
     @Test
     @Transactional
-    public void deleteContractorTest() throws Exception {
+    public void deleteUserTest() throws Exception {
         User user = saveTestUser();
         service.delete(user.getId());
 
