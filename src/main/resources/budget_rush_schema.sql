@@ -3,7 +3,7 @@ USE budget_rush;
 
 CREATE TABLE users (
   id   INT(5) AUTO_INCREMENT NOT NULL,
-  name VARCHAR(50)           NOT NULL,
+  name VARCHAR(50)    UNIQUE NOT NULL,
   pass VARCHAR(20),
   PRIMARY KEY (id)
 )
