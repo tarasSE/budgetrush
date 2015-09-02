@@ -52,6 +52,8 @@ public class UserMappingTest {
         log.info("Cresting POJO from JSON");
         user1 = mapper.readValue(file, User.class);
 
+        file.delete();
+
         assertNotNull(file.toString(), user1);
     }
 
