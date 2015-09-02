@@ -1,7 +1,7 @@
 package com.provectus.budgetrush.jacksontest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.utils.HibernateConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -21,9 +21,9 @@ import static org.junit.Assert.assertNotNull;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, ObjectMapper.class, User.class})
+@ContextConfiguration(classes = { HibernateConfig.class, ObjectMapper.class, Category.class})
 @WebAppConfiguration
-public class UserMappingTest {
+public class CategoryMappingTest {
 
     private ObjectMapper mapper;
 
@@ -37,27 +37,26 @@ public class UserMappingTest {
     @Transactional
     public void jsonMappingTest() throws Exception {
         Scanner scanner;
-        File file = new File("user.json");
-        User user = new User();
-        User user1;
+        File file = new File("category.json");
+        Category category = new Category();
+        Category category1;
 
-        user.setName("test_name");
-        user.setPassword("test_pass");
+        category.setName("test_name");
+        category.setParent(null);
 
         log.info("Writing JSON to file");
-        mapper.writeValue(file, user);
+        mapper.writeValue(file, category);
         scanner = new Scanner(file);
         log.info(scanner.nextLine());
         scanner.close();
 
         log.info("Cresting POJO from JSON");
-        user1 = mapper.readValue(file, User.class);
+        category1 = mapper.readValue(file, Category.class);
+        log.info(category1.toString());
 
-
-        log.info(user1.toString());
         file.delete();
 
-        assertNotNull(file.toString(), user1);
+        assertNotNull(file.toString(), category1);
     }
 
 

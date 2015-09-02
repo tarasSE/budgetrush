@@ -1,7 +1,7 @@
 package com.provectus.budgetrush.jacksontest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.data.Contractor;
 import com.provectus.budgetrush.utils.HibernateConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -21,9 +21,9 @@ import static org.junit.Assert.assertNotNull;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, ObjectMapper.class, User.class})
+@ContextConfiguration(classes = { HibernateConfig.class, ObjectMapper.class, Contractor.class})
 @WebAppConfiguration
-public class UserMappingTest {
+public class ContractorMappingTest {
 
     private ObjectMapper mapper;
 
@@ -37,27 +37,25 @@ public class UserMappingTest {
     @Transactional
     public void jsonMappingTest() throws Exception {
         Scanner scanner;
-        File file = new File("user.json");
-        User user = new User();
-        User user1;
+        File file = new File("contractor.json");
+        Contractor contractor = new Contractor();
+        Contractor contractor1;
 
-        user.setName("test_name");
-        user.setPassword("test_pass");
+        contractor.setName("test_name");
+        contractor.setDescription("test_description");
 
         log.info("Writing JSON to file");
-        mapper.writeValue(file, user);
+        mapper.writeValue(file, contractor);
         scanner = new Scanner(file);
         log.info(scanner.nextLine());
         scanner.close();
 
         log.info("Cresting POJO from JSON");
-        user1 = mapper.readValue(file, User.class);
-
-
-        log.info(user1.toString());
+        contractor1 = mapper.readValue(file, Contractor.class);
+        log.info(contractor1.toString());
         file.delete();
 
-        assertNotNull(file.toString(), user1);
+        assertNotNull(file.toString(), contractor1);
     }
 
 
