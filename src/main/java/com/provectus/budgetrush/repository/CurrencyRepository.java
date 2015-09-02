@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Created by taras on 28.08.15.
  */
+ //Annotate accordingly
 public interface CurrencyRepository extends JpaRepository<Currency, Integer> {
     public Currency findByName(String name);
 }
