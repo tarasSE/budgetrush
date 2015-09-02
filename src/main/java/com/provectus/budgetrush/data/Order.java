@@ -13,6 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "orders")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+// Use enumeration as discriminator
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue(value = "order")
 public class Order {
