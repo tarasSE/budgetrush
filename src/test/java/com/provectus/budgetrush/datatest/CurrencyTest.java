@@ -52,7 +52,7 @@ public class CurrencyTest {
 
         currency.setName("USD");
         currency.setCode(840);
-        currency.setShortname("USD");
+        currency.setShortName("USD");
         currency.setSymbol('$');
         return service.createAndUpdate(currency);
     }

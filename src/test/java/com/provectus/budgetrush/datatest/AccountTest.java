@@ -70,7 +70,7 @@ public class AccountTest {
 
         currency.setName("USD");
         currency.setCode(840);
-        currency.setShortname("USD");
+        currency.setShortName("USD");
         currency.setSymbol('$');
         account.setCurrency(currencyService.createAndUpdate(currency));
 
