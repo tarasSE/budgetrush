@@ -1,15 +1,10 @@
 package com.provectus.budgetrush.data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -18,10 +13,12 @@ import lombok.EqualsAndHashCode;
 @DiscriminatorValue("transfer")
 public class TransferOrder extends Order {
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "expense_id")
     private Order expenseOrder;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "income_id")
     private Order incomeOrder;
