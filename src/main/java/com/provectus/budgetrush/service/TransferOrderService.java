@@ -1,18 +1,22 @@
 package com.provectus.budgetrush.service;
 
 import com.provectus.budgetrush.data.TransferOrder;
+import com.provectus.budgetrush.repository.TransferOrderRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+@Slf4j
+@Service
+@Transactional
+public class TransferOrderService extends GenericService <TransferOrder, TransferOrderRepository> {
 
-public interface TransferOrderService {
+    @Autowired
+    private TransferOrderRepository transferOrderRepository;
 
-    TransferOrder addTransferOrder(TransferOrder transferOrder);
-
-    void delete(int id);
-
-    TransferOrder getByID(int id);
-
-    TransferOrder editTransferOrder(TransferOrder transferOrder);
-
-    List<TransferOrder> getAll();
+    @Override
+    protected TransferOrderRepository getRepository() {
+        return transferOrderRepository;
+    }
 }

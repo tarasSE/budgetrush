@@ -1,22 +1,20 @@
 package com.provectus.budgetrush.service;
 
 import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+@Slf4j
+@Service
+public class UserService extends GenericService <User, UserRepository> {
 
-/**
- * Created by taras on 28.08.15.
- */
-public interface UserService {
-    User addUser(User userDTO);
+    @Autowired
+    private UserRepository userRepository;
 
-    void delete(int id);
-
-    User getById(int id);
-
-    User getByName(String name);
-
-    User editUser(User userDTO);
-
-    List<User> getAll();
+    @Override
+    protected UserRepository getRepository() {
+        return userRepository;
+    }
 }

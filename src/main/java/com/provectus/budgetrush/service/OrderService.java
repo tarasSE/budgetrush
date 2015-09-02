@@ -1,19 +1,23 @@
 package com.provectus.budgetrush.service;
 
 import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.repository.OrderRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+@Slf4j
+@Service
+@Transactional
+public class OrderService extends GenericService <Order, OrderRepository> {
 
-public interface OrderService {
+    @Autowired
+    private OrderRepository orderRepository;
 
-    Order addOrder(Order order);
 
-    void delete(int id);
-
-    Order getByID(int id);
-
-    Order editOrder(Order order);
-
-    List<Order> getAll();
-
+    @Override
+    protected OrderRepository getRepository() {
+        return orderRepository;
+    }
 }

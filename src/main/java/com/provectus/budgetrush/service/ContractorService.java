@@ -1,21 +1,23 @@
 package com.provectus.budgetrush.service;
 
 import com.provectus.budgetrush.data.Contractor;
+import com.provectus.budgetrush.repository.ContractorRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+@Slf4j
+@Service
+@Transactional
+public class ContractorService extends GenericService <Contractor, ContractorRepository> {
 
-public interface ContractorService {
+    @Autowired
+    private ContractorRepository contractorRepository;
 
-    void delete(int id);
 
-    Contractor getByName(String name);
-
-    Contractor getByID(int id);
-
-    List<Contractor> getAll();
-
-    Contractor editContractor(Contractor contractor);
-
-    Contractor addContractor(Contractor contractor);
-
+    @Override
+    protected ContractorRepository getRepository() {
+        return contractorRepository;
+    }
 }
