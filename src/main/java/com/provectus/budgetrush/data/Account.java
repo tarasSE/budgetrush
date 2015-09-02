@@ -15,6 +15,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+// Use @Data instead of @Setter/@Getter
 @Entity
 @Table(name = "accounts")
 @EqualsAndHashCode(exclude = { "id" })
