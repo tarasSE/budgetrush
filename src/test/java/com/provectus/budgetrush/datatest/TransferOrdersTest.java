@@ -1,6 +1,7 @@
 package com.provectus.budgetrush.datatest;
 
 import com.provectus.budgetrush.data.*;
+import com.provectus.budgetrush.service.TransferOrderService;
 import com.provectus.budgetrush.utils.HibernateConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -26,7 +27,7 @@ import static org.junit.Assert.*;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, TransferOrderServiceBean.class })
+@ContextConfiguration(classes = { HibernateConfig.class, TransferOrderService.class })
 @WebAppConfiguration
 public class TransferOrdersTest {
 
@@ -99,16 +100,7 @@ public class TransferOrdersTest {
             transferOrder.setIncomeOrder(order);
             transferOrder.setExpenseOrder(order1);
 
-            return service.addTransferOrder(transferOrder);
-        }
-
-        @Test
-        @Transactional
-        public void saveTransferOrderTest() throws Exception {
-
-            TransferOrder transferOrder = saveTestTransferOrder();
-            assertNotNull(transferOrder.getId());
-
+            return service.createAndUpdate(transferOrder);
         }
 
         @Test
@@ -129,25 +121,11 @@ public class TransferOrdersTest {
         @Transactional
         public void getByIdTest() throws Exception {
             TransferOrder transferOrder = saveTestTransferOrder();
-            TransferOrder order1 = service.getByID(transferOrder.getId());
+            TransferOrder order1 = service.getById(transferOrder.getId());
 
             assertEquals(transferOrder.getId(), order1.getId());
             log.info("id1 " + transferOrder.getId() + " id2 " + order1.getId());
         }
-
-        @Test
-        @Transactional
-        public void editTransferOrderTest() throws Exception {
-            TransferOrder transferOrder = saveTestTransferOrder();
-            TransferOrder order1 = service.getByID(transferOrder.getId());
-
-            order1.setAmount(1234567.89);
-
-            service.editTransferOrder(order1);
-            assertEquals(transferOrder.getId(), order1.getId());
-            log.info("id1 " + transferOrder.getId() + " id2 " + order1.getId());
-        }
-
 
         @Test
         @Transactional

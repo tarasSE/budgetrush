@@ -1,6 +1,7 @@
 package com.provectus.budgetrush.datatest;
 
 import com.provectus.budgetrush.data.*;
+import com.provectus.budgetrush.service.OrderService;
 import com.provectus.budgetrush.utils.HibernateConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -26,7 +27,7 @@ import static org.junit.Assert.*;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, OrderServiceBean.class })
+@ContextConfiguration(classes = { HibernateConfig.class, OrderService.class })
 @WebAppConfiguration
 public class OrdersTest {
 
@@ -78,7 +79,7 @@ public class OrdersTest {
             order.setCategory(category);
             order.setContractor(contractor);
 
-            return service.addOrder(order);
+            return service.createAndUpdate(order);
         }
 
         @Test
@@ -108,25 +109,11 @@ public class OrdersTest {
         @Transactional
         public void getByIdTest() throws Exception {
             Order order = saveTestOrder();
-            Order order1 = service.getByID(order.getId());
+            Order order1 = service.getById(order.getId());
 
             assertEquals(order.getId(), order1.getId());
             log.info("id1 " + order.getId() + " id2 " + order1.getId());
         }
-
-        @Test
-        @Transactional
-        public void editOrderTest() throws Exception {
-            Order order = saveTestOrder();
-            Order order1 = service.getByID(order.getId());
-
-            order1.setAmount(1234567.89);
-
-            service.editOrder(order1);
-            assertEquals(order.getId(), order1.getId());
-            log.info("id1 " + order.getId() + " id2 " + order1.getId());
-        }
-
 
         @Test
         @Transactional

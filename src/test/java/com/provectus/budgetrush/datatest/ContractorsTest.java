@@ -1,7 +1,7 @@
 package com.provectus.budgetrush.datatest;
 
 import com.provectus.budgetrush.data.Contractor;
-import com.provectus.budgetrush.service.ContractorServiceBean;
+import com.provectus.budgetrush.service.ContractorService;
 import com.provectus.budgetrush.utils.HibernateConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, ContractorServiceBean.class })
+@ContextConfiguration(classes = { HibernateConfig.class, ContractorService.class })
 @WebAppConfiguration
 public class ContractorsTest {
 
@@ -49,7 +49,7 @@ public class ContractorsTest {
             Contractor contractor = new Contractor();
 
             contractor.setName(Integer.toString(random.nextInt()));
-            return service.addContractor(contractor);
+            return service.createAndUpdate(contractor);
         }
 
         @Test
@@ -77,33 +77,10 @@ public class ContractorsTest {
 
         @Test
         @Transactional
-        public void getByNameTest() throws Exception {
-            Contractor contractor = saveTestContractor();
-            Contractor contractor1= service.getByName(contractor.getName());
-
-            assertEquals(contractor.getName(), contractor1.getName());
-            assertEquals(contractor.getId(), contractor1.getId());
-            log.info("id1 " + contractor.getId() + " id2 " + contractor1.getId());
-        }
-
-        @Test
-        @Transactional
         public void getByIdTest() throws Exception {
             Contractor contractor = saveTestContractor();
-            Contractor contractor1 = service.getByID(contractor.getId());
+            Contractor contractor1 = service.getById(contractor.getId());
 
-            assertEquals(contractor.getId(), contractor1.getId());
-            log.info("id1 " + contractor.getId() + " id2 " + contractor1.getId());
-        }
-
-        @Test
-        @Transactional
-        public void editContractorTest() throws Exception {
-            Contractor contractor = saveTestContractor();
-            Contractor contractor1 = service.getByID(contractor.getId());
-
-            contractor1.setName("test_name");
-            service.editContractor(contractor1);
             assertEquals(contractor.getId(), contractor1.getId());
             log.info("id1 " + contractor.getId() + " id2 " + contractor1.getId());
         }
