@@ -6,8 +6,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+// Use @Data annotation
 @Entity
 @Table(name = "currencies")
+//Why do you exclude id field?
 @EqualsAndHashCode(exclude = { "id" })
 public class Currency {
 
