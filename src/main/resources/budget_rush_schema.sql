@@ -25,12 +25,8 @@ CREATE TABLE accounts (
   user_id     INT(5)             NOT NULL,
   currency_id INT(5)             NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (user_id) REFERENCES users (id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES users (id),
   FOREIGN KEY (currency_id) REFERENCES currencies (id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
 )
   ENGINE = InnoDB;
 
@@ -41,8 +37,6 @@ CREATE TABLE categories (
   parent INT(5),
   PRIMARY KEY (id),
   FOREIGN KEY (parent) REFERENCES categories (id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
 )
   ENGINE = InnoDB;
 
@@ -56,7 +50,7 @@ CREATE TABLE contractors (
 
 CREATE TABLE orders (
   id          INT AUTO_INCREMENT NOT NULL,
-  amount      DOUBLE(10, 2)      NOT NULL,
+  amount      DOUBLE(10, 2)      NOT NULL,/*TODO*/
   date        TIMESTAMP          NOT NULL,
   type        VARCHAR(10)        NOT NULL,
   account_id  INT(5)             NOT NULL,
@@ -65,20 +59,10 @@ CREATE TABLE orders (
   expense_id  INT(5),
   income_id   INT(5),
   PRIMARY KEY (id),
-  FOREIGN KEY (account_id) REFERENCES accounts (id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  FOREIGN KEY (category_id) REFERENCES categories (id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  FOREIGN KEY (contractor_id) REFERENCES contractors (id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  FOREIGN KEY (expense_id) REFERENCES orders (id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+  FOREIGN KEY (account_id) REFERENCES accounts (id),
+  FOREIGN KEY (category_id) REFERENCES categories (id),
+  FOREIGN KEY (contractor_id) REFERENCES contractors (id),
+  FOREIGN KEY (expense_id) REFERENCES orders (id),
   FOREIGN KEY (income_id) REFERENCES orders (id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
 )
   ENGINE = InnoDB;
