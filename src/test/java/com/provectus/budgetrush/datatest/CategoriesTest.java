@@ -2,7 +2,6 @@ package com.provectus.budgetrush.datatest;
 
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.service.CategoryService;
-import com.provectus.budgetrush.service.CategoryServiceBean;
 import com.provectus.budgetrush.utils.HibernateConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -27,7 +26,7 @@ import static org.junit.Assert.*;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, CategoryServiceBean.class })
+@ContextConfiguration(classes = { HibernateConfig.class, CategoryService.class })
 @WebAppConfiguration
 public class CategoriesTest {
 

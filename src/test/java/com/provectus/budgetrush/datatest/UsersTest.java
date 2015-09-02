@@ -22,8 +22,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.UserService;
-import com.provectus.budgetrush.service.UserServiceBean;
 import com.provectus.budgetrush.utils.HibernateConfig;
 
 import lombok.extern.slf4j.Slf4j;

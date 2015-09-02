@@ -1,8 +1,6 @@
 package com.provectus.budgetrush.datatest;
 
 import com.provectus.budgetrush.data.*;
-import com.provectus.budgetrush.service.OrderService;
-import com.provectus.budgetrush.service.OrderServiceBean;
 import com.provectus.budgetrush.utils.HibernateConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
