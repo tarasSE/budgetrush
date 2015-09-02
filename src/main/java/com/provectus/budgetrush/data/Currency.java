@@ -1,9 +1,13 @@
 package com.provectus.budgetrush.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import lombok.Data;
 
 @Data
 @Entity
@@ -22,7 +26,7 @@ public class Currency {
 
     @JsonProperty("Short name")
     @Column(name = "short_name")
-    private String shortname;
+    private String shortName;
 
     @JsonProperty("Code")
     @Column(name = "code")
