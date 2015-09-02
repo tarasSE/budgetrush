@@ -14,10 +14,10 @@ import javax.persistence.*;
 public class TransferOrder extends Order {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JoinColumn(name = "expense_id", nullable = false , insertable = false, updatable = false)
+    @JoinColumn(name = "expense_id")
     private Order expenseOrder;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JoinColumn(name = "income_id", nullable = false , insertable = false, updatable = false)
+    @JoinColumn(name = "income_id")
     private Order incomeOrder;
 }
