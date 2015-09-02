@@ -55,7 +55,7 @@ public class OrdersTest {
 
             Currency currency = new Currency();
             currency.setName("test_name");
-            currency.setShortname("usd");
+            currency.setShortName("usd");
             currency.setCode(1111);
             currency.setSymbol('s');
 
