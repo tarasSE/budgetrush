@@ -47,7 +47,8 @@ public class UserMappingTest {
 
         log.info("Writing JSON to file");
         mapper.writeValue(file, user);
-        System.out.println(file.toString());
+
+        log.info(file.toString());
 
         log.info("Cresting POJO from JSON");
         user1 = mapper.readValue(file, User.class);
