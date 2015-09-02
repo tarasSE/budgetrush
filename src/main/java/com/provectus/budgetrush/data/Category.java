@@ -20,6 +20,7 @@ public class Category {
     @Column(name = "name")
     private String name;
 
+// Change to @ManyToOne reference for Category
     @Column(name = "parent")
     private Integer parent;
 }
