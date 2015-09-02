@@ -37,7 +37,7 @@ public class UserMappingTest {
 
     @Test
     @Transactional
-    public void toJsonTest() throws Exception {
+    public void jsonMappingTest() throws Exception {
         File file = new File("user.json");
         User user = new User();
         User user1;
