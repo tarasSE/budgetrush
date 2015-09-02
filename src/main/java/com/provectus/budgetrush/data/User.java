@@ -14,6 +14,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "users")
 @EqualsAndHashCode(exclude = { "id" })
+// Use @Data annotation
 public class User {
 
     @Id
