@@ -1,8 +1,15 @@
 package com.provectus.budgetrush.datatest;
 
-import com.provectus.budgetrush.data.Currency;
-import com.provectus.budgetrush.utils.HibernateConfig;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,17 +20,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import java.util.List;
+import com.provectus.budgetrush.data.Currency;
+import com.provectus.budgetrush.service.CurrencyService;
+import com.provectus.budgetrush.utils.HibernateConfig;
 
-import static org.junit.Assert.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, CurrencyServiceBean.class })
+@ContextConfiguration(classes = { HibernateConfig.class, CurrencyService.class })
 @WebAppConfiguration
 public class CurrencyTest {
 
@@ -48,7 +54,7 @@ public class CurrencyTest {
         currency.setCode(840);
         currency.setShortname("USD");
         currency.setSymbol('$');
-        return service.addCurrency(currency);
+        return service.createAndUpdate(currency);
     }
 
     @Test
@@ -72,17 +78,6 @@ public class CurrencyTest {
         }
 
         assertNotEquals(size, currencies.size());
-    }
-
-    @Test
-    @Transactional
-    public void getByNameTest() throws Exception {
-        Currency currency = saveTestCurrency();
-        Currency currency1 = service.getByName(currency.getName());
-
-        assertEquals(currency.getName(), currency1.getName());
-        assertEquals(currency.getId(), currency1.getId());
-        log.info("id1 " + currency.getId() + " id2 " + currency.getId());
     }
 
     @Test

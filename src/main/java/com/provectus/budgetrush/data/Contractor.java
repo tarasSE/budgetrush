@@ -1,14 +1,17 @@
 package com.provectus.budgetrush.data;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "contractors")
-@EqualsAndHashCode(exclude = { "id" })
 public class Contractor {
 
     @Id

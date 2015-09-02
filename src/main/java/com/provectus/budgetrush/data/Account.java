@@ -11,30 +11,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-// Use @Data instead of @Setter/@Getter
+@Data
 @Entity
 @Table(name = "accounts")
-@EqualsAndHashCode(exclude = { "id" })
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private @Getter @Setter int id;
+    private int id;
 
     @Column(name = "name")
-    private @Getter @Setter String name;
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "user_id")
-    private @Getter @Setter User user;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "currency_id")
-    private @Getter @Setter Currency currency;
+    private Currency currency;
 
 }

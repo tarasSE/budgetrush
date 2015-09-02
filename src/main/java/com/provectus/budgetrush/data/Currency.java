@@ -1,32 +1,33 @@
 package com.provectus.budgetrush.data;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import lombok.Data;
 
-// Use @Data annotation
+@Data
 @Entity
 @Table(name = "currencies")
-//Why do you exclude id field?
-@EqualsAndHashCode(exclude = { "id" })
 public class Currency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private @Getter @Setter int id;
+    private int id;
 
     @Column(name = "name")
-    private @Getter @Setter String name;
+    private String name;
 
     @Column(name = "short_name")
-    private @Getter @Setter String shortname;
+    private String shortname;
 
     @Column(name = "code")
-    private @Getter @Setter int code;
+    private int code;
 
     @Column(name = "symbol")
-    private @Getter @Setter char symbol;
+    private char symbol;
 }

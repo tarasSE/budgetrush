@@ -22,6 +22,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.service.UserService;
 import com.provectus.budgetrush.utils.HibernateConfig;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, UserServiceBean.class })
+@ContextConfiguration(classes = { HibernateConfig.class, UserService.class })
 @WebAppConfiguration
 public class UsersTest {
     private final Random random = new Random();
@@ -51,7 +52,7 @@ public class UsersTest {
         User user = new User();
 
         user.setName(Integer.toString(random.nextInt()));
-        return service.addUser(user);
+        return service.createAndUpdate(user);
     }
 
     @Test(expected = Exception.class)
@@ -60,11 +61,11 @@ public class UsersTest {
         String name = "Petya";
         User user = new User();
         user.setName(name);
-        user = service.addUser(user);
+        user = service.createAndUpdate(user);
 
         User user2 = new User();
         user2.setName(name);
-        user2 = service.addUser(user2);
+        user2 = service.createAndUpdate(user2);
     }
 
     @Test
@@ -88,17 +89,6 @@ public class UsersTest {
         }
 
         assertNotEquals(size, users.size());
-    }
-
-    @Test
-    @Transactional
-    public void testGetByName() throws Exception {
-        User user = saveTestUser();
-        User user2 = service.getByName(user.getName());
-
-        assertEquals(user.getName(), user2.getName());
-        assertEquals(user.getId(), user2.getId());
-        log.info("id1 " + user.getId() + " id2 " + user2.getId());
     }
 
     @Test

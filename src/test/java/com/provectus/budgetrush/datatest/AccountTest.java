@@ -1,11 +1,16 @@
 package com.provectus.budgetrush.datatest;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Currency;
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.*;
-import com.provectus.budgetrush.utils.HibernateConfig;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,18 +21,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import java.util.List;
-import java.util.Random;
+import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.Currency;
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.CurrencyService;
+import com.provectus.budgetrush.service.UserService;
+import com.provectus.budgetrush.utils.HibernateConfig;
 
-import static org.junit.Assert.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, AccountServiceBean.class, UserServiceBean.class, CurrencyServiceBean.class })
+@ContextConfiguration(classes = { HibernateConfig.class, AccountService.class, UserService.class, CurrencyService.class })
 @WebAppConfiguration
 public class AccountTest {
 
@@ -57,7 +64,7 @@ public class AccountTest {
 
         User user = new User();
         user.setName(Integer.toString(random.nextInt()));
-        account.setUser(userService.addUser(user));
+        account.setUser(userService.createAndUpdate(user));
 
         Currency currency = new Currency();
 
@@ -65,9 +72,9 @@ public class AccountTest {
         currency.setCode(840);
         currency.setShortname("USD");
         currency.setSymbol('$');
-        account.setCurrency(currencyService.addCurrency(currency));
+        account.setCurrency(currencyService.createAndUpdate(currency));
 
-        return service.addAccount(account);
+        return service.createAndUpdate(account);
     }
 
     @Test
@@ -92,17 +99,6 @@ public class AccountTest {
         }
 
         assertNotEquals(size, accounts.size());
-    }
-
-    @Test
-    @Transactional
-    public void getByNameTest() throws Exception {
-        Account account = saveTestAccount();
-        Account account1 = service.getByName(account.getName());
-
-        assertEquals(account.getName(), account1.getName());
-        assertEquals(account.getId(), account1.getId());
-        log.info("id1 " + account.getId() + " id2 " + account1.getId());
     }
 
     @Test
