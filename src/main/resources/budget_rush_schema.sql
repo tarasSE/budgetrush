@@ -50,7 +50,7 @@ CREATE TABLE contractors (
 
 CREATE TABLE orders (
   id          INT AUTO_INCREMENT NOT NULL,
-  amount      DOUBLE(10, 2)      NOT NULL,/*TODO*/
+  amount      DOUBLE     NOT NULL, /*TODO*/
   date        TIMESTAMP          NOT NULL,
   type        VARCHAR(10)        NOT NULL,
   account_id  INT(5)             NOT NULL,
@@ -66,3 +66,4 @@ CREATE TABLE orders (
   FOREIGN KEY (income_id) REFERENCES orders (id)
 )
   ENGINE = InnoDB;
+
