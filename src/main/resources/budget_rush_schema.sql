@@ -50,7 +50,7 @@ CREATE TABLE contractors (
 
 CREATE TABLE orders (
   id            INT AUTO_INCREMENT NOT NULL,
-  amount        DOUBLE             NOT NULL, /*TODO*/
+  amount        DECIMAL(10, 2)     NOT NULL, /*TODO*/
   date          TIMESTAMP          NOT NULL,
   type          INT(1)             NOT NULL,
   account_id    INT(5)             NOT NULL,

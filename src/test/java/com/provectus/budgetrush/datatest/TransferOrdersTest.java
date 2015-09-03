@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import static java.math.BigDecimal.valueOf;
 import static org.junit.Assert.*;
 
 
@@ -78,21 +79,21 @@ public class TransferOrdersTest {
             category.setParent(null);
 
             Order order = new Order();
-            order.setAmount(random.nextInt());
+            order.setAmount(valueOf(random.nextDouble()));
             order.setDate(new Date());
             order.setAccount(account);
             order.setCategory(category);
             order.setContractor(contractor);
 
             Order order1 = new Order();
-            order1.setAmount(random.nextInt());
+            order1.setAmount(valueOf(random.nextDouble()));
             order1.setDate(new Date());
             order1.setAccount(account);
             order1.setCategory(category);
             order1.setContractor(contractor);
 
             TransferOrder transferOrder = new TransferOrder();
-            transferOrder.setAmount(random.nextInt());
+            transferOrder.setAmount(valueOf(random.nextDouble()));
             transferOrder.setDate(new Date());
             transferOrder.setAccount(account);
             transferOrder.setCategory(category);

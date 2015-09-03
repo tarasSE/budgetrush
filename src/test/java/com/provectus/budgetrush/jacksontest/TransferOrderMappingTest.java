@@ -17,6 +17,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.Scanner;
 
+import static java.math.BigDecimal.valueOf;
 import static org.junit.Assert.assertNotNull;
 
 @Slf4j
@@ -66,7 +67,7 @@ public class TransferOrderMappingTest {
         category.setParent(null);
 
         TransferOrder order = new TransferOrder();
-        order.setAmount(1234124);
+        order.setAmount(valueOf(1234124));
         order.setDate(new Date());
         order.setAccount(account);
         order.setCategory(category);

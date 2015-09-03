@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import static java.math.BigDecimal.valueOf;
 import static org.junit.Assert.*;
 
 
@@ -73,7 +74,7 @@ public class OrdersTest {
             category.setParent(null);
 
             Order order = new Order();
-            order.setAmount(random.nextInt());
+            order.setAmount(valueOf(random.nextDouble()));
             order.setDate(new Date());
             order.setAccount(account);
             order.setCategory(category);

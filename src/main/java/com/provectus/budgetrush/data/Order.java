@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -23,7 +24,7 @@ public class Order {
 
     @JsonProperty("Amount")
     @Column(name = "amount")
-    private double amount;
+    private BigDecimal amount;
 
     @JsonProperty("Date")
     @Temporal(TemporalType.DATE)
