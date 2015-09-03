@@ -10,7 +10,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "orders")
-@DiscriminatorValue("transfer")
+@DiscriminatorValue("1")
 public class TransferOrder extends Order {
 
     @JsonIgnore

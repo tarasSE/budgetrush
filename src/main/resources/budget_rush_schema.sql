@@ -3,7 +3,7 @@ USE budget_rush;
 
 CREATE TABLE users (
   id   INT(5) AUTO_INCREMENT NOT NULL,
-  name VARCHAR(50)    UNIQUE NOT NULL,
+  name VARCHAR(50) UNIQUE    NOT NULL,
   pass VARCHAR(20),
   PRIMARY KEY (id)
 )
@@ -49,15 +49,15 @@ CREATE TABLE contractors (
   ENGINE = InnoDB;
 
 CREATE TABLE orders (
-  id          INT AUTO_INCREMENT NOT NULL,
-  amount      DOUBLE     NOT NULL, /*TODO*/
-  date        TIMESTAMP          NOT NULL,
-  type        VARCHAR(10)        NOT NULL,
-  account_id  INT(5)             NOT NULL,
-  category_id INT(5)             NOT NULL,
-  contractor_id   INT(5),
-  expense_id  INT(5),
-  income_id   INT(5),
+  id            INT AUTO_INCREMENT NOT NULL,
+  amount        DOUBLE             NOT NULL, /*TODO*/
+  date          TIMESTAMP          NOT NULL,
+  type          INT(1)             NOT NULL,
+  account_id    INT(5)             NOT NULL,
+  category_id   INT(5)             NOT NULL,
+  contractor_id INT(5),
+  expense_id    INT(5),
+  income_id     INT(5),
   PRIMARY KEY (id),
   FOREIGN KEY (account_id) REFERENCES accounts (id),
   FOREIGN KEY (category_id) REFERENCES categories (id),
