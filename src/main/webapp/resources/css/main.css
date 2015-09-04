@@ -1,0 +1,20 @@
+td, th {
+    padding: 10px;
+}
+
+.book-list-table, .book-list-table td, .book-list-table th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.content {
+    margin: 50px;
+}
+
+.error {
+    color: red;
+}
+
+.login-link-container {
+    text-align: right;
+}
