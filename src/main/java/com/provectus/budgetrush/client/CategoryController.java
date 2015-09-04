@@ -1,7 +1,6 @@
 package com.provectus.budgetrush.client;
 
 import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.json.CategoryConverter;
 import com.provectus.budgetrush.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,6 @@ public class CategoryController {
 
     @Autowired
     private CategoryService service;
-    @Autowired
-    CategoryConverter converter;
 
     @RequestMapping(value = "/category", method = GET)
     @ResponseBody
