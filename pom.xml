@@ -182,6 +182,18 @@
 			<version>2.6.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-catalina</artifactId>
+			<version>8.0.26</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mortbay.jetty.alpn</groupId>
+			<artifactId>alpn-boot</artifactId>
+			<version>8.1.4.v20150727</version>
+		</dependency>
+
 
 	</dependencies>
 
@@ -200,6 +212,7 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+
 		</plugins>
 
 	</build>
