@@ -1,6 +1,7 @@
 package com.provectus.budgetrush.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,7 @@ import com.provectus.budgetrush.repository.CurrencyRepository;
 @Transactional
 public class CurrencyService extends GenericService<Currency, CurrencyRepository> {
 
+    @Qualifier("currencyRepository")
     @Autowired
     private CurrencyRepository currencyRepository;
 

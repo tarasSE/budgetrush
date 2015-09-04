@@ -1,6 +1,7 @@
 package com.provectus.budgetrush.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,7 @@ import com.provectus.budgetrush.repository.ContractorRepository;
 @Transactional
 public class ContractorService extends GenericService<Contractor, ContractorRepository> {
 
+    @Qualifier("contractorRepository")
     @Autowired
     private ContractorRepository contractorRepository;
 
