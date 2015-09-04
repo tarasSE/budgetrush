@@ -6,9 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Currency;
 
-/**
- * Created by taras on 28.08.15.
- */
+
 @Repository
 @Transactional
 public interface CurrencyRepository extends JpaRepository<Currency, Integer> {

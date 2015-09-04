@@ -6,9 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.User;
 
-/**
- * Created by taras on 28.08.15.
- */
+
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<User, Integer> {
