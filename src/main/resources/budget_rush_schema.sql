@@ -1,5 +1,3 @@
-CREATE DATABASE IF NOT EXISTS budget_rush;
-USE budget_rush;
 
 CREATE TABLE users (
   id   INT(5) AUTO_INCREMENT NOT NULL,

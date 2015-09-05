@@ -23,14 +23,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.service.CategoryService;
-import com.provectus.budgetrush.utils.HibernateConfig;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, CategoryService.class })
+@ContextConfiguration(classes = { InMemoryConfig.class, CategoryService.class })
 @WebAppConfiguration
 public class CategoriesTest {
 
