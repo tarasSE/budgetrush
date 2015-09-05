@@ -7,14 +7,32 @@
 	<name>BudgetRush</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+				
+		<!-- Versions -->
 		<java-version>1.7</java-version>
 		<org.springframework-version>4.2.0.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.8.6</org.aspectj-version>
 		<org.slf4j-version>1.7.12</org.slf4j-version>
+		<jetty.version>9.3.4.RC0</jetty.version>
 		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
 		<spring.test>3.2.4.RELEASE</spring.test>
+		<junit.test>4.12</junit.test>
+		<h2.version>1.4.188</h2.version>
+		<mysql.version>5.1.36</mysql.version>
+		<guava.version>12.0</guava.version>
+		<hibernate-jpa.version>1.0.0.Final</hibernate-jpa.version>
+		<hibernate-entitymanager.version>5.0.0.Final</hibernate-entitymanager.version>
+		<lombok.version>1.16.6</lombok.version>
+		<spring-data-jpa.version>1.8.2.RELEASE</spring-data-jpa.version>
+		<log4j.version>1.2.17</log4j.version>
+		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+		<javax.inject.version>1</javax.inject.version>
+		<jsp-api.version>2.2.1-b03</jsp-api.version>
+		<jstl.version>1.2</jstl.version>
+		<jackson.version>2.6.1</jackson.version>
 	</properties>
 
 	<dependencies>
@@ -39,7 +57,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>1.8.2.RELEASE</version>
+			<version>${spring-data-jpa.version}</version>
 		</dependency>
 
 		<!-- AspectJ -->
@@ -70,7 +88,7 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
+			<version>${log4j.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>javax.mail</groupId>
@@ -96,59 +114,65 @@
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
-			<version>1</version>
+			<version>${javax.inject.version}</version>
 		</dependency>
 
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
+			<version>${javax.servlet-api.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
-			<version>2.2.1-b03</version>
+			<version>${jsp-api.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+			<version>${jstl.version}</version>
 		</dependency>
 
 		<!-- @DataBase -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.36</version>
+			<version>${mysql.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
-			<version>1.0.0.Final</version>
+			<version>${hibernate-jpa.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.0.0.Final</version>
+			<version>${hibernate-entitymanager.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>12.0</version>
+			<version>${guava.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.6</version>
+			<version>${lombok.version}</version>
 		</dependency>
-
+		
+		<dependency>
+		    <groupId>org.eclipse.jetty</groupId>
+		    <artifactId>jetty-webapp</artifactId>
+		    <version>${jetty.version}</version>
+		</dependency>
 		<!-- Test -->
+		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.test}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -162,37 +186,36 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>1.4.188</version>
+			<version>${h2.version}</version>
 		</dependency>
 
 		<!-- Jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.6.1</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.6.1</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>2.6.1</version>
+			<version>${jackson.version}</version>
 		</dependency>
-
 
 	</dependencies>
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
-			</plugin><plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
@@ -201,6 +224,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-
 	</build>
+	
 </project>
