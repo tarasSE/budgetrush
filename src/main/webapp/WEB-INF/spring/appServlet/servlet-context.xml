@@ -23,6 +23,7 @@
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
 
+    <!--Beans for JSON start -->
     <beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <beans:property name="messageConverters">
             <beans:list>
@@ -44,6 +45,6 @@
             </beans:list>
         </beans:property>
     </beans:bean>
-
+    <!--Beans for JSON end -->
 
 </beans:beans>
