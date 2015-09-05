@@ -23,16 +23,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.service.UserService;
-import com.provectus.budgetrush.utils.HibernateConfig;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, UserService.class })
+@ContextConfiguration(classes = { InMemoryConfig.class, UserService.class })
 @WebAppConfiguration
 public class UsersTest {
+
     private final Random random = new Random();
     @Resource
     private EntityManagerFactory emf;
@@ -53,19 +53,6 @@ public class UsersTest {
 
         user.setName(Integer.toString(random.nextInt()));
         return service.createAndUpdate(user);
-    }
-
-    @Test(expected = Exception.class)
-    @Transactional
-    public void testDuplicateUserName() throws Exception {
-        String name = "Petya";
-        User user = new User();
-        user.setName(name);
-        user = service.createAndUpdate(user);
-
-        User user2 = new User();
-        user2.setName(name);
-        user2 = service.createAndUpdate(user2);
     }
 
     @Test
