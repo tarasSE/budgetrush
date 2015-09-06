@@ -50,7 +50,7 @@ public class Order {
     private Date date;
 
     @JsonProperty("Contractor")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "contractor_id")
     private Contractor contractor;
 
@@ -60,7 +60,7 @@ public class Order {
     private Account account;
 
     @JsonProperty("Category")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     private Category category;
 
