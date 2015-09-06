@@ -1,11 +1,28 @@
 package com.provectus.budgetrush.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Data;
 
 @Data
 @Entity
@@ -14,6 +31,7 @@ import java.util.Date;
 // Use enumeration as discriminator
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue(value = "0")
+
 public class Order {
 
     @JsonProperty("Order id")
@@ -32,17 +50,17 @@ public class Order {
     private Date date;
 
     @JsonProperty("Contractor")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contractor_id")
     private Contractor contractor;
 
     @JsonProperty("Account")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "account_id")
     private Account account;
 
     @JsonProperty("Category")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 
