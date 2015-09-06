@@ -23,6 +23,4 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-
-
 </beans:beans>
