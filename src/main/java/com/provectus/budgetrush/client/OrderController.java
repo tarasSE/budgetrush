@@ -29,19 +29,21 @@ public class OrderController {
     @RequestMapping(value = "/order", method = GET)
     @ResponseBody
     public List<Order> listAll() {
+        log.info("Get all orders");
         return service.getAll();
     }
 
     @RequestMapping(method = GET, value = "/order/{id}")
     @ResponseBody
     public Order getById(@PathVariable Integer id) {
-
+        log.info("Get order by id" + id);
         return service.getById(id);
     }
 
     @RequestMapping(value = "/order", method = POST)
     @ResponseBody
     public Order create(@RequestBody Order order) {
+        log.info("Create/update new order");
         service.createAndUpdate(order);
         return order;
     }
@@ -49,6 +51,7 @@ public class OrderController {
     @RequestMapping(value = "order/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
+        log.info("Delete order by id" + id);
         service.delete(id);
     }
 }

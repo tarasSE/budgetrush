@@ -21,19 +21,21 @@ public class ContractorController {
     @RequestMapping(value = "/contractor", method = GET, headers = "Accept=application/json")
     @ResponseBody
     public List<Contractor> listAll() {
+        log.info("Get all contractors.");
         return service.getAll();
     }
 
     @RequestMapping(method = GET, value = "/contractor/{id}")
     @ResponseBody
     public Contractor getById(@PathVariable Integer id) {
-
+        log.info("Get contractor by id " + id);
         return service.getById(id);
     }
 
     @RequestMapping(value = "/contractor", method = POST)
     @ResponseBody
     public Contractor create(@RequestBody Contractor contractor) {
+        log.info("Create/update new contractor.");
         service.createAndUpdate(contractor);
         return contractor;
     }
@@ -41,6 +43,7 @@ public class ContractorController {
     @RequestMapping(value = "contractor/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
+        log.info("Delete contractor by id" + id);
         service.delete(id);
     }
 }
