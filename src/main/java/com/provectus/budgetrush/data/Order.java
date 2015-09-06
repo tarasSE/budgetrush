@@ -9,6 +9,8 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +23,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.provectus.budgetrush.enums.OrderType;
 
 import lombok.Data;
 
@@ -48,6 +51,11 @@ public class Order {
     @Temporal(TemporalType.DATE)
     @Column(name = "date")
     private Date date;
+
+    @JsonProperty("Type")
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "type", insertable = false, updatable = false)
+    private OrderType type;
 
     @JsonProperty("Contractor")
     @ManyToOne(cascade = CascadeType.PERSIST)
