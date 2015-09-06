@@ -18,34 +18,29 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
-    @RequestMapping(value = "/category", method = GET)
-    public
+    @RequestMapping(value = "/category", method = GET, headers = "Accept=application/json")
     @ResponseBody
-    List listAll() {
+    public List listAll() {
         return service.getAll();
     }
 
-    /*Does not work with categories that have a parent because that parent is written into JSON fully , not as ID*/
     @RequestMapping(method = GET, value = "/category/{id}")
-    public
     @ResponseBody
-    Category getById(@PathVariable Integer id) {
+    public Category getById(@PathVariable Integer id) {
 
         return service.getById(id);
     }
 
     @RequestMapping(value = "/category", method = POST)
-    public
     @ResponseBody
-    Category create(@RequestBody Category category) {
+    public Category create(@RequestBody Category category) {
         service.createAndUpdate(category);
         return category;
     }
 
     @RequestMapping(value = "category/{id}", method = DELETE)
-    public
     @ResponseBody
-    void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
     /*@RequestMapping(method=RequestMethod.POST, value="/emp")

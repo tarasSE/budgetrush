@@ -21,7 +21,7 @@ public class Category {
     private String name;
 
     @JsonProperty("Parent")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "parent")
     private Category parent;
 }
