@@ -20,20 +20,22 @@ public class CategoryController {
 
     @RequestMapping(value = "/category", method = GET, headers = "Accept=application/json")
     @ResponseBody
-    public List listAll() {
+    public List<Category> listAll() {
+        log.info("Get all categories");
         return service.getAll();
     }
 
     @RequestMapping(method = GET, value = "/category/{id}")
     @ResponseBody
     public Category getById(@PathVariable Integer id) {
-
+        log.info("Get category by id " + id);
         return service.getById(id);
     }
 
     @RequestMapping(value = "/category", method = POST)
     @ResponseBody
     public Category create(@RequestBody Category category) {
+        log.info("Create/update category");
         service.createAndUpdate(category);
         return category;
     }
@@ -41,23 +43,8 @@ public class CategoryController {
     @RequestMapping(value = "category/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
+        log.info("Delete category by id " + id);
         service.delete(id);
     }
-    /*@RequestMapping(method=RequestMethod.POST, value="/emp")
-public @ResponseBody Employee addEmp(@RequestBody Employee e) {
-employeeDS.add(e);
-return e;
-}
 
-@RequestMapping(method=RequestMethod.PUT, value="/emp/{id}")
-public @ResponseBody Employee updateEmp(
-	@RequestBody Employee e, @PathVariable String id) {
-employeeDS.update(e);
-return e;
-}
-
-@RequestMapping(method=RequestMethod.DELETE, value="/emp/{id}")
-public @ResponseBody void removeEmp(@PathVariable String id) {
-employeeDS.remove(Long.parseLong(id));
-}*/
 }
