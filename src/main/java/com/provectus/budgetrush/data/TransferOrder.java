@@ -14,12 +14,12 @@ import javax.persistence.*;
 public class TransferOrder extends Order {
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "expense_id")
     private Order expenseOrder;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "income_id")
     private Order incomeOrder;
 }
