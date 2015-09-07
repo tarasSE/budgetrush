@@ -52,8 +52,16 @@ public class AccountController {
 
     @RequestMapping(value = "/accounts", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
-    public Account saveUser(@RequestBody Account account) {
+    public Account newUser(@RequestBody Account account) {
         log.info("Save account " + account.getName());
+        return service.createAndUpdate(account);
+    }
+
+    @RequestMapping(value = "/accounts/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
+    @ResponseBody
+    public Account saveUser(@RequestBody Account account, @PathVariable Integer id) {
+        log.info("Save account " + account.getName());
+        account.setId(id);
         return service.createAndUpdate(account);
     }
 }

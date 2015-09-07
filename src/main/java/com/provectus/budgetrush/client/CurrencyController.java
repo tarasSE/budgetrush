@@ -46,8 +46,16 @@ public class CurrencyController {
 
     @RequestMapping(value = "/currencies", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
-    public Currency saveUser(@RequestBody Currency currency) {
+    public Currency newUser(@RequestBody Currency currency) {
         log.info("Save currency " + currency.getName());
+        return service.createAndUpdate(currency);
+    }
+
+    @RequestMapping(value = "/currencies/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
+    @ResponseBody
+    public Currency saveUser(@RequestBody Currency currency, @PathVariable Integer id) {
+        log.info("Save currency " + currency.getName());
+        currency.setId(id);
         return service.createAndUpdate(currency);
     }
 }

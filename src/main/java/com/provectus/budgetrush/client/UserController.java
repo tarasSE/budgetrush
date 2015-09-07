@@ -46,8 +46,16 @@ public class UserController {
 
     @RequestMapping(value = "/users", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
-    public User saveUser(@RequestBody User user) {
+    public User newUser(@RequestBody User user) {
         log.info("Save user " + user.getName());
+        return service.createAndUpdate(user);
+    }
+
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
+    @ResponseBody
+    public User saveUser(@RequestBody User user, @PathVariable Integer id) {
+        log.info("Save user " + user.getName());
+        user.setId(id);
         return service.createAndUpdate(user);
     }
 }
