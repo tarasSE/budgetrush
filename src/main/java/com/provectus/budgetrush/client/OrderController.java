@@ -1,11 +1,8 @@
 package com.provectus.budgetrush.client;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 import java.util.List;
 
+import com.provectus.budgetrush.data.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Slf4j
 @RequestMapping
@@ -44,6 +42,15 @@ public class OrderController {
     @ResponseBody
     public Order create(@RequestBody Order order) {
         log.info("Create/update new order");
+        service.createAndUpdate(order);
+        return order;
+    }
+
+    @RequestMapping(value = "/order/{id}", method = PUT)
+    @ResponseBody
+    public Order update(@RequestBody Order order, @PathVariable Integer id) {
+        log.info("Create/update order id " + id);
+        order.setId(id);
         service.createAndUpdate(order);
         return order;
     }

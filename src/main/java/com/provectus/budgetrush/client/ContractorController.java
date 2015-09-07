@@ -40,6 +40,15 @@ public class ContractorController {
         return contractor;
     }
 
+    @RequestMapping(value = "/contractor/{id}", method = PUT)
+    @ResponseBody
+    public Contractor update(@RequestBody Contractor contractor, @PathVariable Integer id) {
+        log.info("Create/update contractor id " + id);
+        contractor.setId(id);
+        service.createAndUpdate(contractor);
+        return contractor;
+    }
+
     @RequestMapping(value = "contractor/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {

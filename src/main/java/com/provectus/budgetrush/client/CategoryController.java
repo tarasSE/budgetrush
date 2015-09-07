@@ -40,6 +40,15 @@ public class CategoryController {
         return category;
     }
 
+    @RequestMapping(value = "/category/{id}", method = PUT)
+    @ResponseBody
+    public Category update(@RequestBody Category category, @PathVariable Integer id) {
+        log.info("Create/update category id " + id);
+        category.setId(id);
+        service.createAndUpdate(category);
+        return category;
+    }
+
     @RequestMapping(value = "category/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
