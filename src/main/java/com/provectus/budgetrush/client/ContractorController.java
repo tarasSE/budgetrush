@@ -18,21 +18,21 @@ public class ContractorController {
     @Autowired
     private ContractorService service;
 
-    @RequestMapping(value = "/contractor", method = GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/contractors", method = GET, headers = "Accept=application/json")
     @ResponseBody
     public List<Contractor> listAll() {
         log.info("Get all contractors.");
         return service.getAll();
     }
 
-    @RequestMapping(method = GET, value = "/contractor/{id}")
+    @RequestMapping(method = GET, value = "/contractors/{id}")
     @ResponseBody
     public Contractor getById(@PathVariable Integer id) {
         log.info("Get contractor by id " + id);
         return service.getById(id);
     }
 
-    @RequestMapping(value = "/contractor", method = POST)
+    @RequestMapping(value = "/contractors", method = POST)
     @ResponseBody
     public Contractor create(@RequestBody Contractor contractor) {
         log.info("Create/update new contractor.");
@@ -40,7 +40,7 @@ public class ContractorController {
         return contractor;
     }
 
-    @RequestMapping(value = "/contractor/{id}", method = PUT)
+    @RequestMapping(value = "/contractors/{id}", method = PUT)
     @ResponseBody
     public Contractor update(@RequestBody Contractor contractor, @PathVariable Integer id) {
         log.info("Create/update contractor id " + id);
@@ -49,7 +49,7 @@ public class ContractorController {
         return contractor;
     }
 
-    @RequestMapping(value = "contractor/{id}", method = DELETE)
+    @RequestMapping(value = "contractors/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         log.info("Delete contractor by id" + id);
