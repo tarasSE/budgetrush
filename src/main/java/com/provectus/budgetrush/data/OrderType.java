@@ -1,4 +1,4 @@
-package com.provectus.budgetrush.client;
+package com.provectus.budgetrush.data;
 
 public enum OrderType {
     Order, TransferOrder;

@@ -23,7 +23,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.provectus.budgetrush.enums.OrderType;
 
 import lombok.Data;
 
