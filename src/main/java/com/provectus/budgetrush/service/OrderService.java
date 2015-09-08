@@ -12,7 +12,6 @@ import com.provectus.budgetrush.repository.OrderRepository;
 @Transactional
 public class OrderService extends GenericService<Order, OrderRepository> {
 
-    @Qualifier("orderRepository")
     @Autowired
     private OrderRepository orderRepository;
 

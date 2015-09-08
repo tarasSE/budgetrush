@@ -12,7 +12,6 @@ import com.provectus.budgetrush.repository.TransferOrderRepository;
 @Transactional
 public class TransferOrderService extends GenericService<TransferOrder, TransferOrderRepository> {
 
-    @Qualifier("transferOrderRepository")
     @Autowired
     private TransferOrderRepository transferOrderRepository;
 

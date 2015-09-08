@@ -12,7 +12,6 @@ import com.provectus.budgetrush.repository.ContractorRepository;
 @Transactional
 public class ContractorService extends GenericService<Contractor, ContractorRepository> {
 
-    @Qualifier("contractorRepository")
     @Autowired
     private ContractorRepository contractorRepository;
 

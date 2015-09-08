@@ -12,7 +12,6 @@ import com.provectus.budgetrush.repository.AccountRepository;
 @Transactional
 public class AccountService extends GenericService<Account, AccountRepository> {
 
-    @Qualifier("accountRepository")
     @Autowired
     private AccountRepository accountRepository;
 

@@ -12,7 +12,6 @@ import com.provectus.budgetrush.repository.CategoryRepository;
 @Transactional
 public class CategoryService extends GenericService<Category, CategoryRepository> {
 
-    @Qualifier("categoryRepository")
     @Autowired
     private CategoryRepository categoryRepository;
 
