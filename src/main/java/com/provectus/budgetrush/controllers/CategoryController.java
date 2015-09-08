@@ -1,4 +1,4 @@
-package com.provectus.budgetrush.client;
+package com.provectus.budgetrush.controllers;
 
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.service.CategoryService;

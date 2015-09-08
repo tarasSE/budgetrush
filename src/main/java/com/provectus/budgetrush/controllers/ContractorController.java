@@ -1,4 +1,4 @@
-package com.provectus.budgetrush.client;
+package com.provectus.budgetrush.controllers;
 
 import com.provectus.budgetrush.data.Contractor;
 import com.provectus.budgetrush.service.ContractorService;
