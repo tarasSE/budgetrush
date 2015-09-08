@@ -19,7 +19,6 @@ import lombok.Data;
 @Table(name = "accounts")
 public class Account {
 
-    // я немного вам насрал в комментах ;)
     @JsonProperty("Account id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
