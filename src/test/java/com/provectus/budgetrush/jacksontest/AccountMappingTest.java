@@ -1,14 +1,11 @@
 package com.provectus.budgetrush.jacksontest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Currency;
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.AccountService;
-import com.provectus.budgetrush.service.CurrencyService;
-import com.provectus.budgetrush.service.UserService;
-import com.provectus.budgetrush.utils.HibernateConfig;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.File;
+import java.util.Random;
+import java.util.Scanner;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,18 +16,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.Currency;
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.datatest.InMemoryConfig;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.CurrencyService;
+import com.provectus.budgetrush.service.UserService;
 
-import java.util.Random;
-import java.util.Scanner;
-
-import static org.junit.Assert.assertNotNull;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, ObjectMapper.class, Account.class,
-        AccountService.class, UserService.class, CurrencyService.class})
+@ContextConfiguration(classes = { InMemoryConfig.class, ObjectMapper.class, Account.class, AccountService.class, UserService.class, CurrencyService.class })
 @WebAppConfiguration
 public class AccountMappingTest {
 
@@ -76,7 +76,8 @@ public class AccountMappingTest {
         mapper.writeValue(file, account);
         scanner = new Scanner(file);
         log.info(scanner.nextLine());
-        scanner.close();;
+        scanner.close();
+        ;
 
         log.info("Cresting POJO from JSON");
         account1 = mapper.readValue(file, Account.class);
@@ -86,7 +87,5 @@ public class AccountMappingTest {
 
         assertNotNull(file.toString(), account1);
     }
-
-
 
 }

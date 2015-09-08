@@ -1,9 +1,10 @@
 package com.provectus.budgetrush.jacksontest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.utils.HibernateConfig;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.File;
+import java.util.Scanner;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,15 +14,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
-import java.util.Scanner;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.datatest.InMemoryConfig;
 
-import static org.junit.Assert.assertNotNull;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { HibernateConfig.class, ObjectMapper.class, User.class})
+@ContextConfiguration(classes = { InMemoryConfig.class, ObjectMapper.class, User.class })
 @WebAppConfiguration
 public class UserMappingTest {
 
@@ -53,13 +55,10 @@ public class UserMappingTest {
         log.info("Cresting POJO from JSON");
         user1 = mapper.readValue(file, User.class);
 
-
         log.info(user1.toString());
         file.delete();
 
         assertNotNull(file.toString(), user1);
     }
-
-
 
 }
