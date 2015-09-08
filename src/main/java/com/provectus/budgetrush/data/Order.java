@@ -22,7 +22,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.provectus.budgetrush.enums.OrderType;
 
 import lombok.Data;
@@ -37,37 +36,27 @@ import lombok.Data;
 
 public class Order {
 
-    @JsonProperty("Order id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @JsonProperty("Amount")
-    @Column(name = "amount")
     private BigDecimal amount;
 
-    @JsonProperty("Date")
     @Temporal(TemporalType.DATE)
-    @Column(name = "date")
     private Date date;
 
-    @JsonProperty("Type")
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "type", insertable = false, updatable = false)
+    @Column(insertable = false, updatable = false)
     private OrderType type;
 
-    @JsonProperty("Contractor")
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "contractor_id")
     private Contractor contractor;
 
-    @JsonProperty("Account")
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @JsonProperty("Category")
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     private Category category;

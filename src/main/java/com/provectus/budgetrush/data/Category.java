@@ -1,27 +1,27 @@
 package com.provectus.budgetrush.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "categories")
 public class Category {
 
-    @JsonProperty("Category id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @JsonProperty("Name")
-    @Column(name = "name")
     private String name;
 
-    @JsonProperty("Parent")
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JoinColumn(name = "parent")
+    @ManyToOne
+    @JoinColumn
     private Category parent;
 }

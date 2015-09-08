@@ -17,11 +17,11 @@ INSERT INTO contractors (name, description) VALUES ('test_contractor_2', 'test_d
 INSERT INTO contractors (name, description) VALUES ('test_contractor_3', 'test_description_3');
 INSERT INTO contractors (name, description) VALUES ('test_contractor_4', 'test_description_4');
 
-INSERT INTO users (name, pass)  VALUES ('test_user', '0000');
-INSERT INTO users (name, pass)  VALUES ('test_user_1', '1111');
-INSERT INTO users (name, pass)  VALUES ('test_user_2', '2222');
-INSERT INTO users (name, pass)  VALUES ('test_user_3', '3333');
-INSERT INTO users (name, pass)  VALUES ('test_user_4', '4444');
+INSERT INTO users (name, password)  VALUES ('test_user', '0000');
+INSERT INTO users (name, password)  VALUES ('test_user_1', '1111');
+INSERT INTO users (name, password)  VALUES ('test_user_2', '2222');
+INSERT INTO users (name, password)  VALUES ('test_user_3', '3333');
+INSERT INTO users (name, password)  VALUES ('test_user_4', '4444');
 
 
 INSERT INTO accounts (name, user_id, currency_id) VALUES ('test_account', 1, 1);
