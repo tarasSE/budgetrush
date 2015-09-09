@@ -22,6 +22,6 @@ public class Category {
     private String name;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "parent")
     private Category parent;
 }

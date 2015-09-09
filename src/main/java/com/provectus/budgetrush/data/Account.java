@@ -23,11 +23,11 @@ public class Account {
     private String name;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_id")
+    @JoinColumn
     private User user;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "currency_id")
+    @JoinColumn
     private Currency currency;
 
 }
