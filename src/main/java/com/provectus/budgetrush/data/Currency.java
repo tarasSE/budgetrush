@@ -1,6 +1,5 @@
 package com.provectus.budgetrush.data;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +19,6 @@ public class Currency {
 
     private String name;
 
-    @Column(name = "short_name")
     private String shortName;
 
     private int code;
