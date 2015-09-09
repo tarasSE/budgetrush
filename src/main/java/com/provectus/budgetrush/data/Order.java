@@ -22,7 +22,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 import lombok.Data;
 
 @Data
@@ -49,11 +48,11 @@ public class Order {
     private OrderType type;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "contractor_id")
+    @JoinColumn
     private Contractor contractor;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "account_id")
+    @JoinColumn
     private Account account;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
