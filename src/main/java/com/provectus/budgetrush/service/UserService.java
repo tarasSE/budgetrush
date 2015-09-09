@@ -12,7 +12,6 @@ import com.provectus.budgetrush.repository.UserRepository;
 @Transactional
 public class UserService extends GenericService<User, UserRepository> {
 
-    @Qualifier("userRepository")
     @Autowired
     private UserRepository userRepository;
 

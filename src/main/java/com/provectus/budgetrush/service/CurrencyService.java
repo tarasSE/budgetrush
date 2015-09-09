@@ -12,7 +12,6 @@ import com.provectus.budgetrush.repository.CurrencyRepository;
 @Transactional
 public class CurrencyService extends GenericService<Currency, CurrencyRepository> {
 
-    @Qualifier("currencyRepository")
     @Autowired
     private CurrencyRepository currencyRepository;
 

@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.provectus.budgetrush.enums.OrderType;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
