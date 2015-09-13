@@ -6,7 +6,7 @@
     <groupId>com.provectus</groupId>
     <artifactId>budgetrush</artifactId>
     <name>BudgetRush</name>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <version>1.0.0-BUILD-SNAPSHOT</version>
 
     <properties>
