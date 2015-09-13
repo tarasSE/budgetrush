@@ -17,10 +17,11 @@
         <org.springframework-version>4.2.0.RELEASE</org.springframework-version>
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
         <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
+        <maven-assembly-plugin.version>2.5.4</maven-assembly-plugin.version>
+        <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <org.aspectj-version>1.8.6</org.aspectj-version>
         <org.slf4j-version>1.7.12</org.slf4j-version>
         <jetty.version>9.3.4.RC0</jetty.version>
-        <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <spring.test>3.2.4.RELEASE</spring.test>
         <junit.test>4.12</junit.test>
         <h2.version>1.4.188</h2.version>
@@ -225,6 +226,12 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <packagingExcludes>WEB-INF/classes/com/provectus/budgetrush/server/*.class</packagingExcludes>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
                 </configuration>
 
                 <executions>
@@ -257,6 +264,7 @@
 
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven-assembly-plugin.version}</version>
                 <configuration>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
