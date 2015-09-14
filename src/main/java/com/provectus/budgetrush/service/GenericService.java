@@ -10,8 +10,9 @@ public abstract class GenericService<E, R extends JpaRepository<E, Integer>> {
         return getRepository().saveAndFlush(entity);
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
         getRepository().delete(id);
+        return getRepository().exists(id);
     }
 
     public E getById(int id) {
