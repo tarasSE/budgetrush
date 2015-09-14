@@ -48,6 +48,7 @@ public class CurrencyController {
     @ResponseBody
     public Currency newUser(@RequestBody Currency currency) {
         log.info("Save currency " + currency.getName());
+        currency.setId(0);
         return service.createAndUpdate(currency);
     }
 
