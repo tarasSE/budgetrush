@@ -54,6 +54,7 @@ public class AccountController {
     @ResponseBody
     public Account newUser(@RequestBody Account account) {
         log.info("Save account " + account.getName());
+        account.setId(0);
         return service.createAndUpdate(account);
     }
 

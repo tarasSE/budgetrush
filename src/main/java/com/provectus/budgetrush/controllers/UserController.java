@@ -48,6 +48,7 @@ public class UserController {
     @ResponseBody
     public User newUser(@RequestBody User user) {
         log.info("Save user " + user.getName());
+        user.setId(0);
         return service.createAndUpdate(user);
     }
 
