@@ -18,21 +18,21 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
-    @RequestMapping(value = "/categories", method = GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/v1/categories", method = GET, headers = "Accept=application/json")
     @ResponseBody
     public List<Category> listAll() {
         log.info("Get all categories");
         return service.getAll();
     }
 
-    @RequestMapping(method = GET, value = "/categories/{id}")
+    @RequestMapping(method = GET, value = "/v1/categories/{id}")
     @ResponseBody
     public Category getById(@PathVariable Integer id) {
         log.info("Get category by id " + id);
         return service.getById(id);
     }
 
-    @RequestMapping(value = "/categories", method = POST)
+    @RequestMapping(value = "/v1/categories", method = POST)
     @ResponseBody
     public Category create(@RequestBody Category category) {
         log.info("Create/update category");
@@ -40,7 +40,7 @@ public class CategoryController {
         return category;
     }
 
-    @RequestMapping(value = "/categories/{id}", method = PUT)
+    @RequestMapping(value = "/v1/categories/{id}", method = PUT)
     @ResponseBody
     public Category update(@RequestBody Category category, @PathVariable Integer id) {
         log.info("Create/update category id " + id);
@@ -49,7 +49,7 @@ public class CategoryController {
         return category;
     }
 
-    @RequestMapping(value = "categories/{id}", method = DELETE)
+    @RequestMapping(value = "/v1/categories/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         log.info("Delete category by id " + id);
