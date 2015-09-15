@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+	   xmlns:security="http://www.springframework.org/schema/security"
+	   xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
                       http://www.springframework.org/schema/beans/spring-beans.xsd
 					  http://www.springframework.org/schema/security/oauth2
 					  http://www.springframework.org/schema/security/spring-security-oauth2.xsd
@@ -13,10 +14,8 @@
 
 
 	<bean id="clientDetails"
-		class="org.springframework.security.oauth2.provider.client.JdbcClientDetailsService">
-		<constructor-arg index="0">
-			<ref bean="dataSource" />
-		</constructor-arg>
+		class="org.springframework.security.oauth2.provider.client.JdbcClientDetailsService" autowire-candidate="true">
+		<constructor-arg index="0" ref="dataSource"/>
 	</bean>
 
 	<!-- Configure Authentication manager -->
@@ -37,9 +36,10 @@
 		</security:authentication-provider>
 	</security:authentication-manager>
 
+
 	<bean id="tokenStore"
-		class="org.springframework.security.oauth2.provider.token.store.JdbcTokenStore">
-		<constructor-arg ref="dataSource" />
+		class="org.springframework.security.oauth2.provider.token.store.JdbcTokenStore" autowire-candidate="true">
+		<constructor-arg ref="dataSource"/>
 	</bean>
 
 	<bean id="tokenServices"
@@ -74,11 +74,10 @@
 		token-services-ref="tokenServices" resource-id="rest_api" />
 
 	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
-		<property name="decisionVoters">
-			<list>
-				<bean class="org.springframework.security.access.annotation.Jsr250Voter" />
-			</list>
-		</property>
+		<constructor-arg><list>
+			<bean class="org.springframework.security.access.annotation.Jsr250Voter" />
+		</list>
+		</constructor-arg>
 	</bean>
 
 	<bean id="clientAuthenticationEntryPoint"
@@ -96,9 +95,8 @@
 		class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler" />
 
 	<bean id="clientCredentialsTokenEndpointFilter"
-		class="org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter">
-		<property name="authenticationManager" ref="authenticationManager" />
-	</bean>
+		class="org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter"
+		  p:authenticationManager-ref="org.springframework.security.authenticationManager"/>
 
 	<bean id="oAuth2ClientContextFilter"
 		class="org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter">
@@ -112,7 +110,7 @@
 		<security:custom-filter ref="clientCredentialsTokenEndpointFilter"
 			before="BASIC_AUTH_FILTER" />
 		<security:custom-filter ref="oAuth2ClientContextFilter"
-			after="EXCEPTION_TRANSLATION_FILTER	" />
+			after="EXCEPTION_TRANSLATION_FILTER" />
 		<security:access-denied-handler ref="oauthAccessDeniedHandler" />
 	</security:http>
 

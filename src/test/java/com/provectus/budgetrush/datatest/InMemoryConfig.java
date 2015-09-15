@@ -26,7 +26,7 @@ public class InMemoryConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         log.info("Start entity manager");
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setDataSource(dataSource());
+        entityManagerFactoryBean.setDataSource(dataSource1());
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
@@ -37,7 +37,7 @@ public class InMemoryConfig {
     }
 
     @Bean(destroyMethod = "shutdown")
-    public EmbeddedDatabase dataSource() {
+    public EmbeddedDatabase dataSource1() {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("budget_rush_schema.sql").addScript("add_test_content.sql").build();
     }
 
