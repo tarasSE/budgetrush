@@ -48,7 +48,9 @@ public class UserController {
     @ResponseBody
     public User newUser(@RequestBody User user) {
         log.info("Save user " + user.getName());
+        user.setId(0);
         return service.createOrUpdate(user);
+
     }
 
     @RequestMapping(value = "/v1/users/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")

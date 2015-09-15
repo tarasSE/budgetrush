@@ -54,7 +54,9 @@ public class AccountController {
     @ResponseBody
     public Account newUser(@RequestBody Account account) {
         log.info("Save account " + account.getName());
+        account.setId(0);
         return service.createOrUpdate(account);
+
     }
 
     @RequestMapping(value = "/v1/accounts/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
