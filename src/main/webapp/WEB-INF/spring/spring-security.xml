@@ -14,9 +14,12 @@
 
 	<oauth:client-details-service id="clientDetails">
 
-		<oauth:client client-id="restapp"
+		<oauth:client client-id="rest_client"
 			authorized-grant-types="password,authorization_code,refresh_token,implicit"
-			secret="restapp" authorities="ROLE_USER" />
+			authorities="ROLE_USER"
+			scope="read,wright,trust"
+			access-token-validity="300"
+			refresh-token-validity="600" />
 
 	</oauth:client-details-service>
 
@@ -44,7 +47,7 @@
 												'ROLE_USER'
 												FROM users
 												WHERE name=?;" />
-			<security:password-encoder ref="passwordEncoder" />
+		
 		</security:authentication-provider>
 	</security:authentication-manager>
 
@@ -119,15 +122,14 @@
 		<security:http-basic entry-point-ref="clientAuthenticationEntryPoint" />
 		<security:custom-filter ref="clientCredentialsTokenEndpointFilter"
 			before="BASIC_AUTH_FILTER" />
-		<security:custom-filter ref="oAuth2ClientContextFilter"
-			after="EXCEPTION_TRANSLATION_FILTER	" />
 		<security:access-denied-handler ref="oauthAccessDeniedHandler" />
 	</security:http>
 
 	<security:http pattern="/api/**" create-session="never"
 		authentication-manager-ref="authenticationManager">
 		<security:anonymous enabled="false" />
-		<security:intercept-url pattern="/api/**" access="ROLE_USER" />
+		<security:intercept-url pattern="/api/**"
+			access="ROLE_USER" />
 		<security:custom-filter ref="resourceServerFilter"
 			before="PRE_AUTH_FILTER" />
 		<security:http-basic entry-point-ref="oauthAuthenticationEntryPoint" />
