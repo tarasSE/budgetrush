@@ -48,7 +48,7 @@ public class CurrencyController {
     @ResponseBody
     public Currency newUser(@RequestBody Currency currency) {
         log.info("Save currency " + currency.getName());
-        return service.createAndUpdate(currency);
+        return service.createOrUpdate(currency);
     }
 
     @RequestMapping(value = "/v1/currencies/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
@@ -56,6 +56,6 @@ public class CurrencyController {
     public Currency saveUser(@RequestBody Currency currency, @PathVariable Integer id) {
         log.info("Save currency " + currency.getName());
         currency.setId(id);
-        return service.createAndUpdate(currency);
+        return service.createOrUpdate(currency);
     }
 }

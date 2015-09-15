@@ -36,7 +36,7 @@ public class CategoryController {
     @ResponseBody
     public Category create(@RequestBody Category category) {
         log.info("Create/update category");
-        service.createAndUpdate(category);
+        service.createOrUpdate(category);
         return category;
     }
 
@@ -45,7 +45,7 @@ public class CategoryController {
     public Category update(@RequestBody Category category, @PathVariable Integer id) {
         log.info("Create/update category id " + id);
         category.setId(id);
-        service.createAndUpdate(category);
+        service.createOrUpdate(category);
         return category;
     }
 

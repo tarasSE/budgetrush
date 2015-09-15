@@ -36,7 +36,7 @@ public class ContractorController {
     @ResponseBody
     public Contractor create(@RequestBody Contractor contractor) {
         log.info("Create/update new contractor.");
-        service.createAndUpdate(contractor);
+        service.createOrUpdate(contractor);
         return contractor;
     }
 
@@ -45,7 +45,7 @@ public class ContractorController {
     public Contractor update(@RequestBody Contractor contractor, @PathVariable Integer id) {
         log.info("Create/update contractor id " + id);
         contractor.setId(id);
-        service.createAndUpdate(contractor);
+        service.createOrUpdate(contractor);
         return contractor;
     }
 

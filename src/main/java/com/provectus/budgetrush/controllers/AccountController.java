@@ -54,7 +54,7 @@ public class AccountController {
     @ResponseBody
     public Account newUser(@RequestBody Account account) {
         log.info("Save account " + account.getName());
-        return service.createAndUpdate(account);
+        return service.createOrUpdate(account);
     }
 
     @RequestMapping(value = "/v1/accounts/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
@@ -62,6 +62,6 @@ public class AccountController {
     public Account saveUser(@RequestBody Account account, @PathVariable Integer id) {
         log.info("Save account " + account.getName());
         account.setId(id);
-        return service.createAndUpdate(account);
+        return service.createOrUpdate(account);
     }
 }

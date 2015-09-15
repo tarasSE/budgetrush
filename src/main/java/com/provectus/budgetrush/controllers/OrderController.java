@@ -42,7 +42,7 @@ public class OrderController {
     @ResponseBody
     public Order create(@RequestBody Order order) {
         log.info("Create/update new order");
-        service.createAndUpdate(order);
+        service.createOrUpdate(order);
         return order;
     }
 
@@ -51,7 +51,7 @@ public class OrderController {
     public Order update(@RequestBody Order order, @PathVariable Integer id) {
         log.info("Create/update order id " + id);
         order.setId(id);
-        service.createAndUpdate(order);
+        service.createOrUpdate(order);
         return order;
     }
 

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public abstract class GenericService<E, R extends JpaRepository<E, Integer>> {
 
-    public E createAndUpdate(E entity) {
+    public E createOrUpdate(E entity) {
         return getRepository().saveAndFlush(entity);
     }
 

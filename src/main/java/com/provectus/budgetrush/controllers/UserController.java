@@ -48,7 +48,7 @@ public class UserController {
     @ResponseBody
     public User newUser(@RequestBody User user) {
         log.info("Save user " + user.getName());
-        return service.createAndUpdate(user);
+        return service.createOrUpdate(user);
     }
 
     @RequestMapping(value = "/v1/users/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
@@ -56,6 +56,6 @@ public class UserController {
     public User saveUser(@RequestBody User user, @PathVariable Integer id) {
         log.info("Save user " + user.getName());
         user.setId(id);
-        return service.createAndUpdate(user);
+        return service.createOrUpdate(user);
     }
 }
