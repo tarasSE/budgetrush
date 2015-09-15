@@ -63,7 +63,7 @@ public class AccountTest {
 
         User user = new User();
         user.setName(Integer.toString(random.nextInt()));
-        account.setUser(userService.createAndUpdate(user));
+        account.setUser(userService.createOrUpdate(user));
 
         Currency currency = new Currency();
 
@@ -71,9 +71,9 @@ public class AccountTest {
         currency.setCode(840);
         currency.setShortName("USD");
         currency.setSymbol('$');
-        account.setCurrency(currencyService.createAndUpdate(currency));
+        account.setCurrency(currencyService.createOrUpdate(currency));
 
-        return service.createAndUpdate(account);
+        return service.createOrUpdate(account);
     }
 
     @Test

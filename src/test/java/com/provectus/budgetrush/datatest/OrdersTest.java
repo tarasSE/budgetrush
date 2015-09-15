@@ -87,7 +87,7 @@ public class OrdersTest {
         order.setCategory(category);
         order.setContractor(contractor);
 
-        return service.createAndUpdate(order);
+        return service.createOrUpdate(order);
     }
 
     @Test

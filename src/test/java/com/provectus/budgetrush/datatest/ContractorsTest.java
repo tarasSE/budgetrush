@@ -52,7 +52,7 @@ public class ContractorsTest {
         Contractor contractor = new Contractor();
 
         contractor.setName(Integer.toString(random.nextInt()));
-        return service.createAndUpdate(contractor);
+        return service.createOrUpdate(contractor);
     }
 
     @Test

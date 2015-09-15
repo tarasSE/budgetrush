@@ -62,7 +62,7 @@ public class AccountMappingTest {
 
         User user = new User();
         user.setName(Integer.toString(random.nextInt()));
-        account.setUser(userService.createAndUpdate(user));
+        account.setUser(userService.createOrUpdate(user));
 
         Currency currency = new Currency();
 
@@ -70,7 +70,7 @@ public class AccountMappingTest {
         currency.setCode(840);
         currency.setShortName("USD");
         currency.setSymbol('$');
-        account.setCurrency(currencyService.createAndUpdate(currency));
+        account.setCurrency(currencyService.createOrUpdate(currency));
 
         log.info("Writing JSON to file");
         mapper.writeValue(file, account);

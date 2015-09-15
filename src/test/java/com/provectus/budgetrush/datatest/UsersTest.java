@@ -51,7 +51,7 @@ public class UsersTest {
         User user = new User();
 
         user.setName(Integer.toString(random.nextInt()));
-        return service.createAndUpdate(user);
+        return service.createOrUpdate(user);
     }
 
     @Test
