@@ -24,21 +24,21 @@ public class OrderController {
     @Autowired
     private OrderService service;
 
-    @RequestMapping(value = "/orders", method = GET)
+    @RequestMapping(value = "/v1/orders", method = GET)
     @ResponseBody
     public List<Order> listAll() {
         log.info("Get all orders");
         return service.getAll();
     }
 
-    @RequestMapping(method = GET, value = "/orders/{id}")
+    @RequestMapping(method = GET, value = "/v1/orders/{id}")
     @ResponseBody
     public Order getById(@PathVariable Integer id) {
         log.info("Get order by id" + id);
         return service.getById(id);
     }
 
-    @RequestMapping(value = "/orders", method = POST)
+    @RequestMapping(value = "/v1/orders", method = POST)
     @ResponseBody
     public Order create(@RequestBody Order order) {
         log.info("Create/update new order");
@@ -46,7 +46,7 @@ public class OrderController {
         return order;
     }
 
-    @RequestMapping(value = "/orders/{id}", method = PUT)
+    @RequestMapping(value = "/v1/orders/{id}", method = PUT)
     @ResponseBody
     public Order update(@RequestBody Order order, @PathVariable Integer id) {
         log.info("Create/update order id " + id);
@@ -55,7 +55,7 @@ public class OrderController {
         return order;
     }
 
-    @RequestMapping(value = "orders/{id}", method = DELETE)
+    @RequestMapping(value = "/v1/orders/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         log.info("Delete order by id" + id);

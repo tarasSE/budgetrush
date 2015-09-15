@@ -5,6 +5,8 @@ import java.util.Properties;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -33,8 +35,9 @@ public class HibernateConfig {
     private static final String PROP_HIBERNATE_DIALECT = "db.hibernate.dialect";
     private static final String PROP_HIBERNATE_SHOW_SQL = "db.hibernate.show_sql";
     private static final String PROP_HIBERNATE_HBM2DDL_AUTO = "db.hibernate.hbm2ddl.auto";
-    private static final String PROP_HIBERNATE_PACAGES_TO_SCAN = "db.entitymanager.packages.to.scan";
-
+    private static final String PROP_HIBERNATE_PACKAGES_TO_SCAN = "db.entitymanager.packages.to.scan";
+    @Autowired
+    private DriverManagerDataSource dataSource;
     @Resource
     private Environment env;
 
@@ -47,14 +50,14 @@ public class HibernateConfig {
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
         entityManagerFactoryBean.setJpaProperties(getHibernateProperties());
-        entityManagerFactoryBean.setPackagesToScan(env.getRequiredProperty(PROP_HIBERNATE_PACAGES_TO_SCAN));
+        entityManagerFactoryBean.setPackagesToScan(env.getRequiredProperty(PROP_HIBERNATE_PACKAGES_TO_SCAN));
 
         return entityManagerFactoryBean;
     }
 
     @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    public DriverManagerDataSource dataSource() {
+        dataSource = new DriverManagerDataSource();
 
         dataSource.setDriverClassName(env.getRequiredProperty(PROP_DATABASE_DRIVER));
         dataSource.setUrl(env.getRequiredProperty(PROP_DATABASE_URL));

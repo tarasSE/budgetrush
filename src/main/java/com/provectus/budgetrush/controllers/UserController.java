@@ -22,14 +22,14 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/v1/users", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public List<User> listAll() {
         log.info("Send all users");
         return service.getAll();
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/v1/users/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public User getById(@PathVariable Integer id) {
         log.info("Send user by id " + id);
@@ -38,13 +38,13 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
+    @RequestMapping(value = "/v1/users/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST, headers = "Accept=application/json")
+    @RequestMapping(value = "/v1/users", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public User newUser(@RequestBody User user) {
         log.info("Save user " + user.getName());
@@ -52,7 +52,7 @@ public class UserController {
         return service.createAndUpdate(user);
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
+    @RequestMapping(value = "/v1/users/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     @ResponseBody
     public User saveUser(@RequestBody User user, @PathVariable Integer id) {
         log.info("Save user " + user.getName());

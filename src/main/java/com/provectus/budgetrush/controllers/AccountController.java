@@ -22,7 +22,7 @@ public class AccountController {
     @Autowired
     private AccountService service;
 
-    @RequestMapping(value = "/accounts", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/v1/accounts", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public List<Account> listAll() {
         log.info("Get all accounts");
@@ -31,7 +31,7 @@ public class AccountController {
         return accounts;
     }
 
-    @RequestMapping(value = "/accounts/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/v1/accounts/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public Account getById(@PathVariable Integer id) {
         log.info("Get account by id " + id);
@@ -44,13 +44,13 @@ public class AccountController {
 
     }
 
-    @RequestMapping(value = "/accounts/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
+    @RequestMapping(value = "/v1/accounts/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
-    @RequestMapping(value = "/accounts", method = RequestMethod.POST, headers = "Accept=application/json")
+    @RequestMapping(value = "/v1/accounts", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public Account newUser(@RequestBody Account account) {
         log.info("Save account " + account.getName());
@@ -58,7 +58,7 @@ public class AccountController {
         return service.createAndUpdate(account);
     }
 
-    @RequestMapping(value = "/accounts/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
+    @RequestMapping(value = "/v1/accounts/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     @ResponseBody
     public Account saveUser(@RequestBody Account account, @PathVariable Integer id) {
         log.info("Save account " + account.getName());
