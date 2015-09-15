@@ -102,9 +102,9 @@
 		class="org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter">
 	</bean>
 
-	<security:http pattern="/oauth/token" create-session="stateless"
+	<security:http pattern="/**" create-session="stateless"
 		authentication-manager-ref="authenticationManager">
-		<security:intercept-url pattern="/oauth/token"
+		<security:intercept-url pattern="/**"
 			access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<security:http-basic entry-point-ref="clientAuthenticationEntryPoint" />
 		<security:custom-filter ref="clientCredentialsTokenEndpointFilter"
@@ -114,4 +114,4 @@
 		<security:access-denied-handler ref="oauthAccessDeniedHandler" />
 	</security:http>
 
-</beans>
+	</beans>
