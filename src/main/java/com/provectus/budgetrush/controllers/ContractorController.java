@@ -1,14 +1,23 @@
 package com.provectus.budgetrush.controllers;
 
-import com.provectus.budgetrush.data.Contractor;
-import com.provectus.budgetrush.service.ContractorService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.provectus.budgetrush.data.Contractor;
+import com.provectus.budgetrush.service.ContractorService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequestMapping
@@ -36,6 +45,7 @@ public class ContractorController {
     @ResponseBody
     public Contractor create(@RequestBody Contractor contractor) {
         log.info("Create/update new contractor.");
+        contractor.setId(0);
         service.createAndUpdate(contractor);
         return contractor;
     }
