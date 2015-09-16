@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
+import com.provectus.budgetrush.data.Roles;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -38,16 +39,8 @@ public class GuestService implements ClientDetailsService {
         authorizedScopes.add("wright");
         authorizedScopes.add("trust");
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new GrantedAuthority() {
+        authorities.add(new UserAuthority(Roles.ROLE_USER));
 
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public String getAuthority() {
-                // TODO Auto-generated method stub
-                return "ROLE_USER";
-            }
-        });
         BaseClientDetails clientDetails = new BaseClientDetails();
         clientDetails.setClientId(id);
         clientDetails.setClientSecret(secretKey);

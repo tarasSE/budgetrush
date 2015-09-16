@@ -11,6 +11,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.google.common.base.Preconditions;
+import com.provectus.budgetrush.data.Roles;
+import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,19 +29,11 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         Preconditions.checkNotNull(authentication, "Authentication equals null.");
 
         log.info("Start check user " + authentication.getPrincipal().toString());
-        boolean validUser = service.isValidUser(authentication.getPrincipal().toString(), authentication.getCredentials().toString());
-        Preconditions.checkState(validUser, "Bad User Credentials.");
+        User user = service.get(authentication.getPrincipal().toString(), authentication.getCredentials().toString());
+        Preconditions.checkNotNull(user, "Bad User Credentials.");
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new GrantedAuthority() {
-
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public String getAuthority() {
-                return "ROLE_USER";
-            }
-        });
+        grantedAuthorities.add(new UserAuthority(Roles.ROLE_USER));
         return new UserAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), grantedAuthorities);
 
     }

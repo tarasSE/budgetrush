@@ -19,8 +19,7 @@ public class UserService extends GenericService<User, UserRepository> {
         return userRepository;
     }
 
-    public boolean isValidUser(String name, String password) {
-        User user = getRepository().findByNameAndPassword(name, password);
-        return (user != null);
+    public User get(String name, String password) {
+        return getRepository().findByNameAndPassword(name, password);
     }
 }
