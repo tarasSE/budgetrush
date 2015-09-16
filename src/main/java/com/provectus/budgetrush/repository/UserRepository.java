@@ -6,9 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.User;
 
-
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<User, Integer> {
-    public User findByName(String name);
+    public User findByNameAndPassword(String name, String password);
 }
