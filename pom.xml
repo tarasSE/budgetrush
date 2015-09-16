@@ -227,6 +227,15 @@
 			<artifactId>spring-security-oauth2</artifactId>
 			<version>${spring.security.aouth2.version}</version>
 		</dependency>
+
+		<!-- Velocity -->
+
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -306,6 +315,24 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>com.googlecode.velocity-maven-plugin</groupId>
+				<artifactId>velocity-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<templateFiles>
+						<directory>/src/main/resources</directory>
+						<includes>
+							<include>*.vm</include>
+						</includes>
+					</templateFiles>
+					<templateValues>
+						<test>foo</test>
+					</templateValues>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
