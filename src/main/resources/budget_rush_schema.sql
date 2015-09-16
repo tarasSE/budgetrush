@@ -1,5 +1,5 @@
 CREATE TABLE users (
-  id       INT(5) AUTO_INCREMENT NOT NULL,
+  id       INT AUTO_INCREMENT NOT NULL,
   name     VARCHAR(20) UNIQUE    NOT NULL,
   password VARCHAR(20)           NOT NULL,
   PRIMARY KEY (id)
@@ -7,7 +7,7 @@ CREATE TABLE users (
   ENGINE = InnoDB;
 
 CREATE TABLE currencies (
-  id         INT(5) AUTO_INCREMENT NOT NULL,
+  id         INT AUTO_INCREMENT NOT NULL,
   name       VARCHAR(15)           NOT NULL,
   short_name VARCHAR(3)            NOT NULL,
   code       INT(4)                NOT NULL,
@@ -19,8 +19,8 @@ CREATE TABLE currencies (
 CREATE TABLE accounts (
   id          INT AUTO_INCREMENT NOT NULL,
   name        VARCHAR(50)        NOT NULL,
-  user_id     INT(5)             NOT NULL,
-  currency_id INT(5)             NOT NULL,
+  user_id     INT           NOT NULL,
+  currency_id INT            NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES users (id),
   FOREIGN KEY (currency_id) REFERENCES currencies (id)
@@ -31,7 +31,7 @@ CREATE TABLE accounts (
 CREATE TABLE categories (
   id     INT AUTO_INCREMENT NOT NULL,
   name   VARCHAR(50)        NOT NULL,
-  parent INT(5),
+  parent INT,
   PRIMARY KEY (id),
   FOREIGN KEY (parent) REFERENCES categories (id)
 )
@@ -50,11 +50,11 @@ CREATE TABLE orders (
   amount        DECIMAL(10, 2)     NOT NULL, /*TODO*/
   date          TIMESTAMP          NOT NULL,
   type          INT(1)             NOT NULL,
-  account_id    INT(5)             NOT NULL,
-  category_id   INT(5)             NOT NULL,
-  contractor_id INT(5),
-  expense_id    INT(5),
-  income_id     INT(5),
+  account_id    INT            NOT NULL,
+  category_id   INT            NOT NULL,
+  contractor_id INT,
+  expense_id    INT,
+  income_id     INT,
   PRIMARY KEY (id),
   FOREIGN KEY (account_id) REFERENCES accounts (id),
   FOREIGN KEY (category_id) REFERENCES categories (id),
