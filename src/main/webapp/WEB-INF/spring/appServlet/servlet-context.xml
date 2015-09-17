@@ -22,5 +22,10 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".vm" />
 	</beans:bean>
+
+	<beans:bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<beans:property name="resourceLoaderPath" value="/WEB-INF/views/"/>
+	</beans:bean>
+
 	
 </beans:beans>
