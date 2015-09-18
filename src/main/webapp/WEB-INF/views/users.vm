@@ -1,9 +1,5 @@
-<html>
-<head>
-    #include("WEB-INF/views/header.vm")
-</head>
-<body>
-
+#include("WEB-INF/views/header.vm")
+<div class="body"></div>
 <div id="placeholder"></div>
 <script>
     var url = 'http://localhost:8080/v1/users';
@@ -28,6 +24,3 @@
         document.getElementById("placeholder").innerHTML = output;
     });
 </script>
-
-</body>
-</html>

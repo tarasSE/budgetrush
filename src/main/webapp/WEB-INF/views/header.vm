@@ -1,13 +1,13 @@
-
-<meta http-equiv="Content-Type" content="application/json; charset="utf-8" />
+<!DOCTYPE html>
+<div class="header">
 
     <title>Budget Rush</title>
     <script src="/resources/js/jquery-2.1.4.min.js"></script>
+    <script src="/resources/js/register.js"></script>
     <link href="/resources/css/main.css" rel="stylesheet">
 
 <table class="simple-little-table">
     <tr>
-
         <th><a href="/users">Users</a></th>
         <th><a href="/accounts">Accounts</a></th>
         <th><a href="currencies">Currencies</a></th>
@@ -16,3 +16,4 @@
         <th><a href="/orders">Orders</a></th>
     </tr>
 </table>
+</div>
