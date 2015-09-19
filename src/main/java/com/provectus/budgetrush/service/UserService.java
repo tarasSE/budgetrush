@@ -19,7 +19,8 @@ public class UserService extends GenericService<User, UserRepository> {
         return userRepository;
     }
 
-    public User get(String name, String password) {
+    public User find(String name, String password) {
         return getRepository().findByNameAndPassword(name, password);
     }
+
 }

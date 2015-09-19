@@ -11,7 +11,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.google.common.base.Preconditions;
-import com.provectus.budgetrush.data.Roles;
 import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.service.UserService;
 
@@ -29,12 +28,10 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         Preconditions.checkNotNull(authentication, "Authentication equals null.");
 
         log.info("Start check user " + authentication.getPrincipal().toString());
-        User user = service.get(authentication.getPrincipal().toString(), authentication.getCredentials().toString());
+        User user = service.find(authentication.getPrincipal().toString(), authentication.getCredentials().toString());
         Preconditions.checkNotNull(user, "Bad User Credentials.");
 
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new UserAuthority(Roles.ROLE_USER));
-        return new UserAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), grantedAuthorities);
+        return new UserAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), getUserAuthorities(user));
 
     }
 
@@ -43,4 +40,12 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
     }
 
+    private List<GrantedAuthority> getUserAuthorities(User user) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        GrantedAuthority authority = new UserAuthority(user.getRole());
+        authorities.add(authority);
+
+        return authorities;
+    }
 }

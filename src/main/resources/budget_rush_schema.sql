@@ -1,13 +1,14 @@
 CREATE TABLE users (
-  id       INT AUTO_INCREMENT NOT NULL,
+  id       INT AUTO_INCREMENT    NOT NULL,
   name     VARCHAR(20) UNIQUE    NOT NULL,
   password VARCHAR(20)           NOT NULL,
+  role     INT(1)                NOT NULL,
   PRIMARY KEY (id)
 )
   ENGINE = InnoDB;
-
+  
 CREATE TABLE currencies (
-  id         INT AUTO_INCREMENT NOT NULL,
+  id         INT AUTO_INCREMENT    NOT NULL,
   name       VARCHAR(15)           NOT NULL,
   short_name VARCHAR(3)            NOT NULL,
   code       INT(4)                NOT NULL,

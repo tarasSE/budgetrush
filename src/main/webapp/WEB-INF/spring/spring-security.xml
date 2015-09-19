@@ -24,11 +24,12 @@
 		<security:csrf disabled="true" />
 	</security:http>
 
-	<security:http pattern="/v1/**" create-session="never"
+	<security:http pattern="/v1/users"  create-session="never"
 		entry-point-ref="oauthAuthenticationEntryPoint">
 		<security:anonymous enabled="false" />
-		<security:intercept-url pattern="/v1/**"
-			access="hasRole('ROLE_USER')" />
+		<security:intercept-url pattern="/v1/users" method="POST" filters="none"/>
+		<security:intercept-url pattern="/v1/users" method="GET" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/v1/users/**" method="DELETE" access="hasRole('ADMIN')" />
 		<security:custom-filter ref="resourceServerFilter"
 			before="PRE_AUTH_FILTER" />
 		<security:access-denied-handler ref="oauthAccessDeniedHandler" />
