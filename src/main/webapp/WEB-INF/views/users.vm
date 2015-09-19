@@ -13,14 +13,22 @@
                 "<th> Password </th>" +
                 "</tr>";
         for (var i in data) {
-            output +=   "<tr> " +
-                        "<th>" + data[i].id + "</th>" +
-                        "<th>" + data[i].name + "</th> " +
-                        "<th>" + data[i].password + "</th>" +
-                        "</tr>";
+            output += "<tr> " +
+                    "<th>" + data[i].id + "</th>" +
+                    "<th>" + data[i].name + "</th> " +
+                    "<th>" + data[i].password + "</th>" +
+                    "</tr>";
         }
 
         output += "</table>";
         document.getElementById("placeholder").innerHTML = output;
     });
+    /*
+        var json = JSON.parse($.getJSON(url));
+        var out  = null;
+        for(var i in json){
+            out = json[i].value();
+        }
+        document.getElementById("placeholder").innerHTML = out;
+    */
 </script>

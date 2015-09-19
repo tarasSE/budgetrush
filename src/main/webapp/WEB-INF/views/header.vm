@@ -4,6 +4,7 @@
     <title>Budget Rush</title>
     <script src="/resources/js/jquery-2.1.4.min.js"></script>
     <script src="/resources/js/register.js"></script>
+    <script src="/resources/js/httpMethods.js"></script>
     <link href="/resources/css/main.css" rel="stylesheet">
 
 <table class="simple-little-table">
