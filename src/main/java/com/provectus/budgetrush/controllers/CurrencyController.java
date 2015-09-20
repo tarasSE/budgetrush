@@ -16,20 +16,21 @@ import com.provectus.budgetrush.service.CurrencyService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@RequestMapping(value = "/v1/currencies", headers = "Accept=application/json")
 @Controller
 public class CurrencyController {
 
     @Autowired
     private CurrencyService service;
 
-    @RequestMapping(value = "/v1/currencies", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public List<Currency> listAll() {
         log.info("Send all Currencies");
         return service.getAll();
     }
 
-    @RequestMapping(value = "/v1/currencies/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Currency getById(@PathVariable Integer id) {
         log.info("Send currency by id " + id);
@@ -38,13 +39,13 @@ public class CurrencyController {
 
     }
 
-    @RequestMapping(value = "/v1/currencies/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
-    @RequestMapping(value = "/v1/currencies", method = RequestMethod.POST, headers = "Accept=application/json")
+    @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public Currency newUser(@RequestBody Currency currency) {
         log.info("Save currency " + currency.getName());
@@ -53,7 +54,7 @@ public class CurrencyController {
 
     }
 
-    @RequestMapping(value = "/v1/currencies/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public Currency saveUser(@RequestBody Currency currency, @PathVariable Integer id) {
         log.info("Save currency " + currency.getName());

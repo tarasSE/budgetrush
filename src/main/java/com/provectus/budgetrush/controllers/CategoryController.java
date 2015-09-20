@@ -8,11 +8,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.service.CategoryService;
@@ -20,28 +20,28 @@ import com.provectus.budgetrush.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping
-@RestController
+@RequestMapping(value = "/v1/categories", headers = "Accept=application/json")
+@Controller
 public class CategoryController {
 
     @Autowired
     private CategoryService service;
 
-    @RequestMapping(value = "/v1/categories", method = GET, headers = "Accept=application/json")
+    @RequestMapping(method = GET)
     @ResponseBody
     public List<Category> listAll() {
         log.info("Get all categories");
         return service.getAll();
     }
 
-    @RequestMapping(method = GET, value = "/v1/categories/{id}")
+    @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     public Category getById(@PathVariable Integer id) {
         log.info("Get category by id " + id);
         return service.getById(id);
     }
 
-    @RequestMapping(value = "/v1/categories", method = POST)
+    @RequestMapping(method = POST)
     @ResponseBody
     public Category create(@RequestBody Category category) {
         log.info("Create/update category");
@@ -50,7 +50,7 @@ public class CategoryController {
         return category;
     }
 
-    @RequestMapping(value = "/v1/categories/{id}", method = PUT)
+    @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Category update(@RequestBody Category category, @PathVariable Integer id) {
         log.info("Create/update category id " + id);
@@ -59,7 +59,7 @@ public class CategoryController {
         return category;
     }
 
-    @RequestMapping(value = "/v1/categories/{id}", method = DELETE)
+    @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         log.info("Delete category by id " + id);

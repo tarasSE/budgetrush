@@ -16,13 +16,14 @@ import com.provectus.budgetrush.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@RequestMapping(value = "/v1/accounts", headers = "Accept=application/json")
 @Controller
 public class AccountController {
 
     @Autowired
     private AccountService service;
 
-    @RequestMapping(value = "/v1/accounts", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public List<Account> listAll() {
         log.info("Get all accounts");
@@ -31,7 +32,7 @@ public class AccountController {
         return accounts;
     }
 
-    @RequestMapping(value = "/v1/accounts/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Account getById(@PathVariable Integer id) {
         log.info("Get account by id " + id);
@@ -44,7 +45,7 @@ public class AccountController {
 
     }
 
-    @RequestMapping(value = "/v1/accounts/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         service.delete(id);
