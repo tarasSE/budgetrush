@@ -1,5 +1,10 @@
 package com.provectus.budgetrush.controllers;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.provectus.budgetrush.data.User;
@@ -23,14 +27,14 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = GET)
     @ResponseBody
     public List<User> listAll() {
         log.info("Send all users");
         return service.getAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     public User getById(@PathVariable Integer id) {
 
@@ -40,13 +44,13 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = POST)
     @ResponseBody
     public User newUser(@RequestBody User user) {
         log.info("Save user " + user.getName());
@@ -55,7 +59,7 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public User saveUser(@RequestBody User user, @PathVariable Integer id) {
         log.info("Save user " + user.getName());

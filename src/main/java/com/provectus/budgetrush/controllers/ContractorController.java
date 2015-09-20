@@ -20,28 +20,28 @@ import com.provectus.budgetrush.service.ContractorService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping
+@RequestMapping(value = "/v1/contractors", headers = "Accept=application/json")
 @RestController
 public class ContractorController {
 
     @Autowired
     private ContractorService service;
 
-    @RequestMapping(value = "/v1/contractors", method = GET, headers = "Accept=application/json")
+    @RequestMapping(method = GET)
     @ResponseBody
     public List<Contractor> listAll() {
         log.info("Get all contractors.");
         return service.getAll();
     }
 
-    @RequestMapping(method = GET, value = "/v1/contractors/{id}")
+    @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     public Contractor getById(@PathVariable Integer id) {
         log.info("Get contractor by id " + id);
         return service.getById(id);
     }
 
-    @RequestMapping(value = "/v1/contractors", method = POST)
+    @RequestMapping(method = POST)
     @ResponseBody
     public Contractor create(@RequestBody Contractor contractor) {
         log.info("Create/update new contractor.");
@@ -50,7 +50,7 @@ public class ContractorController {
         return contractor;
     }
 
-    @RequestMapping(value = "/v1/contractors/{id}", method = PUT)
+    @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Contractor update(@RequestBody Contractor contractor, @PathVariable Integer id) {
         log.info("Create/update contractor id " + id);
@@ -59,7 +59,7 @@ public class ContractorController {
         return contractor;
     }
 
-    @RequestMapping(value = "/v1/contractors/{id}", method = DELETE)
+    @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         log.info("Delete contractor by id" + id);
