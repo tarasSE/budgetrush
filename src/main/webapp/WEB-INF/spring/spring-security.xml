@@ -10,14 +10,11 @@
 					  http://www.springframework.org/schema/security/spring-security-oauth2.xsd
 					  http://www.springframework.org/schema/security
 					  http://www.springframework.org/schema/security/spring-security.xsd">
-
-	<security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled">
-	</security:global-method-security>
-
+	
 	<security:http pattern="/oauth/token" create-session="stateless"
 		authentication-manager-ref="authenticationManager">
 		<security:intercept-url pattern="/oauth/token"
-			access="isAuthenticated()" />
+			access='permitAll' />
 		<security:anonymous enabled="false" />
 		<security:http-basic entry-point-ref="clientAuthenticationEntryPoint" />
 		<security:custom-filter ref="clientCredentialsTokenEndpointFilter"
@@ -99,8 +96,7 @@
 	</bean>
 
 	<security:authentication-manager id="userAuthenticationManager">
-		<security:authentication-provider
-			ref="customUserAuthenticationProvider">
+		<security:authentication-provider ref="customUserAuthenticationProvider">
 		</security:authentication-provider>
 	</security:authentication-manager>
 

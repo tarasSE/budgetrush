@@ -16,8 +16,8 @@ import com.provectus.budgetrush.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping(value = "/v1/users", headers = "Accept=application/json")
 @Controller
+@RequestMapping(value = "/v1/users", headers = "Accept=application/json")
 public class UserController {
 
     @Autowired
