@@ -17,6 +17,12 @@ public class PagesController {
         return "signup";
     }
 
+    @RequestMapping(value = "/login", method = GET)
+    public String logIn(Map<String, Object> model) {
+
+        return "login";
+    }
+
     @RequestMapping(value = "/users", method = GET)
     public String users(Map<String, Object> model) {
 

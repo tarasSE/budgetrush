@@ -12,6 +12,23 @@
 					  http://www.springframework.org/schema/security/spring-security.xsd">
 
 
+<!--
+	<security:http>
+
+		<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/" access="isAnonymous()"/>
+		<security:intercept-url pattern="/index" access="isAnonymous()"/>
+		<security:intercept-url pattern="/login" access="isAnonymous()"/>
+
+
+		<security:form-login login-processing-url="/static/j_spring_security_check"
+					login-page="/login"
+					authentication-failure-url="/login?error=true"/>
+		<security:logout logout-url="/logout" logout-success-url="/login"/>
+		<security:remember-me/>
+	</security:http>
+-->
+
 	<security:http pattern="/oauth/token" create-session="stateless"
 		authentication-manager-ref="authenticationManager">
 		<security:intercept-url pattern="/oauth/token"
