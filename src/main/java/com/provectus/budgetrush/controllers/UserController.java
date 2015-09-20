@@ -2,10 +2,7 @@ package com.provectus.budgetrush.controllers;
 
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +23,6 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public List<User> listAll() {
@@ -34,7 +30,6 @@ public class UserController {
         return service.getAll();
     }
 
-    @RolesAllowed("ROLE_ADMIN")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public User getById(@PathVariable Integer id) {
@@ -45,14 +40,12 @@ public class UserController {
 
     }
 
-    @RolesAllowed("ROLE_ADMIN")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
-    // @PermitAll
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public User newUser(@RequestBody User user) {
@@ -62,7 +55,6 @@ public class UserController {
 
     }
 
-    @RolesAllowed("ROLE_USER")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public User saveUser(@RequestBody User user, @PathVariable Integer id) {
