@@ -14,7 +14,7 @@
 	<security:http pattern="/oauth/token" create-session="stateless"
 		authentication-manager-ref="authenticationManager">
 		<security:intercept-url pattern="/oauth/token"
-			access='permitAll' />
+			access='isAuthenticated()' />
 		<security:anonymous enabled="false" />
 		<security:http-basic entry-point-ref="clientAuthenticationEntryPoint" />
 		<security:custom-filter ref="clientCredentialsTokenEndpointFilter"
@@ -53,7 +53,6 @@
 		<security:custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
 		<security:access-denied-handler ref="oauthAccessDeniedHandler" />
 		<security:csrf disabled="true" />
-		<security:logout logout-url="/logout"/>
 	</security:http>
 	
 	<bean id="oauthAuthenticationEntryPoint"
