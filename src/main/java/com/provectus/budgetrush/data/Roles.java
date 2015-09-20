@@ -1,5 +1,5 @@
 package com.provectus.budgetrush.data;
 
 public enum Roles {
-    USER, ADMIN
+    ROLE_USER, ROLE_ADMIN
 }

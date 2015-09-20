@@ -10,8 +10,7 @@
 					  http://www.springframework.org/schema/security/spring-security-oauth2.xsd
 					  http://www.springframework.org/schema/security
 					  http://www.springframework.org/schema/security/spring-security.xsd">
-
-
+	
 	<security:http pattern="/oauth/token" create-session="stateless"
 		authentication-manager-ref="authenticationManager">
 		<security:intercept-url pattern="/oauth/token"
@@ -24,18 +23,39 @@
 		<security:csrf disabled="true" />
 	</security:http>
 
-	<security:http pattern="/v1/users"  create-session="never"
+	<security:http pattern="/v1/**" create-session="never"
 		entry-point-ref="oauthAuthenticationEntryPoint">
-		<security:anonymous enabled="false" />
-		<security:intercept-url pattern="/v1/users" method="POST" filters="none"/>
-		<security:intercept-url pattern="/v1/users" method="GET" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/v1/users/**" method="DELETE" access="hasRole('ADMIN')" />
-		<security:custom-filter ref="resourceServerFilter"
-			before="PRE_AUTH_FILTER" />
+		<security:anonymous enabled="true" />
+		<!-- USERS -->
+		<security:intercept-url pattern="/v1/users"	method="POST" access="isAnonymous()" />
+		<security:intercept-url pattern="/v1/users/**"	method="GET" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/v1/users/**"	method="DELETE" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/v1/users/**" method="PUT" access="isAuthenticated()" />
+		
+		<!-- CATEGORIES -->
+		<security:intercept-url pattern="/v1/categories/**" access="isAuthenticated()" />
+		
+		<!-- CONTRACOTRS -->
+		<security:intercept-url pattern="/v1/contractors/**" access="isAuthenticated()" />
+		
+		<!-- CURRENCIES -->
+		<security:intercept-url pattern="/v1/currencies/**"  method="GET" access="isAuthenticated()" />
+		<security:intercept-url pattern="/v1/currencies/**"	method="DELETE" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/v1/currencies/**"	method="PUT" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/v1/currencies/**"	method="POST" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- CATEGORIES -->
+		<security:intercept-url pattern="/v1/categories/**" access="isAuthenticated()" />
+		
+		<!-- ORDERS -->
+		<security:intercept-url pattern="/v1/orders/**" access="isAuthenticated()" />
+		
+		<security:custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
 		<security:access-denied-handler ref="oauthAccessDeniedHandler" />
 		<security:csrf disabled="true" />
+		<security:logout logout-url="/logout"/>
 	</security:http>
-
+	
 	<bean id="oauthAuthenticationEntryPoint"
 		class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
 	</bean>
@@ -76,8 +96,8 @@
 	</bean>
 
 	<security:authentication-manager id="userAuthenticationManager">
-		<security:authentication-provider
-			ref="customUserAuthenticationProvider" />
+		<security:authentication-provider ref="customUserAuthenticationProvider">
+		</security:authentication-provider>
 	</security:authentication-manager>
 
 	<bean id="customUserAuthenticationProvider"

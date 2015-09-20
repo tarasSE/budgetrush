@@ -29,7 +29,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
         log.info("Start check user " + authentication.getPrincipal().toString());
         User user = service.find(authentication.getPrincipal().toString(), authentication.getCredentials().toString());
-        Preconditions.checkNotNull(user, "Bad User Credentials.");
+        Preconditions.checkNotNull(user, "Wrong login or password.");
 
         return new UserAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), getUserAuthorities(user));
 
@@ -42,8 +42,9 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
     private List<GrantedAuthority> getUserAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-
+        log.info("User " + user.getName() + " has role :" + user.getRole());
         GrantedAuthority authority = new UserAuthority(user.getRole());
+
         authorities.add(authority);
 
         return authorities;

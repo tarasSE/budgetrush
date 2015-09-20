@@ -39,6 +39,7 @@
 		<jackson.version>2.6.1</jackson.version>
 		<spring.security.aouth2.version>2.0.7.RELEASE</spring.security.aouth2.version>
 		<spring.security.version>4.0.2.RELEASE</spring.security.version>
+		<jsr250.version>1.0</jsr250.version>
 	</properties>
 
 	<dependencies>
@@ -223,10 +224,22 @@
 			<version>${spring.security.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-acl</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
 			<version>${spring.security.aouth2.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
+			<version>${jsr250.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
