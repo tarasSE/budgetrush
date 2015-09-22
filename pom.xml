@@ -39,7 +39,6 @@
 		<jackson.version>2.6.1</jackson.version>
 		<spring.security.aouth2.version>2.0.7.RELEASE</spring.security.aouth2.version>
 		<spring.security.version>4.0.2.RELEASE</spring.security.version>
-		<jsr250.version>1.0</jsr250.version>
 	</properties>
 
 	<dependencies>
