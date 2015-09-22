@@ -6,7 +6,7 @@
 	<groupId>com.provectus</groupId>
 	<artifactId>budgetrush</artifactId>
 	<name>BudgetRush</name>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 
 	<properties>
@@ -232,12 +232,6 @@
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
 			<version>${spring.security.aouth2.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>javax.annotation</groupId>
-			<artifactId>jsr250-api</artifactId>
-			<version>${jsr250.version}</version>
 		</dependency>
 		
 	</dependencies>

@@ -30,8 +30,8 @@
 		<security:anonymous enabled="true" />
 		<!-- USERS -->
 		<security:intercept-url pattern="/v1/users"	method="POST" access="isAnonymous()" />
-		<security:intercept-url pattern="/v1/users/**"	method="GET" access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/v1/users/**"	method="DELETE" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/v1/users/**" method="GET" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/v1/users/**" method="DELETE" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/v1/users/**" method="PUT" access="hasRole('ROLE_USER')" />
 		
 		<!-- ACCOUNTS -->
@@ -41,7 +41,7 @@
 		<security:intercept-url pattern="/v1/contractors/**" access="hasRole('ROLE_USER')" />
 		
 		<!-- CURRENCIES -->
-		<security:intercept-url pattern="/v1/currencies/**"  method="GET" access="hasRole('ROLE_USER')" />
+		<security:intercept-url pattern="/v1/currencies/**" method="GET" access="hasRole('ROLE_USER')" />
 		<security:intercept-url pattern="/v1/currencies/**"	method="DELETE" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/v1/currencies/**"	method="PUT" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/v1/currencies/**"	method="POST" access="hasRole('ROLE_ADMIN')" />
