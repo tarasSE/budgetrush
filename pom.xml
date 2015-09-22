@@ -6,7 +6,7 @@
     <groupId>com.provectus</groupId>
     <artifactId>budgetrush</artifactId>
     <name>BudgetRush</name>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <version>1.0.0-BUILD-SNAPSHOT</version>
 
     <properties>
@@ -273,12 +273,6 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <packagingExcludes>WEB-INF/classes/com/provectus/budgetrush/server/*.class</packagingExcludes>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                        </manifest>
-                    </archive>
                 </configuration>
 
                 <executions>
