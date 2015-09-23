@@ -28,6 +28,7 @@
 		use-expressions="true">
 		<security:expression-handler ref="expressionHandler"/>
 		<security:anonymous enabled="true" />
+		
 		<!-- USERS -->
 		<security:intercept-url pattern="/v1/users"	method="POST" access="isAnonymous()" />
 		<security:intercept-url pattern="/v1/users/**" method="GET" access="hasRole('ROLE_ADMIN')" />
