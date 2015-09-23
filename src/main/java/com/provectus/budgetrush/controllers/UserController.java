@@ -1,12 +1,8 @@
 package com.provectus.budgetrush.controllers;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
-import java.util.List;
-
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.UserService;
+import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Slf4j
 @Controller
@@ -43,6 +38,17 @@ public class UserController {
         return user;
 
     }
+
+    @RequestMapping(value = "/role/{name}", method = GET)
+    @ResponseBody
+    public String getRole(@PathVariable String name) {
+
+        log.info("Send user role by name " + name);
+
+        return service.getRoleByName(name).toString();
+
+    }
+
 
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody

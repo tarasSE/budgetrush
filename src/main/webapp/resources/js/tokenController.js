@@ -12,6 +12,7 @@ function requestToken(name, password) {
             $.cookie('best_before', bestBefore);
             $.cookie('access_token', result.access_token);
             $.cookie('refresh_token', result.refresh_token);
+            window.location.reload()
         })
         .fail(function () {
             alert("Failed to get token!");

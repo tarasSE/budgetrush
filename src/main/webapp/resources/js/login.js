@@ -5,13 +5,11 @@ function signup() {
     var nameElement2 = document.getElementById("password");
     var password = nameElement2.value;
 
-    var json = {name: name, password: password};
+    var json = {name: name, password: password, role: 0};
 
     sendPost("/v1/users/", json);
 
-    login(name, password);
-
-    window.location.replace("/content");
+    alert('Registration complete. Now you can log in!');
 
 }
 
@@ -25,12 +23,26 @@ function login() {
     requestToken(name, password);
 
     console.log('Login successful');
+
+    $.cookie('is_authorised', 1);
+
+
+}
+
+function logout(){
+    var cookies = document.cookie.split(";");
+    for(var i=0; i < cookies.length; i++) {
+        var equals = cookies[i].indexOf("=");
+        var name = equals > -1 ? cookies[i].substr(0, equals) : cookies[i];
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+    window.location.reload()
 }
 
 function chooseLogin(placeholderId) {
 
     var pleceholderClass = $('#' + placeholderId).attr('class');
-    $('div.' + pleceholderClass).empty();
+    $('#' + placeholderId).empty();
 
     $('#' + placeholderId).append("<div class='login' id='login'/>");
 
@@ -49,7 +61,7 @@ function chooseLogin(placeholderId) {
 
 function chooseSignup(placeholderId) {
     var pleceholderClass = $('#' + placeholderId).attr('class');
-    $('div.' + pleceholderClass).empty();
+    $('#' + placeholderId).empty();
     $('#' + placeholderId).append("<div class='main' id='signup'/>");
 
     $('#signup').append("<div class='field' id='name-field'/>");

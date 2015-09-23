@@ -7,8 +7,5 @@
 </div>
     <p>
 <div class="login-signup" id="login-signup"/>
-
-    <input type="button" onclick="showTokens()">
-
 </div>
 
