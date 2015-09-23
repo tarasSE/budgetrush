@@ -8,12 +8,10 @@ function requestToken(name, password) {
     })
         .done(function (result) {
             var bestBefore = new Date();
-            bestBefore.setMinutes(bestBefore.getMinutes() + 29);
+            bestBefore.setMinutes(bestBefore.getMinutes() + 1);
             $.cookie('best_before', bestBefore);
             $.cookie('access_token', result.access_token);
             $.cookie('refresh_token', result.refresh_token);
-
-
         })
         .fail(function () {
             alert("Failed to get token!");
@@ -21,26 +19,33 @@ function requestToken(name, password) {
 
 }
 
-function getToken() {
-    if (new Date >= $.cookie('best_before')) {
-        $.ajax({
-            url: '/SpringRestSecurityOauth/oauth/token?grant_type=refresh_token&client_id=restapp&client_secret=restapp&' +
-            'refresh_token=' + $.cookie('refresh_token'),
-            dataType: 'json',
-            type: 'POST'
+
+function refreshToken() {
+    $.ajax({
+        url: '/oauth/token?grant_type=refresh_token&client_id=rest_id&client_secret=rest_key&' +
+        'refresh_token=' + $.cookie('refresh_token'),
+        dataType: 'json',
+        type: 'POST'
+    })
+        .done(function (result) {
+            var bestBefore = new Date();
+            bestBefore.setMinutes(bestBefore.getMinutes() + 1);
+            $.cookie('best_before', bestBefore);
+            $.cookie('access_token', result.access_token);
+            $.cookie('refresh_token', result.refresh_token);
+
         })
-            .done(function (result) {
-                var bestBefore = new Date();
-                bestBefore.setMinutes(bestBefore.getMinutes() + 29);
-                $.cookie('best_before', bestBefore);
-                $.cookie('access_token', result.access_token);
-                $.cookie('refresh_token', result.refresh_token);
+        .fail(function () {
+            alert("Failed to get token!");
+        });
 
-            })
-            .fail(function () {
-                alert("Failed to get token!");
-            });
+}
+function getToken() {
+    var newDate = new Date();
+    var oldDate = Date.parse($.cookie('best_before'));
 
+    if (newDate >= oldDate) {
+        refreshToken();
     }
 
     return $.cookie('access_token');

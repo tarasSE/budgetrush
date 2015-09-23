@@ -10,9 +10,7 @@
 
     <table class="simple-little-table" id="content"/>
 
-    <script>
-        var url = '/v1/users';
-        //getContent(url, 'content');
-    </script>
+
+
 
 </div>
