@@ -6,7 +6,7 @@
 	<groupId>com.provectus</groupId>
 	<artifactId>budgetrush</artifactId>
 	<name>BudgetRush</name>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 
 	<properties>
@@ -223,16 +223,10 @@
 			<version>${spring.security.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-acl</artifactId>
-			<version>${spring.security.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
 			<version>${spring.security.aouth2.version}</version>
 		</dependency>
-		
 	</dependencies>
 
 	<build>

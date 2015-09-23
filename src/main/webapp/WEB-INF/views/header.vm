@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<div class="header">
+
+    <title>Budget Rush</title>
+    <script src="/resources/js/jquery-2.1.4.min.js"></script>
+    <script src="/resources/js/jquery.cookie.js"></script>
+    <script src="/resources/js/login_signup.js"></script>
+    <script src="/resources/js/httpMethods.js"></script>
+    <script src="/resources/js/getContent.js"></script>
+    <script src="/resources/js/tokenController.js"></script>
+    <link href="/resources/css/main.css" rel="stylesheet">
+
+<table class="simple-little-table">
+    <tr>
+
+        <th><a href="/login_or_signup">LogIn/SignUp</a></th>
+        <th><a href="/content">Content</a></th>
+
+    </tr>
+</table>
+</div>
