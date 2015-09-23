@@ -1,0 +1,18 @@
+#include("WEB-INF/views/header.vm")
+<div class="body">
+
+    <input type="button" name="users" onclick="getContent('/v1/users', 'content')" value="Users"/>
+    <input type="button" name="accounts" onclick="getContent('/v1/accounts', 'content')" value="Accounts"/>
+    <input type="button" name="currencies" onclick="getContent('/v1/currencies', 'content')" value="Currencies"/>
+    <input type="button" name="contractors" onclick="getContent('/v1/contractors', 'content')" value="Contractors"/>
+    <input type="button" name="categories" onclick="getContent('/v1/categories', 'content')" value="Categories"/>
+    <input type="button" name="orders" onclick="getContent('/v1/orders', 'content')" value="Orders"/>
+
+    <table class="simple-little-table" id="content"/>
+
+    <script>
+        var url = '/v1/users';
+        //getContent(url, 'content');
+    </script>
+
+</div>

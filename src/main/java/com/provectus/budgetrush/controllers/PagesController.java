@@ -11,53 +11,18 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class PagesController {
 
 
-    @RequestMapping(value = "/signup", method = GET)
+    @RequestMapping(value = "/login_or_signup", method = GET)
     public String signUp(Map<String, Object> model) {
 
-        return "signup";
+        return "login_or_signup";
     }
 
-    @RequestMapping(value = "/login", method = GET)
-    public String logIn(Map<String, Object> model) {
-
-        return "login";
-    }
-
-    @RequestMapping(value = "/users", method = GET)
+    @RequestMapping(value = "/content", method = GET)
     public String users(Map<String, Object> model) {
 
-        return "users";
+        return "content";
     }
 
-    @RequestMapping(value = "/accounts", method = GET)
-    public String accounts(Map<String, Object> model) {
-
-        return "accounts";
-    }
-
-    @RequestMapping(value = "/categories", method = GET)
-    public String categories(Map<String, Object> model) {
-
-        return "categories";
-    }
-
-    @RequestMapping(value = "/contractors", method = GET)
-    public String contractors(Map<String, Object> model) {
-
-        return "contractors";
-    }
-
-    @RequestMapping(value = "/currencies", method = GET)
-    public String currencies(Map<String, Object> model) {
-
-        return "currencies";
-    }
-
-    @RequestMapping(value = "/orders", method = GET)
-    public String orders(Map<String, Object> model) {
-
-        return "orders";
-    }
 
 
 
