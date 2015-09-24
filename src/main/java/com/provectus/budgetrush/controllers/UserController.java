@@ -8,6 +8,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,7 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<User> listAll() {
@@ -34,6 +36,7 @@ public class UserController {
         return service.getAll();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     public User getById(@PathVariable Integer id) {
@@ -44,12 +47,14 @@ public class UserController {
 
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
+    @PreAuthorize("isAnonymous()")
     @RequestMapping(method = POST)
     @ResponseBody
     public User newUser(@RequestBody User user) {
@@ -59,6 +64,7 @@ public class UserController {
 
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public User saveUser(@RequestBody User user, @PathVariable Integer id) {

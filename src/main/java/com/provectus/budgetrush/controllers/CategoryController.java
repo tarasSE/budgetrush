@@ -8,6 +8,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.provectus.budgetrush.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@PreAuthorize("hasRole('ROLE_USER')")
 @RequestMapping(value = "/v1/categories", headers = "Accept=application/json")
 @RestController
 public class CategoryController {
