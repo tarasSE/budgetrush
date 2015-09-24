@@ -1,0 +1,6 @@
+#include("WEB-INF/views/header.vm")
+<div class="body">
+
+    <table class="simple-little-table" id="content"/>
+
+</div>

@@ -1,17 +1,13 @@
 package com.provectus.budgetrush.server;
 
+import com.google.common.base.Preconditions;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.springframework.context.annotation.PropertySource;
-
-import com.google.common.base.Preconditions;
-
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 
 @Slf4j
-@PropertySource("classpath:app.properties")
 class JettyServer implements WebServer {
 
     private static final int DEFAULT_PORT = 8080;

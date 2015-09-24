@@ -48,6 +48,17 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/role/{name}", method = GET)
+    @ResponseBody
+    public String getRole(@PathVariable String name) {
+
+        log.info("Send user role by name " + name);
+
+        return service.getRoleByName(name).toString();
+
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {

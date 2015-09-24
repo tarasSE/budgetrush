@@ -1,0 +1,11 @@
+#include("WEB-INF/views/header.vm")
+<div class="main" id='main'>
+<div class="choosse">
+    <input type="button" onclick="chooseLogin('login-signup')" value="Login"/>
+     OR
+    <input type="button" onclick="chooseSignup('login-signup')" value="Signup"/>
+</div>
+    <p>
+<div class="login-signup" id="login-signup"/>
+</div>
+
