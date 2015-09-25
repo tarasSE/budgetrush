@@ -12,6 +12,9 @@ public class UserPermissionEvaluator implements PermissionEvaluator {
 
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
+        log.info(authentication.toString());
+        log.info(targetDomainObject.toString());
+        log.info(permission.toString());
         throw new RuntimeException("Id and Class permissions are not supperted by this application");
     }
 
