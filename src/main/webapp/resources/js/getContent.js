@@ -1,4 +1,5 @@
 function getContent(url, tableId) {
+
     $.getJSON(url + '/?access_token=' + getToken(), function (data) {
 
         $("#"+tableId).find("tr").remove();

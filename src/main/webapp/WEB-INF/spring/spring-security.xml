@@ -31,6 +31,7 @@
 		
 		<!-- USERS -->
 		<security:intercept-url pattern="/v1/users"	method="POST" access="isAnonymous()" />
+		<security:intercept-url pattern="/v1/users/role/**"	method="GET" access="isAnonymous()" />
 		<security:intercept-url pattern="/v1/users/**" method="GET" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/v1/users/**" method="DELETE" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/v1/users/**" method="PUT" access="hasRole('ROLE_USER')" />

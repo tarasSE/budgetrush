@@ -10,13 +10,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Controller
 public class PagesController {
 
-
-    @RequestMapping(value = "/login_or_signup", method = GET)
-    public String signUp(Map<String, Object> model) {
-
-        return "login_or_signup";
-    }
-
     @RequestMapping(value = "/content", method = GET)
     public String users(Map<String, Object> model) {
 

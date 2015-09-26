@@ -1,19 +1,23 @@
 function signup() {
     var nameElement1 = document.getElementById("name");
     var name = nameElement1.value;
-
+    if(~name.indexOf(' ') ){
+        alert('Field "name" can\'t includes spaces!');
+        return
+    }
     var nameElement2 = document.getElementById("password");
     var password = nameElement2.value;
 
     var json = {name: name, password: password, role: 0};
 
-    sendPost("/v1/users/", json);
+    createUser("/v1/users/", json);
 
-    alert('Registration complete. Now you can log in!');
+
 
 }
 
 function login() {
+
     var nameElement1 = document.getElementById("name");
     var name = nameElement1.value;
 
@@ -22,16 +26,14 @@ function login() {
 
     requestToken(name, password);
 
+    getRole(name, password);
+
     console.log('Login successful');
-
-    $.cookie('is_authorised', 1);
-
-
 }
 
-function logout(){
+function logout() {
     var cookies = document.cookie.split(";");
-    for(var i=0; i < cookies.length; i++) {
+    for (var i = 0; i < cookies.length; i++) {
         var equals = cookies[i].indexOf("=");
         var name = equals > -1 ? cookies[i].substr(0, equals) : cookies[i];
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
@@ -76,3 +78,21 @@ function chooseSignup(placeholderId) {
     $('#button').append("<input type='button' value='Signup' onclick='signup()'/>");
 }
 
+function createUser(url, json) {
+
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        accept: 'application/json',
+        type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(json) //JSON.stringify(["Яблоко", "Апельсин", "Слива"])
+    })
+        .done(function(result){
+            if(result.exception != 'undefined'){
+                alert(result.exception)
+            }
+            return result;
+        })
+
+}

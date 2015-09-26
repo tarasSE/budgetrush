@@ -1,6 +1,14 @@
-#include("WEB-INF/views/header.vm")
-<div class="body">
+<!DOCTYPE html>
+<html>
+<head>
 
-    <table class="simple-little-table" id="content"/>
+    <title>Budget Rush</title>
+    <meta charset="utf-8">
+    #include("WEB-INF/views/imports.htm")
 
-</div>
+</head>
+<body>
+    #include("WEB-INF/views/header.htm")
+    #include("WEB-INF/views/body.htm")
+</body>
+</html>

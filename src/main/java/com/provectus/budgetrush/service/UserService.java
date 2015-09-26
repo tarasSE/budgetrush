@@ -23,8 +23,8 @@ public class UserService extends GenericService<User, UserRepository> {
         return getRepository().findByNameAndPassword(name, password);
     }
 
-    public Enum getRoleByName(String name){
-        User user = getRepository().findByName(name);
+    public Enum getRoleByNameAndPassword(String name, String password){
+        User user = getRepository().findByNameAndPassword(name, password);
         return user.getRole();
     }
 }

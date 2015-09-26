@@ -1,9 +1,12 @@
 package com.provectus.budgetrush.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,13 +42,13 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/role/{name}", method = GET)
+    @RequestMapping(value = "/role/{name}&{password}", method = GET)
     @ResponseBody
-    public String getRole(@PathVariable String name) {
+    public String getRole(@PathVariable String name,@PathVariable String password ) {
 
         log.info("Send user role by name " + name);
-
-        return service.getRoleByName(name).toString();
+        String role = service.getRoleByNameAndPassword(name, password).toString();
+        return "{\"role\"" + ":" + "\"" + role + "\"}";
 
     }
 
@@ -58,10 +61,19 @@ public class UserController {
 
     @RequestMapping(method = POST)
     @ResponseBody
-    public User newUser(@RequestBody User user) {
+    public String newUser(@RequestBody User user) {
+        ObjectMapper om = new ObjectMapper();
         log.info("Save user " + user.getName());
         user.setId(0);
-        return service.createOrUpdate(user);
+        try {
+            return om.writeValueAsString(service.createOrUpdate(user));
+        }
+        catch (DataIntegrityViolationException ex){
+            return "{\"exception\" : \"User already exist.\"}";
+        }
+        catch (JsonProcessingException ex){
+            return "{\"exception\" : \"JSON processing exception.\"}";
+        }
 
     }
 

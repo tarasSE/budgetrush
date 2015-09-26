@@ -1,0 +1,20 @@
+<div class="body">
+
+    <form id="form"></form>
+    <table class="simple-little-table" id="content"></table>
+
+    <script>
+        if($.cookie('role') == 'ROLE_ADMIN'){
+            $('document').ready(getContent('/v1/users', 'content'));
+        }
+
+        else if($.cookie('role') == 'ROLE_USER'){
+            $('document').ready(getContent('/v1/accounts', 'content'));
+        }
+
+        else{
+            $('document').ready(chooseLogin('content'));
+        }
+    </script>
+
+</div>
