@@ -1,11 +1,14 @@
 package com.provectus.budgetrush.jacksontest;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.io.File;
-import java.util.Random;
-import java.util.Scanner;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.Currency;
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.datatest.InMemoryConfig;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.CurrencyService;
+import com.provectus.budgetrush.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,16 +19,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Currency;
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.datatest.InMemoryConfig;
-import com.provectus.budgetrush.service.AccountService;
-import com.provectus.budgetrush.service.CurrencyService;
-import com.provectus.budgetrush.service.UserService;
+import java.io.File;
+import java.util.Random;
+import java.util.Scanner;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertNotNull;
 
 @Slf4j
 @DirtiesContext
@@ -62,6 +60,7 @@ public class AccountMappingTest {
 
         User user = new User();
         user.setName(Integer.toString(random.nextInt()));
+        user.setPassword(Integer.toString(random.nextInt()));
         account.setUser(userService.createOrUpdate(user));
 
         Currency currency = new Currency();
