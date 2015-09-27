@@ -12,7 +12,7 @@ CREATE TABLE currencies (
   name       VARCHAR(15)           NOT NULL,
   short_name VARCHAR(3)            NOT NULL,
   code       INT(4)                NOT NULL,
-  symbol     CHAR(1)            NOT NULL,
+  symbol     VARCHAR(1)            NOT NULL,
   PRIMARY KEY (id)
 )
   ENGINE = InnoDB;
@@ -48,7 +48,7 @@ CREATE TABLE contractors (
 
 CREATE TABLE orders (
   id            INT AUTO_INCREMENT NOT NULL,
-  amount        DECIMAL(10, 2)     NOT NULL,
+  amount        DECIMAL(10, 2)     NOT NULL, /*TODO*/
   date          TIMESTAMP          NOT NULL,
   type          INT(1)             NOT NULL,
   account_id    INT            NOT NULL,
