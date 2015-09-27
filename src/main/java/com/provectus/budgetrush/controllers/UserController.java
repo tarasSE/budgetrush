@@ -8,8 +8,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +30,7 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @PostAuthorize("adminOnly()")
+    @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<User> listAll() {
@@ -38,6 +38,7 @@ public class UserController {
         return service.getAll();
     }
 
+    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
     @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     public User getById(@PathVariable Integer id) {
@@ -48,7 +49,7 @@ public class UserController {
 
     }
 
-    @Secured("ROLE_ADMIN")
+    @PreAuthorize("adminOnly() or #name == authentication.name")
     @RequestMapping(value = "/role/{name}", method = GET)
     @ResponseBody
     public String getRole(@PathVariable String name) {
@@ -59,14 +60,14 @@ public class UserController {
 
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("adminOnly()")
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
-    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("adminOnly() or isAnonymous()")
     @RequestMapping(method = POST)
     @ResponseBody
     public User newUser(@RequestBody User user) {
@@ -76,7 +77,7 @@ public class UserController {
 
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("isObjectOwnerOrAdmin(#user, 'wright')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public User saveUser(@RequestBody User user, @PathVariable Integer id) {

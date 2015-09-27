@@ -32,7 +32,7 @@ public class CurrencyController {
         return service.getAll();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("adminOnly()")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Currency getById(@PathVariable Integer id) {
@@ -42,14 +42,14 @@ public class CurrencyController {
 
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("adminOnly()")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("adminOnly()")
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public Currency newUser(@RequestBody Currency currency) {
@@ -59,7 +59,7 @@ public class CurrencyController {
 
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("adminOnly()")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public Currency saveUser(@RequestBody Currency currency, @PathVariable Integer id) {

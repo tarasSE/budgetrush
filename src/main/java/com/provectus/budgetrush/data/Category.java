@@ -1,5 +1,6 @@
 package com.provectus.budgetrush.data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,4 +25,9 @@ public class Category {
     @ManyToOne
     @JoinColumn(name = "parent")
     private Category parent;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn
+    private User user;
+
 }

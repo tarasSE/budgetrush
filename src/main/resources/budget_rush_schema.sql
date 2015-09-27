@@ -12,7 +12,7 @@ CREATE TABLE currencies (
   name       VARCHAR(15)           NOT NULL,
   short_name VARCHAR(3)            NOT NULL,
   code       INT(4)                NOT NULL,
-  symbol     VARCHAR(1)            NOT NULL,
+  symbol     CHAR(1)            NOT NULL,
   PRIMARY KEY (id)
 )
   ENGINE = InnoDB;
@@ -33,8 +33,10 @@ CREATE TABLE categories (
   id     INT AUTO_INCREMENT NOT NULL,
   name   VARCHAR(50)        NOT NULL,
   parent INT,
+  user_id     INT           NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (parent) REFERENCES categories (id)
+  FOREIGN KEY (parent) REFERENCES categories (id),
+  FOREIGN KEY (user_id) REFERENCES users (id)
 )
   ENGINE = InnoDB;
 
@@ -42,7 +44,9 @@ CREATE TABLE contractors (
   id          INT AUTO_INCREMENT NOT NULL,
   name        VARCHAR(50)        NOT NULL,
   description VARCHAR(100),
-  PRIMARY KEY (id)
+  user_id     INT           NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES users (id)
 )
   ENGINE = InnoDB;
 

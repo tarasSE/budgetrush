@@ -8,6 +8,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,7 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
+    @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<Category> listAll() {
@@ -36,6 +39,7 @@ public class CategoryController {
         return service.getAll();
     }
 
+    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
     @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     public Category getById(@PathVariable Integer id) {
@@ -43,6 +47,7 @@ public class CategoryController {
         return service.getById(id);
     }
 
+    @PreAuthorize("isObjectOwnerOrAdmin(#category, 'wright')")
     @RequestMapping(method = POST)
     @ResponseBody
     public Category create(@RequestBody Category category) {
@@ -52,6 +57,7 @@ public class CategoryController {
         return category;
     }
 
+    @PreAuthorize("isObjectOwnerOrAdmin(#category, 'wright')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Category update(@RequestBody Category category, @PathVariable Integer id) {
@@ -61,6 +67,7 @@ public class CategoryController {
         return category;
     }
 
+    @PreAuthorize("isObjectOwnerOrAdmin(@categoryService.getById(#id), 'delete')")
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {

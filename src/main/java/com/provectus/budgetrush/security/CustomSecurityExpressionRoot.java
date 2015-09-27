@@ -18,6 +18,15 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
         return this.hasAuthority("ROLE_ADMIN");
     }
 
+    public boolean isObjectOwnerOrAdmin(Object object, Object permission) {
+        log.debug("haha -- check if this function is used by owner");
+        if (this.hasAuthority("ROLE_ADMIN")) {
+            return true;
+        }
+
+        return hasPermission(object, permission);
+    }
+
     public CustomSecurityExpressionRoot(Authentication a) {
         super(a);
     }
