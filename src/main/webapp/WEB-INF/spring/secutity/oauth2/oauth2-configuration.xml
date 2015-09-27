@@ -15,7 +15,7 @@
 	<security:http pattern="/oauth/token" create-session="stateless"
 		authentication-manager-ref="authenticationManager">
 		<security:intercept-url pattern="/oauth/token"
-			access='isAuthenticated()' />
+			access='isAuthenticated()'/>
 		<security:anonymous enabled="false" />
 		<security:http-basic entry-point-ref="clientAuthenticationEntryPoint" />
 		<security:custom-filter ref="clientCredentialsTokenEndpointFilter"
