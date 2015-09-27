@@ -54,6 +54,8 @@ function chooseLogin(placeholderId) {
 
     $('#' + placeholderId).append("<div class='login' id='login'/>");
 
+    $('#login').append("<div id='description'> <p><font color='black' size='4'>Login</font></p> </div>");
+
     $('#login').append("<div class='field' id='name-field'/>");
     $('#name-field').append("<label for='name'>Name:</label>");
     $('#name-field').append("<input type='text' id='name'/>");
@@ -71,6 +73,8 @@ function chooseSignup(placeholderId) {
     var pleceholderClass = $('#' + placeholderId).attr('class');
     $('#' + placeholderId).empty();
     $('#' + placeholderId).append("<div class='main' id='signup'/>");
+
+    $('#signup').append("<div id='description'> <p><font color='black' size='4'>Signup</font></p> </div>");
 
     $('#signup').append("<div class='field' id='name-field'/>");
     $('#name-field').append("<label for='name'>Name:</label>");
