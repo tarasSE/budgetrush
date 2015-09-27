@@ -1,10 +1,12 @@
 package com.provectus.budgetrush.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.UserService;
-import lombok.extern.slf4j.Slf4j;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -16,9 +18,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Preconditions;
+import com.provectus.budgetrush.data.Roles;
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.service.UserService;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
@@ -58,6 +65,21 @@ public class UserController {
     }
 
     @PreAuthorize("adminOnly()")
+    @RequestMapping(value = "/role/{name}&{strRole}", method = PUT)
+    @ResponseBody
+    public void setRole(@PathVariable String name, @PathVariable String strRole) {
+
+        strRole = strRole.toUpperCase();
+        log.info("Set user role " + strRole + " by name " + name);
+        User user = service.find(name);
+        Preconditions.checkNotNull(user, "User not found.");
+        Roles role = Roles.valueOf(strRole);
+        user.setRole(role);
+        service.createOrUpdate(user);
+
+    }
+
+    @PreAuthorize("adminOnly()")
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
@@ -71,6 +93,8 @@ public class UserController {
         ObjectMapper om = new ObjectMapper();
         log.info("Save user " + user.getName());
         user.setId(0);
+        user.setRole(Roles.ROLE_USER);
+
         try {
             return om.writeValueAsString(service.createOrUpdate(user));
         } catch (DataIntegrityViolationException ex) {
