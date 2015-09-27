@@ -8,6 +8,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +24,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequestMapping(value = "/v1/accounts", headers = "Accept=application/json")
+@PreAuthorize("hasRole('ROLE_USER')")
 @RestController
 public class AccountController {
 
     @Autowired
     private AccountService service;
 
+    @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<Account> listAll() {
@@ -36,6 +41,7 @@ public class AccountController {
         return accounts;
     }
 
+    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
     @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     public Account getById(@PathVariable Integer id) {
@@ -49,12 +55,14 @@ public class AccountController {
 
     }
 
+    @PreAuthorize("isObjectOwnerOrAdmin(@accountService.getById(#id), 'delete')")
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
+    @PreAuthorize("isObjectOwnerOrAdmin(#user, 'wright')")
     @RequestMapping(method = POST)
     @ResponseBody
     public Account newUser(@RequestBody Account account) {
@@ -64,6 +72,7 @@ public class AccountController {
 
     }
 
+    @PreAuthorize("isObjectOwnerOrAdmin(#user, 'wright')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Account saveUser(@RequestBody Account account, @PathVariable Integer id) {

@@ -10,4 +10,7 @@ import com.provectus.budgetrush.data.User;
 @Transactional
 public interface UserRepository extends JpaRepository<User, Integer> {
     public User findByNameAndPassword(String name, String password);
+
+    public User findByName(String name);
+
 }

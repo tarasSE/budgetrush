@@ -1,9 +1,15 @@
-INSERT INTO categories (name, parent) VALUES ('test_category', NULL );
-INSERT INTO categories (name, parent) VALUES ('test_category_1', 1);
-INSERT INTO categories (name, parent) VALUES ('test_category_2', 1);
-INSERT INTO categories (name, parent) VALUES ('test_category_3', 1);
-INSERT INTO categories (name, parent) VALUES ('test_category_4', 1);
-INSERT INTO categories (name, parent) VALUES ('transfer', NULL );
+INSERT INTO users (name, password, role)  VALUES ('admin', '1', 1);
+INSERT INTO users (name, password, role)  VALUES ('test', '1', 0);
+INSERT INTO users (name, password, role)  VALUES ('test_user_2', '2222', 0);
+INSERT INTO users (name, password, role)  VALUES ('test_user_3', '3333', 0);
+INSERT INTO users (name, password, role)  VALUES ('test_user_4', '4444', 0);
+
+INSERT INTO categories (name, parent, user_id) VALUES ('test_category', NULL , 1);
+INSERT INTO categories (name, parent, user_id) VALUES ('test_category_1', 1, 1);
+INSERT INTO categories (name, parent, user_id) VALUES ('test_category_2', 1, 1);
+INSERT INTO categories (name, parent, user_id) VALUES ('test_category_3', NULL, 2);
+INSERT INTO categories (name, parent, user_id) VALUES ('test_category_4', NULL, 3);
+INSERT INTO categories (name, parent, user_id) VALUES ('transfer', NULL, 4);
 
 INSERT INTO currencies (name, short_name, code, symbol) VALUES ('test_currency', 'TC0', 0000, '!');
 INSERT INTO currencies (name, short_name, code, symbol) VALUES ('test_currency_1', 'TC1', 1111, '@');
@@ -11,17 +17,12 @@ INSERT INTO currencies (name, short_name, code, symbol) VALUES ('test_currency_2
 INSERT INTO currencies (name, short_name, code, symbol) VALUES ('test_currency_3', 'TC3', 3333, '$');
 INSERT INTO currencies (name, short_name, code, symbol) VALUES ('test_currency_4', 'TC4', 4444, '%');
 
-INSERT INTO contractors (name, description) VALUES ('test_contractor', 'test_description');
-INSERT INTO contractors (name, description) VALUES ('test_contractor_1', 'test_description_1');
-INSERT INTO contractors (name, description) VALUES ('test_contractor_2', 'test_description_2');
-INSERT INTO contractors (name, description) VALUES ('test_contractor_3', 'test_description_3');
-INSERT INTO contractors (name, description) VALUES ('test_contractor_4', 'test_description_4');
+INSERT INTO contractors (name, description, user_id) VALUES ('test_contractor_0', 'test_description_0', 5);
+INSERT INTO contractors (name, description, user_id) VALUES ('test_contractor_1', 'test_description_1', 1);
+INSERT INTO contractors (name, description, user_id) VALUES ('test_contractor_2', 'test_description_2', 2);
+INSERT INTO contractors (name, description, user_id) VALUES ('test_contractor_3', 'test_description_3', 3);
+INSERT INTO contractors (name, description, user_id) VALUES ('test_contractor_4', 'test_description_4', 4);
 
-INSERT INTO users (name, password, role)  VALUES ('admin', '1', 1);
-INSERT INTO users (name, password, role)  VALUES ('test', '1', 0);
-INSERT INTO users (name, password, role)  VALUES ('test_user_2', '2222', 0);
-INSERT INTO users (name, password, role)  VALUES ('test_user_3', '3333', 0);
-INSERT INTO users (name, password, role)  VALUES ('test_user_4', '4444', 0);
 
 INSERT INTO accounts (name, user_id, currency_id) VALUES ('test_account', 1, 1);
 INSERT INTO accounts (name, user_id, currency_id) VALUES ('test_account_1', 2, 2);

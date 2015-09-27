@@ -25,4 +25,5 @@ public class User {
 
     @Enumerated(EnumType.ORDINAL)
     private Roles role;
+
 }
