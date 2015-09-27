@@ -1,15 +1,8 @@
 package com.provectus.budgetrush.datatest;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,10 +13,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.UserService;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.util.List;
+import java.util.Random;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 @Slf4j
 @DirtiesContext
@@ -51,6 +48,7 @@ public class UsersTest {
         User user = new User();
 
         user.setName(Integer.toString(random.nextInt()));
+        user.setPassword(Integer.toString(random.nextInt()));
         return service.createOrUpdate(user);
     }
 
