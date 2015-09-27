@@ -1,17 +1,23 @@
 function signup() {
     var nameElement1 = document.getElementById("name");
     var name = nameElement1.value;
-    if(~name.indexOf(' ') ){
-        alert('Field "name" can\'t includes spaces!');
-        return
+
+    if (!validateName(name)) {
+
+        return;
     }
+
     var nameElement2 = document.getElementById("password");
     var password = nameElement2.value;
 
-    var json = {name: name, password: password, role: 0};
+    if (!validatePassword(password)) {
 
-    createUser("/v1/users/", json);
+        return;
+    }
 
+    var jsonUser = {name: name, password: password, role: 0};
+
+    createUser("/v1/users/", jsonUser);
 
 
 }
@@ -88,11 +94,45 @@ function createUser(url, json) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(json) //JSON.stringify(["Яблоко", "Апельсин", "Слива"])
     })
-        .done(function(result){
-            if(result.exception != 'undefined'){
+        .done(function (result) {
+            if (typeof (result.exception) != 'undefined') {
                 alert(result.exception)
             }
-            return result;
+            else alert('Registration complete. Now you can log in.');
         })
 
+}
+
+
+function validatePassword(value) {
+    if (value.length < 4 || value.length > 20) {
+        alert('Password length must be beetween 4 and 20 characters!');
+        return false;
+    }
+
+    var reg = /^[a-zA-Z0-9-~!@#$%^&*()_+=]+$/
+
+    if (value.search(reg) == 0) {
+        return true;
+    }
+    else{
+        alert("Password can includes only latin characters, numbers and \" ~!@#$%^&*()_+= \" symbols!");
+    } return false;
+}
+
+function validateName(value) {
+
+    if (value.length < 4 || value.length > 20) {
+        alert('Name length must be beetween 4 and 20 characters!');
+        return false;
+    }
+    var reg = /^[a-zA-Z0-9-_]+$/
+
+    if (value.search(reg) == 0) {
+        return true;
+    }
+    else{
+        alert("Name can includes only latin characters, numbers and \" _ \" symbol!");
+        return false;
+    }
 }

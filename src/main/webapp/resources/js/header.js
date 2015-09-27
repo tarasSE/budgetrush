@@ -16,7 +16,7 @@ function createHeader(placeholderId) {
             '</th>');
         $('#' + placeholderId).append(
             '<th>' +
-            '<input id="logout" type="button"  onclick="getContent(\'/v1/currencies\', \'content\')"value="Currencies"/>' +
+            '<input id="logout" type="button"  onclick="getContent(\'/v1/currencies\', \'content\')" value="Currencies"/>' +
             '</th>');
         $('#' + placeholderId).append(
             '<th>' +
@@ -33,8 +33,8 @@ function createHeader(placeholderId) {
         if ($.cookie('role') == 'ROLE_ADMIN') {
             $('#' + placeholderId).append('<th>Your admin room can be here.</th>');
         }
-        $('#' + placeholderId).append('<th>' +
-            '<input id="logout" type="button" onclick="logout()" value="' + $.cookie('name') + ' Logout" />' +
+        $('#' + placeholderId).append('<th>' + '<font color="#6495ed" size="4">' + $.cookie('name') + '  </font>' +
+            '<input id="logout" type="button" onclick="logout()" value="Logout" />' +
             '</th>');
 
     }
