@@ -15,7 +15,7 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
 
     public boolean adminOnly() {
         log.debug("haha -- check if this function is used by admin role only");
-        return this.hasAuthority("ADMIN");
+        return this.hasAuthority("ROLE_ADMIN");
     }
 
     public CustomSecurityExpressionRoot(Authentication a) {

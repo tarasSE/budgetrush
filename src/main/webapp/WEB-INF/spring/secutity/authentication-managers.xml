@@ -19,9 +19,11 @@
 		<constructor-arg ref="clientDetails" />
 	</bean>
 
-	<bean id="clientDetails" class="com.provectus.budgetrush.security.GuestService">
-		<property name="id" value="rest_id" />
-		<property name="secretKey" value="rest_key" />
+	<bean id="clientDetails"
+		class="org.springframework.security.oauth2.provider.client.JdbcClientDetailsService">
+		<constructor-arg index="0">
+			<ref bean="dataSource" />
+		</constructor-arg>
 	</bean>
 
 	<bean id="passwordEncoder"
