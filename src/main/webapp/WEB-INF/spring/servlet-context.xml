@@ -33,5 +33,9 @@
 		<beans:property name="resourceLoaderPath" value="/WEB-INF/views/"/>
 	</beans:bean>
 
+	<beans:import resource="/secutity/oauth2/oauth2-configuration.xml"/>
+	<beans:import resource="/secutity/authentication-managers.xml"/>
+	<beans:import resource="/secutity/endpoint-configuration.xml"/>
+	<beans:import resource="/secutity/security-configuration.xml"/>
 	
 </beans:beans>

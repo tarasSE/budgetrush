@@ -8,7 +8,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,8 +29,6 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostFilter("hasPermission(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<User> listAll() {
@@ -38,7 +36,7 @@ public class UserController {
         return service.getAll();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     public User getById(@PathVariable Integer id) {

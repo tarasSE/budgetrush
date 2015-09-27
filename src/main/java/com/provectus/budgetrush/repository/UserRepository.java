@@ -11,5 +11,5 @@ import com.provectus.budgetrush.data.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
     public User findByNameAndPassword(String name, String password);
 
-    User findByName(String name);
+    public User findByName(String name);
 }

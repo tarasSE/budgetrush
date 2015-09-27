@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.provectus.budgetrush">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -25,7 +25,7 @@
 	</logger>
 	
 	<logger name="org.springframework.context">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 
 	<logger name="org.springframework.web">

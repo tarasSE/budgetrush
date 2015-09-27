@@ -40,7 +40,7 @@ public class Order {
 
     private BigDecimal amount;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     @Enumerated(EnumType.ORDINAL)

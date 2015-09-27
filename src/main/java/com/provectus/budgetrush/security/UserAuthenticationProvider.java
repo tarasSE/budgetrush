@@ -49,4 +49,5 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
         return authorities;
     }
+
 }
