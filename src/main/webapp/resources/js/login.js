@@ -52,40 +52,40 @@ function chooseLogin(placeholderId) {
     var pleceholderClass = $('#' + placeholderId).attr('class');
     $('#' + placeholderId).empty();
 
-    $('#' + placeholderId).append("<div class='login' id='login'/>");
+    $('#' + placeholderId).append("<div class='login' id='login-form'/>");
 
-    $('#login').append("<div id='description'> <p><font color='black' size='4'>Login</font></p> </div>");
+    $('#login-form').append("<div id='description'> <p><font color='black' size='4'>Login</font></p> </div>");
 
-    $('#login').append("<div class='field' id='name-field'/>");
+    $('#login-form').append("<div class='field' id='name-field'/>");
     $('#name-field').append("<label for='name'>Name:</label>");
     $('#name-field').append("<input type='text' id='name'/>");
 
-    $('#login').append("<div class='field' id='pass-field'/>");
+    $('#login-form').append("<div class='field' id='pass-field'/>");
     $('#pass-field').append("<label for='password'>Password:</label>");
     $('#pass-field').append("<input type='password' id='password'/>");
 
-    $('#login').append("<div class='button' id='button'/>");
-    $('#button').append("<input type='button' value='Login' onclick='login()'/>");
+    $('#login-form').append("<div class='button' id='button'/>");
+    $('#button').append("<p><input class='btn' type='button' value='Login' onclick='login()'/></p>");
 
 }
 
 function chooseSignup(placeholderId) {
     var pleceholderClass = $('#' + placeholderId).attr('class');
     $('#' + placeholderId).empty();
-    $('#' + placeholderId).append("<div class='main' id='signup'/>");
+    $('#' + placeholderId).append("<div class='main' id='signup-form'/>");
 
-    $('#signup').append("<div id='description'> <p><font color='black' size='4'>Signup</font></p> </div>");
+    $('#signup-form').append("<div id='description'> <p><font color='black' size='4'>Signup</font></p> </div>");
 
-    $('#signup').append("<div class='field' id='name-field'/>");
+    $('#signup-form').append("<div class='field' id='name-field'/>");
     $('#name-field').append("<label for='name'>Name:</label>");
     $('#name-field').append("<input type='text' id='name'/>");
 
-    $('#signup').append("<div class='field' id='pass-field'/>");
+    $('#signup-form').append("<div class='field' id='pass-field'/>");
     $('#pass-field').append("<label for='password'>Password:</label>");
     $('#pass-field').append("<input type='password' id='password'/>");
 
-    $('#signup').append("<div class='button' id='button'/>");
-    $('#button').append("<input type='button' value='Signup' onclick='signup()'/>");
+    $('#signup-form').append("<div class='button' id='button'/>");
+    $('#button').append("<p><input class='btn' type='button' value='Signup' onclick='signup()'/></p>");
 }
 
 function createUser(url, json) {

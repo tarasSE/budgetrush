@@ -5,47 +5,47 @@ function createHeader(placeholderId) {
     if (isAuthorise == '1') {
         if ($.cookie('role') == 'ROLE_ADMIN') {
             $('#' + placeholderId).append('<th>' +
-                '<input id="logout" type="button" onclick="getContent(\'/v1/users\', \'content\')" value="Users">' +
+                '<input id="users" class="btn" type="button" onclick="getContent(\'/v1/users\', \'content\')" value="Users">' +
                 '</th>');
 
 
         }
         $('#' + placeholderId).append(
             '<th>' +
-            '<input id="logout" type="button"  onclick="getContent(\'/v1/accounts\', \'content\')" value="Accounts"/>' +
+            '<input id="accounts" class="btn" type="button"  onclick="getContent(\'/v1/accounts\', \'content\')" value="Accounts"/>' +
             '</th>');
         $('#' + placeholderId).append(
             '<th>' +
-            '<input id="logout" type="button"  onclick="getContent(\'/v1/currencies\', \'content\')" value="Currencies"/>' +
+            '<input id="currencies" class="btn" type="button"  onclick="getContent(\'/v1/currencies\', \'content\')" value="Currencies"/>' +
             '</th>');
         $('#' + placeholderId).append(
             '<th>' +
-            '<input id="logout" type="button"  onclick="getContent(\'/v1/contractors\', \'content\')" value="Contractors"/>' +
+            '<input id="contractors" class="btn" type="button"  onclick="getContent(\'/v1/contractors\', \'content\')" value="Contractors"/>' +
             '</th>');
         $('#' + placeholderId).append(
             '<th>' +
-            '<input id="logout" type="button"  onclick="getContent(\'/v1/categories\', \'content\')" value="Categories"/>' +
+            '<input id="categories" class="btn" type="button"  onclick="getContent(\'/v1/categories\', \'content\')" value="Categories"/>' +
             '</th>');
         $('#' + placeholderId).append(
             '<th>' +
-            '<input id="logout" type="button"  onclick="getContent(\'/v1/orders\', \'content\')" value="Orders"/>' +
+            '<input id="orders" class="btn" type="button"  onclick="getContent(\'/v1/orders\', \'content\')" value="Orders"/>' +
             '</th>');
         if ($.cookie('role') == 'ROLE_ADMIN') {
             $('#' + placeholderId).append('<th>Your admin room can be here.</th>');
         }
         $('#' + placeholderId).append('<th>' + '<font color="#6495ed" size="4">' + $.cookie('name') + '  </font>' +
-            '<input id="logout" type="button" onclick="logout()" value="Logout" />' +
+            '<input id="logout" class="btn" type="button" onclick="logout()" value="Logout" />' +
             '</th>');
 
     }
     else {
         $('#' + placeholderId).append(
             '<th>' +
-            '<input id="logout" type="button" onclick="chooseLogin(\'content\')" value="LogIn">' +
+            '<input id="login" class="btn" type="button" onclick="chooseLogin(\'content\')" value="LogIn">' +
             '</th>');
         $('#' + placeholderId).append(
             '<th>' +
-            '<input id="logout" type="button" onclick="chooseSignup(\'content\')" value="SignUp">' +
+            '<input id="signup" class="btn" type="button" onclick="chooseSignup(\'content\')" value="SignUp">' +
             '</th>');
     }
 }
