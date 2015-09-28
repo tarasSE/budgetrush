@@ -15,13 +15,19 @@
 	<security:http pattern="/oauth/token" create-session="stateless"
 		authentication-manager-ref="authenticationManager">
 		<security:intercept-url pattern="/oauth/token"
-			access='isAuthenticated()'/>
+			access='isAuthenticated()' requires-channel="https"/>
 		<security:anonymous enabled="false" />
 		<security:http-basic entry-point-ref="clientAuthenticationEntryPoint" />
 		<security:custom-filter ref="clientCredentialsTokenEndpointFilter"
 			before="BASIC_AUTH_FILTER" />
 		<security:access-denied-handler ref="oauthAccessDeniedHandler" />
 		<security:csrf disabled="true" />
+		<security:headers>
+			<security:hsts
+
+					include-subdomains="true"
+					max-age-seconds=" 63072000" />
+		</security:headers>
 	</security:http>
 	
 	<bean id="oauthAuthenticationEntryPoint"

@@ -3,6 +3,7 @@ function requestToken(name, password) {
         url: '/oauth/token?client_id=rest_id&client_secret=rest_key&grant_type=password&' +
         'username=' + name +
         '&password=' + password,
+        secure: true,
         dataType: 'json',
         type: 'POST'
     })

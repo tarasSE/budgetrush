@@ -10,11 +10,11 @@
 
 
 	<!-- REST API Endpoints -->
-	<http pattern="/v1/**" create-session="never"
+	<http pattern="/*" create-session="never"
 		authentication-manager-ref="authenticationManager"
 		entry-point-ref="oauthAuthenticationEntryPoint"
 		xmlns="http://www.springframework.org/schema/security">
-		<intercept-url pattern="/v1/**" requires-channel="https"/>
+		<intercept-url pattern="/*" requires-channel="https"/>
 		<custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
 		<access-denied-handler ref="oauthAccessDeniedHandler" />
 		<csrf disabled="true" />
