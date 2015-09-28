@@ -5,6 +5,13 @@
     <title>Budget Rush</title>
     <meta charset="utf-8">
     #include("WEB-INF/views/imports.htm")
+    <script>
+        if(!$.cookie('role') && $.cookie('is_authorised')){
+            getRole($.cookie('name'));
+
+        }
+
+    </script>
 
 </head>
 <body>

@@ -15,12 +15,12 @@ function requestToken(name, password) {
             $.cookie('is_authorised', 1);
             $.cookie('name', name);
 
+
             window.location.reload()
         })
         .fail(function () {
             alert("Incorrect name or password!");
         });
-
 }
 
 
@@ -61,16 +61,19 @@ function getToken() {
     return $.cookie('access_token');
 }
 
-function getRole(name, password){
+function getRole(name) {
+
     $.ajax({
         url: '/v1/users/role/' + name +
-        '&'+
-        password,
+        '?access_token=' +
+        $.cookie('access_token'),
         dataType: 'json',
         type: 'GET'
     })
         .done(function (data) {
             $.cookie('role', data.role);
+
+            location.reload()
         });
 }
 

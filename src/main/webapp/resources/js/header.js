@@ -1,5 +1,6 @@
 function createHeader(placeholderId) {
     $('#' + placeholderId).empty();
+
     var isAuthorise = $.cookie('is_authorised');
 
     if (isAuthorise == '1') {

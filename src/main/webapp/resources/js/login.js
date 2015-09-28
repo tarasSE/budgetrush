@@ -32,9 +32,8 @@ function login() {
 
     requestToken(name, password);
 
-    getRole(name, password);
-
     console.log('Login successful');
+
 }
 
 function logout() {
