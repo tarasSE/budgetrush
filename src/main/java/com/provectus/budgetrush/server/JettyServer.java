@@ -23,7 +23,8 @@ class JettyServer implements WebServer {
 
     private static final String CONTEXT_PATH = "/";
 
-    private static final File  keystoreFile = new File("my-release-key.keystore");
+    private static final String keyStorePath = JettyServer.class.getResource("/my-release-key.keystore")
+            .toExternalForm().replaceAll("file:","");
 
     private Server jettyServer;
 
@@ -76,7 +77,7 @@ class JettyServer implements WebServer {
 
 
         SslContextFactory sslContextFactory = new SslContextFactory();
-        sslContextFactory.setKeyStorePath("/home/taras/Budget_Rush/src/main/resources/my-release-key.keystore");//todo
+        sslContextFactory.setKeyStorePath(keyStorePath);//todo
         sslContextFactory.setKeyStorePassword("budgetrushprovectus");
         sslContextFactory.setKeyManagerPassword("budgetrushprovectus");
 
