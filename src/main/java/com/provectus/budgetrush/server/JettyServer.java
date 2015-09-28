@@ -1,6 +1,7 @@
 package com.provectus.budgetrush.server;
 
 import com.google.common.base.Preconditions;
+import com.google.common.io.Resources;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.http.HttpVersion;
 import org.eclipse.jetty.server.*;
@@ -14,7 +15,7 @@ class JettyServer implements WebServer {
 
     private static final int DEFAULT_PORT = 8080;
 
-    private  static  final  int SECURE_PORT = 8443;
+    private static final int SECURE_PORT = 8443;
 
     private static final String JAR_PATH = JettyServer.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     private static final String DIR_PATH = new File(JAR_PATH).getParent();
@@ -23,8 +24,7 @@ class JettyServer implements WebServer {
 
     private static final String CONTEXT_PATH = "/";
 
-    private static final String keyStorePath = JettyServer.class.getResource("/my-release-key.keystore")
-            .toExternalForm().replaceAll("file:","");
+    private static final String keyStorePath = Resources.getResource("my-release-key.keystore").toExternalForm();
 
     private Server jettyServer;
 
@@ -37,13 +37,13 @@ class JettyServer implements WebServer {
 
     @Override
     public void start() {
+        log.info(keyStorePath);
         Preconditions.checkState(port != 0, "Port is not specified");
         System.out.println();
         WebAppContext webAppContext = createContext();
         jettyServer = new Server(port);
         jettyServer.setConnectors(createConnectors());
         jettyServer.setHandler(webAppContext);
-
 
 
         try {
@@ -63,7 +63,7 @@ class JettyServer implements WebServer {
         return webAppContext;
     }
 
-    private Connector[] createConnectors(){
+    private Connector[] createConnectors() {
         HttpConfiguration http_config = new HttpConfiguration();
         http_config.setSecureScheme("https");
         http_config.setSecurePort(8443);
