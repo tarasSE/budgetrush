@@ -23,6 +23,9 @@ public class UserService extends GenericService<User, UserRepository> {
     @Override
     public User createOrUpdate(User user) {
         String hexPassword = DigestUtils.md5Hex(user.getPassword());
+        if (user.getId() != 0) {
+            user.setRole(getById(user.getId()).getRole());
+        }
         user.setPassword(hexPassword);
         return getRepository().saveAndFlush(user);
     }
