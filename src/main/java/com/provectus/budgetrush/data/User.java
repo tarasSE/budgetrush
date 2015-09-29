@@ -29,7 +29,6 @@ public class User {
     private String name;
 
     @NotEmpty
-
     private String password;
 
     @Enumerated(EnumType.ORDINAL)
