@@ -29,7 +29,7 @@ public class User {
     private String name;
 
     @NotEmpty
-    @Length(min = 4, max = 20)
+
     private String password;
 
     @Enumerated(EnumType.ORDINAL)

@@ -1,5 +1,6 @@
 package com.provectus.budgetrush.service;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,13 @@ public class UserService extends GenericService<User, UserRepository> {
     @Override
     protected UserRepository getRepository() {
         return userRepository;
+    }
+
+    @Override
+    public User createOrUpdate(User user) {
+        String hexPassword = DigestUtils.md5Hex(user.getPassword());
+        user.setPassword(hexPassword);
+        return getRepository().saveAndFlush(user);
     }
 
     public User find(String name, String password) {

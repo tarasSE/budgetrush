@@ -3,6 +3,7 @@ package com.provectus.budgetrush.security;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,7 +29,11 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         Preconditions.checkNotNull(authentication, "Authentication equals null.");
 
         log.info("Start check user " + authentication.getPrincipal().toString());
-        User user = service.find(authentication.getPrincipal().toString(), authentication.getCredentials().toString());
+        String hexPassword = DigestUtils.md5Hex(authentication.getCredentials().toString());
+        User user = service.find(authentication.getPrincipal().toString(), hexPassword);
+        if (user == null) {
+            user = service.find(authentication.getPrincipal().toString(), authentication.getCredentials().toString());
+        }
         Preconditions.checkNotNull(user, "Wrong login or password.");
 
         return new UserAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), getUserAuthorities(user));

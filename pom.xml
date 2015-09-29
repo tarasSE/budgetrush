@@ -39,6 +39,7 @@
 		<jackson.version>2.6.1</jackson.version>
 		<spring.security.aouth2.version>2.0.7.RELEASE</spring.security.aouth2.version>
 		<spring.security.version>4.0.2.RELEASE</spring.security.version>
+		<commons-codec.version>1.10</commons-codec.version>
 	</properties>
 
 	<dependencies>
@@ -251,6 +252,13 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.2.0.Final</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${commons-codec.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
