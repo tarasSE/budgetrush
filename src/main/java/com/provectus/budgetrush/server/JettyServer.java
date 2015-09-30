@@ -1,14 +1,22 @@
 package com.provectus.budgetrush.server;
 
-import com.google.common.base.Preconditions;
-import com.google.common.io.Resources;
-import lombok.extern.slf4j.Slf4j;
+import java.io.File;
+
 import org.eclipse.jetty.http.HttpVersion;
-import org.eclipse.jetty.server.*;
+import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.HttpConfiguration;
+import org.eclipse.jetty.server.HttpConnectionFactory;
+import org.eclipse.jetty.server.SecureRequestCustomizer;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.SslConnectionFactory;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-import java.io.File;
+import com.google.common.base.Preconditions;
+import com.google.common.io.Resources;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 class JettyServer implements WebServer {
@@ -45,7 +53,6 @@ class JettyServer implements WebServer {
         jettyServer.setConnectors(createConnectors());
         jettyServer.setHandler(webAppContext);
 
-
         try {
             jettyServer.start();
         } catch (Exception exception) {
@@ -71,29 +78,23 @@ class JettyServer implements WebServer {
         http_config.setSecurePort(8443);
         http_config.setOutputBufferSize(32768);
 
-
-        ServerConnector http = new ServerConnector(jettyServer,
-                new HttpConnectionFactory(http_config));
+        ServerConnector http = new ServerConnector(jettyServer, new HttpConnectionFactory(http_config));
         http.setPort(8080);
         http.setIdleTimeout(30000);
 
-
         SslContextFactory sslContextFactory = new SslContextFactory();
-        sslContextFactory.setKeyStorePath(keyStorePath);//todo
+        sslContextFactory.setKeyStorePath(keyStorePath);// todo
         sslContextFactory.setKeyStorePassword("budgetrushprovectus");
         sslContextFactory.setKeyManagerPassword("budgetrushprovectus");
 
         HttpConfiguration https_config = new HttpConfiguration(http_config);
         https_config.addCustomizer(new SecureRequestCustomizer());
 
-
-        ServerConnector https = new ServerConnector(jettyServer,
-                new SslConnectionFactory(sslContextFactory, HttpVersion.HTTP_1_1.asString()),
-                new HttpConnectionFactory(https_config));
+        ServerConnector https = new ServerConnector(jettyServer, new SslConnectionFactory(sslContextFactory, HttpVersion.HTTP_1_1.asString()), new HttpConnectionFactory(https_config));
         https.setPort(8443);
         https.setIdleTimeout(500000);
 
-        return new Connector[]{http, https};
+        return new Connector[] { http, https };
     }
 
     @Override

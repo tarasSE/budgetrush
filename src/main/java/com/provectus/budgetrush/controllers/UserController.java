@@ -1,12 +1,12 @@
 package com.provectus.budgetrush.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Preconditions;
-import com.provectus.budgetrush.data.Roles;
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.UserService;
-import lombok.extern.slf4j.Slf4j;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -18,12 +18,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import com.google.common.base.Preconditions;
+import com.provectus.budgetrush.data.Roles;
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.exceptions.CustomException;
+import com.provectus.budgetrush.service.UserService;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@PreAuthorize("hasRole('ROLE_USER')")
 @RequestMapping(value = "/v1/users", headers = "Accept=application/json")
 public class UserController {
 
@@ -84,18 +89,15 @@ public class UserController {
     @PreAuthorize("adminOnly() or isAnonymous()")
     @RequestMapping(method = POST)
     @ResponseBody
-    public String newUser(@RequestBody User user) {
-        ObjectMapper om = new ObjectMapper();
+    public User newUser(@RequestBody User user) {
         log.info("Save user " + user.getName());
         user.setId(0);
         user.setRole(Roles.ROLE_USER);
 
         try {
-            return om.writeValueAsString(service.createOrUpdate(user));
-        } catch (DataIntegrityViolationException ex) {
-            return "{\"exception\" : \"User already exist.\"}";
-        } catch (JsonProcessingException ex) {
-            return "{\"exception\" : \"JSON processing exception.\"}";
+            return service.createOrUpdate(user);
+        } catch (DataIntegrityViolationException exception) {
+            throw new CustomException("User already exist.");
         }
 
     }
