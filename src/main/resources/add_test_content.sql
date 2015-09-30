@@ -1,5 +1,5 @@
 INSERT INTO users (name, password, role)  VALUES ('admin', '1', 1);
-INSERT INTO users (name, password, role)  VALUES ('test', '1', 0);
+INSERT INTO users (name, password, role)  VALUES ('user', '1', 0);
 INSERT INTO users (name, password, role)  VALUES ('test_user_2', '2222', 0);
 INSERT INTO users (name, password, role)  VALUES ('test_user_3', '3333', 0);
 INSERT INTO users (name, password, role)  VALUES ('test_user_4', '4444', 0);
