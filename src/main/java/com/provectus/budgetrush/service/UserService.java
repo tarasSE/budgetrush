@@ -1,6 +1,7 @@
 package com.provectus.budgetrush.service;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,11 +32,19 @@ public class UserService extends GenericService<User, UserRepository> {
     }
 
     public User find(String name, String password) {
-        return getRepository().findByNameAndPassword(name, password);
+        User user = getRepository().findByNameAndPassword(name, password);
+        if (user == null) {
+            throw new ResourceNotFoundException("User");
+        }
+        return user;
     }
 
     public User find(String name) {
-        return getRepository().findByName(name);
+        User user = getRepository().findByName(name);
+        if (user == null) {
+            throw new ResourceNotFoundException("User");
+        }
+        return user;
     }
 
     public Enum<?> getRoleByName(String name) {
