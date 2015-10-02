@@ -47,23 +47,21 @@ public class OrderController {
         return service.getById(id);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#order, 'wright')")
+    @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
     @RequestMapping(method = POST)
     @ResponseBody
     public Order create(@RequestBody Order order) {
         log.info("Create/update new order");
-        order.setId(0);
-        service.createOrUpdate(order);
+        service.create(order);
         return order;
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#order, 'wright')")
+    @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Order update(@RequestBody Order order, @PathVariable Integer id) {
         log.info("Create/update order id " + id);
-        order.setId(id);
-        service.createOrUpdate(order);
+        service.update(order, id);
         return order;
     }
 

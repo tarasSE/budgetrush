@@ -8,7 +8,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.common.base.Preconditions;
 import com.provectus.budgetrush.data.Roles;
 import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.exceptions.CustomException;
 import com.provectus.budgetrush.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -75,7 +73,7 @@ public class UserController {
         Preconditions.checkNotNull(user, "User not found.");
         Roles role = Roles.valueOf(strRole);
         user.setRole(role);
-        service.createOrUpdate(user);
+        service.create(user);
 
     }
 
@@ -91,24 +89,16 @@ public class UserController {
     @ResponseBody
     public User newUser(@RequestBody User user) {
         log.info("Save user " + user.getName());
-        user.setId(0);
-        user.setRole(Roles.ROLE_USER);
-
-        try {
-            return service.createOrUpdate(user);
-        } catch (DataIntegrityViolationException exception) {
-            throw new CustomException("User already exist.");
-        }
+        return service.create(user);
 
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#user, 'wright')")
+    @PreAuthorize("isObjectOwnerOrAdmin(#user, 'write')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public User saveUser(@RequestBody User user, @PathVariable Integer id) {
         log.info("Save user " + user.getName());
-        user.setId(id);
-        return service.createOrUpdate(user);
+        return service.update(user, id);
     }
 
 }

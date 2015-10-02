@@ -53,7 +53,7 @@ public class CategoriesTest {
 
         category.setName(Integer.toString(random.nextInt()));
         category.setParent(null);
-        return service.createOrUpdate(category);
+        return service.create(category);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class CategoriesTest {
         Category category = saveTestCategory();
         Category category1 = saveTestCategory();
         category.setParent(category1);
-        service.createOrUpdate(category);
+        service.create(category);
 
         assertNotNull(category.getParent());
         log.info("id1 " + category.getId() + " id2 " + category1.getId());

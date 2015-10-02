@@ -59,25 +59,24 @@ public class AccountController {
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
+        log.info("Delete account by id " + id);
         service.delete(id);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#user, 'wright')")
+    @PreAuthorize("isObjectOwnerOrAdmin(#user, 'write')")
     @RequestMapping(method = POST)
     @ResponseBody
     public Account newUser(@RequestBody Account account) {
         log.info("Save account " + account.getName());
-        account.setId(0);
-        return service.createOrUpdate(account);
+        return service.create(account);
 
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#user, 'wright')")
+    @PreAuthorize("isObjectOwnerOrAdmin(#user, 'write')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Account saveUser(@RequestBody Account account, @PathVariable Integer id) {
         log.info("Save account " + account.getName());
-        account.setId(id);
-        return service.createOrUpdate(account);
+        return service.update(account, id);
     }
 }

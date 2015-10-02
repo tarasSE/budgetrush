@@ -22,13 +22,17 @@ public class UserService extends GenericService<User, UserRepository> {
     }
 
     @Override
-    public User createOrUpdate(User user) {
+    public User create(User user) {
         String hexPassword = DigestUtils.md5Hex(user.getPassword());
-        if (user.getId() != 0) {
-            user.setRole(getById(user.getId()).getRole());
-        }
         user.setPassword(hexPassword);
-        return getRepository().saveAndFlush(user);
+        return super.create(user);
+    }
+
+    @Override
+    public User update(User user, int id) {
+        String hexPassword = DigestUtils.md5Hex(user.getPassword());
+        user.setPassword(hexPassword);
+        return super.update(user, id);
     }
 
     public User find(String name, String password) {
