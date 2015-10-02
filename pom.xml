@@ -263,13 +263,6 @@
 			<version>${commons-codec.version}</version>
 		</dependency>
 
-		<!-- it's for getResource() -->
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>${guava.version}</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
