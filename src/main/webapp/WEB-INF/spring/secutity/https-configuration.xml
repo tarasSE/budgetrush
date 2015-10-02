@@ -23,9 +23,6 @@
 					include-subdomains="true"
 					max-age-seconds=" 63072000" />
 		</headers>
-		<port-mappings>
-			<port-mapping http="9090" https="9443"/>
-		</port-mappings>
 	</http>
 
 </beans>
