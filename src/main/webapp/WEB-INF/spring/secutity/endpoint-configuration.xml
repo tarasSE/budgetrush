@@ -24,7 +24,7 @@
 					max-age-seconds=" 63072000" />
 		</headers>
 		<port-mappings>
-			<port-mapping http="8080" https="8443"/>
+			<port-mapping http="9090" https="9443"/>
 		</port-mappings>
 	</http>
 

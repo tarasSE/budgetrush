@@ -29,7 +29,7 @@
 					max-age-seconds=" 63072000" />
 		</security:headers>
 		<security:port-mappings>
-			<security:port-mapping http="8080" https="8443"/>
+			<security:port-mapping http="9090" https="9443"/>
 		</security:port-mappings>
 	</security:http>
 	

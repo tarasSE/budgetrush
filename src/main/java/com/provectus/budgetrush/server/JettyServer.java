@@ -1,29 +1,23 @@
 package com.provectus.budgetrush.server;
 
-import java.io.File;
-
+import com.google.common.base.Preconditions;
+import com.google.common.io.Resources;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.http.HttpVersion;
-import org.eclipse.jetty.server.Connector;
-import org.eclipse.jetty.server.HttpConfiguration;
-import org.eclipse.jetty.server.HttpConnectionFactory;
-import org.eclipse.jetty.server.SecureRequestCustomizer;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.SslConnectionFactory;
+import org.eclipse.jetty.server.*;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-import com.google.common.base.Preconditions;
-import com.google.common.io.Resources;
-
-import lombok.extern.slf4j.Slf4j;
+import java.io.File;
 
 @Slf4j
 class JettyServer implements WebServer {
 
-    private static final int DEFAULT_PORT = 8080;
+    private static final int DEFAULT_PORT = 9090;
 
-    private static final int SECURE_PORT = 8443;
+    private static final int SECURE_PORT = 9443;
+
+    private static final String HOST = "46.101.220.157";
 
     private static final String JAR_PATH = JettyServer.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     private static final String DIR_PATH = new File(JAR_PATH).getParent();
@@ -75,15 +69,16 @@ class JettyServer implements WebServer {
     private Connector[] createConnectors() {
         HttpConfiguration http_config = new HttpConfiguration();
         http_config.setSecureScheme("https");
-        http_config.setSecurePort(8443);
+        http_config.setSecurePort(SECURE_PORT);
         http_config.setOutputBufferSize(32768);
 
         ServerConnector http = new ServerConnector(jettyServer, new HttpConnectionFactory(http_config));
-        http.setPort(8080);
+        http.setHost(HOST);
+        http.setPort(DEFAULT_PORT);
         http.setIdleTimeout(30000);
 
         SslContextFactory sslContextFactory = new SslContextFactory();
-        sslContextFactory.setKeyStorePath(keyStorePath);// todo
+        sslContextFactory.setKeyStorePath(keyStorePath);
         sslContextFactory.setKeyStorePassword("budgetrushprovectus");
         sslContextFactory.setKeyManagerPassword("budgetrushprovectus");
 
@@ -91,10 +86,11 @@ class JettyServer implements WebServer {
         https_config.addCustomizer(new SecureRequestCustomizer());
 
         ServerConnector https = new ServerConnector(jettyServer, new SslConnectionFactory(sslContextFactory, HttpVersion.HTTP_1_1.asString()), new HttpConnectionFactory(https_config));
-        https.setPort(8443);
+        https.setHost(HOST);
+        https.setPort(SECURE_PORT);
         https.setIdleTimeout(500000);
 
-        return new Connector[] { http, https };
+        return new Connector[]{http, https};
     }
 
     @Override
