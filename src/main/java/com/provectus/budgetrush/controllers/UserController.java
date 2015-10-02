@@ -76,7 +76,7 @@ public class UserController {
 
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#user, 'write')")
+    @PreAuthorize("isObjectOwnerOrAdmin(#user, 'write') and chageRolePermission(#user)")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public User saveUser(@RequestBody User user, @PathVariable Integer id) {

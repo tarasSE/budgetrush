@@ -42,7 +42,7 @@ public class UserPermissionEvaluator implements PermissionEvaluator {
         } else if (object instanceof Order) {
             return ((Order) object).getAccount().getUser();
         } else {
-            throw new RuntimeException("Unown class.");
+            throw new RuntimeException("Unknown class.");
         }
 
     }
