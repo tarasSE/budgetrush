@@ -95,7 +95,7 @@ public class CategoriesTest {
         Category category = saveTestCategory();
         Category category1 = saveTestCategory();
         category.setParent(category1);
-        service.create(category);
+        service.update(category, category.getId());
 
         assertNotNull(category.getParent());
         log.info("id1 " + category.getId() + " id2 " + category1.getId());

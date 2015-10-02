@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.provectus.budgetrush.data.Roles;
 import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.repository.UserRepository;
 
@@ -25,6 +26,7 @@ public class UserService extends GenericService<User, UserRepository> {
     public User create(User user) {
         String hexPassword = DigestUtils.md5Hex(user.getPassword());
         user.setPassword(hexPassword);
+        user.setRole(Roles.ROLE_USER);
         return super.create(user);
     }
 

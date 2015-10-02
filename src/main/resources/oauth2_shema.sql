@@ -17,6 +17,9 @@ CREATE TABLE oauth_client_details (
 INSERT INTO oauth_client_details(client_id, resource_ids, client_secret, scope, authorized_grant_types, authorities, access_token_validity, refresh_token_validity)
 VALUES ('rest_id', 'springsec', 'rest_key', 'trust,read,write', 'client_credentials,password,refresh_token', 'ROLE_USER', '1800', '45000');
 
+INSERT INTO oauth_client_details(client_id, resource_ids, client_secret, scope, authorized_grant_types, authorities, access_token_validity, refresh_token_validity)
+VALUES ('ios_id', 'springsec', 'ios_key', 'trust,read,write', 'client_credentials,password,refresh_token', 'ROLE_USER', '1800', '45000');
+
   CREATE TABLE oauth_access_token (
   token_id varchar(256) DEFAULT NULL,
   token blob,

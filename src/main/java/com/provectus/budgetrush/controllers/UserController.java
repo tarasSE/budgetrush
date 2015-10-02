@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.common.base.Preconditions;
-import com.provectus.budgetrush.data.Roles;
 import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.service.UserService;
 
@@ -59,21 +57,6 @@ public class UserController {
         log.info("Send user role by name " + name);
         String role = service.getRoleByName(name).toString();
         return "{\"role\"" + ":" + "\"" + role + "\"}";
-
-    }
-
-    @PreAuthorize("adminOnly()")
-    @RequestMapping(value = "/role/{name}&{strRole}", method = PUT)
-    @ResponseBody
-    public void setRole(@PathVariable String name, @PathVariable String strRole) {
-
-        strRole = strRole.toUpperCase();
-        log.info("Set user role " + strRole + " by name " + name);
-        User user = service.find(name);
-        Preconditions.checkNotNull(user, "User not found.");
-        Roles role = Roles.valueOf(strRole);
-        user.setRole(role);
-        service.create(user);
 
     }
 

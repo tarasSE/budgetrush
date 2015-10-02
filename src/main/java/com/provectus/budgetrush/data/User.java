@@ -8,8 +8,6 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 
 @Data
@@ -25,7 +23,6 @@ public class User extends BaseEntity {
     private String password;
 
     @Enumerated(EnumType.ORDINAL)
-    @JsonIgnore
     private Roles role;
 
 }
