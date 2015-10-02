@@ -17,7 +17,9 @@ class JettyServer implements WebServer {
 
     private static final int SECURE_PORT = 9443;
 
-    private static final String HOST = "46.101.220.157";
+    //private static final String HOST = "46.101.220.157";
+
+    private static final String HOST = "localhost";
 
     private static final String JAR_PATH = JettyServer.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     private static final String DIR_PATH = new File(JAR_PATH).getParent();
