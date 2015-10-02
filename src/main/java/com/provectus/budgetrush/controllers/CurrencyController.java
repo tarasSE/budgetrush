@@ -54,8 +54,7 @@ public class CurrencyController {
     @ResponseBody
     public Currency newUser(@RequestBody Currency currency) {
         log.info("Save currency " + currency.getName());
-        currency.setId(0);
-        return service.createOrUpdate(currency);
+        return service.create(currency);
 
     }
 
@@ -64,7 +63,6 @@ public class CurrencyController {
     @ResponseBody
     public Currency saveUser(@RequestBody Currency currency, @PathVariable Integer id) {
         log.info("Save currency " + currency.getName());
-        currency.setId(id);
-        return service.createOrUpdate(currency);
+        return service.update(currency, id);
     }
 }

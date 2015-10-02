@@ -109,7 +109,7 @@ public class TransferOrdersTest {
         transferOrder.setIncomeOrder(order);
         transferOrder.setExpenseOrder(order1);
 
-        return service.createOrUpdate(transferOrder);
+        return service.create(transferOrder);
     }
 
     @Test

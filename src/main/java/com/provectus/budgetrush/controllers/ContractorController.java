@@ -47,23 +47,21 @@ public class ContractorController {
         return service.getById(id);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#contractor, 'wright')")
+    @PreAuthorize("isObjectOwnerOrAdmin(#contractor, 'write')")
     @RequestMapping(method = POST)
     @ResponseBody
     public Contractor create(@RequestBody Contractor contractor) {
         log.info("Create/update new contractor.");
-        contractor.setId(0);
-        service.createOrUpdate(contractor);
+        service.create(contractor);
         return contractor;
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#contractor, 'wright')")
+    @PreAuthorize("isObjectOwnerOrAdmin(#contractor, 'write')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Contractor update(@RequestBody Contractor contractor, @PathVariable Integer id) {
         log.info("Create/update contractor id " + id);
-        contractor.setId(id);
-        service.createOrUpdate(contractor);
+        service.update(contractor, id);
         return contractor;
     }
 

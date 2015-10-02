@@ -49,7 +49,7 @@ public class UsersTest {
 
         user.setName(Integer.toString(random.nextInt()));
         user.setPassword(Integer.toString(random.nextInt()));
-        return service.createOrUpdate(user);
+        return service.create(user);
     }
 
     @Test
