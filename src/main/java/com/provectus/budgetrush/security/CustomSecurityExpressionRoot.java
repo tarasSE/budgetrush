@@ -4,6 +4,9 @@ import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
 
+import com.google.common.base.Preconditions;
+import com.provectus.budgetrush.data.User;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -13,13 +16,15 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
     private Object returnObject;
     private Object target;
 
+    public CustomSecurityExpressionRoot(Authentication authentication) {
+        super(authentication);
+    }
+
     public boolean adminOnly() {
-        log.debug("haha -- check if this function is used by admin role only");
         return this.hasAuthority("ROLE_ADMIN");
     }
 
     public boolean isObjectOwnerOrAdmin(Object object, Object permission) {
-        log.debug("haha -- check if this function is used by owner");
         if (this.hasAuthority("ROLE_ADMIN")) {
             return true;
         }
@@ -27,8 +32,17 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
         return hasPermission(object, permission);
     }
 
-    public CustomSecurityExpressionRoot(Authentication a) {
-        super(a);
+    public boolean chageRolePermission(Object object) {
+
+        if (this.hasAuthority("ROLE_ADMIN")) {
+            return true;
+        }
+
+        User user = (User) object;
+
+        Preconditions.checkArgument(this.hasAuthority(user.getRole().name()), "You have not permission to change role");
+
+        return true;
     }
 
     public void setFilterObject(Object filterObject) {

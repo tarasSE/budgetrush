@@ -30,10 +30,20 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
         log.info("Start check user " + authentication.getPrincipal().toString());
         String hexPassword = DigestUtils.md5Hex(authentication.getCredentials().toString());
-        User user = service.find(authentication.getPrincipal().toString(), hexPassword);
-        if (user == null) {
-            user = service.find(authentication.getPrincipal().toString(), authentication.getCredentials().toString());
+        User user = null;
+        try {
+            user = service.find(authentication.getPrincipal().toString(), hexPassword);
+        } catch (Exception exception) {
+            log.info("Can`t find user by hex pass.");
         }
+        if (user == null) {
+            try {
+                user = service.find(authentication.getPrincipal().toString(), authentication.getCredentials().toString());
+            } catch (Exception exception) {
+                log.info("Can`t find user by pass.");
+            }
+        }
+
         Preconditions.checkNotNull(user, "Wrong login or password.");
 
         return new UserAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), getUserAuthorities(user));
