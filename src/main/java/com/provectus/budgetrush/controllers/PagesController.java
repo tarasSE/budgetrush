@@ -16,6 +16,12 @@ public class PagesController {
         return "content";
     }
 
+    @RequestMapping(value = "/", method = GET)
+    public String index(Map<String, Object> model) {
+
+        return "redirect:/content";
+    }
+
 
 
 
