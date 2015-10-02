@@ -4,16 +4,28 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.provectus.budgetrush.data.BaseEntity;
 import com.provectus.budgetrush.exceptions.CustomException;
 import com.provectus.budgetrush.exceptions.ResourceNotFoundException;
 
-public abstract class GenericService<E, R extends JpaRepository<E, Integer>> {
+public abstract class GenericService<E extends BaseEntity, R extends JpaRepository<E, Integer>> {
 
-    public E createOrUpdate(E entity) {
+    public E create(E entity) {
+        entity.setId(0);
         try {
             return getRepository().saveAndFlush(entity);
         } catch (Exception exception) {
-            throw new CustomException("Can`t save resource. " + exception);
+            throw new CustomException("Can`t create resource. " + exception);
+        }
+
+    }
+
+    public E update(E entity, int id) {
+        entity.setId(id);
+        try {
+            return getRepository().saveAndFlush(entity);
+        } catch (Exception exception) {
+            throw new CustomException("Can`t create resource. " + exception);
         }
 
     }
@@ -40,4 +52,5 @@ public abstract class GenericService<E, R extends JpaRepository<E, Integer>> {
     }
 
     protected abstract R getRepository();
+
 }

@@ -47,23 +47,21 @@ public class CategoryController {
         return service.getById(id);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#category, 'wright')")
+    @PreAuthorize("isObjectOwnerOrAdmin(#category, 'write')")
     @RequestMapping(method = POST)
     @ResponseBody
     public Category create(@RequestBody Category category) {
         log.info("Create/update category");
-        category.setId(0);
-        service.createOrUpdate(category);
+        service.create(category);
         return category;
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#category, 'wright')")
+    @PreAuthorize("isObjectOwnerOrAdmin(#category, 'write')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Category update(@RequestBody Category category, @PathVariable Integer id) {
         log.info("Create/update category id " + id);
-        category.setId(id);
-        service.createOrUpdate(category);
+        service.update(category, id);
         return category;
     }
 
