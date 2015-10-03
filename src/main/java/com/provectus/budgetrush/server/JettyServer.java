@@ -17,11 +17,7 @@ class JettyServer implements WebServer {
 
     private static int DEFAULT_PORT;
     private static int SECURE_PORT;
-    private static String HOST;
     private static String WEB_APP_ROOT;
-
-    //private static final String HOST = "46.101.220.157";
-
     private static String CONTEXT_PATH;
     private static final String JAR_PATH = JettyServer.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     private static final String DIR_PATH = new File(JAR_PATH).getParent();
@@ -47,7 +43,6 @@ class JettyServer implements WebServer {
             stream.close();
             DEFAULT_PORT = Integer.parseInt(properties.getProperty("server.default_port"));
             SECURE_PORT = Integer.parseInt(properties.getProperty("server.secure_port"));
-            HOST = properties.getProperty("server.host");
             WEB_APP_ROOT = properties.getProperty("server.package_name");
             CONTEXT_PATH = properties.getProperty("server.context_path");
         } catch (IOException e) {
@@ -90,7 +85,6 @@ class JettyServer implements WebServer {
         http_config.setOutputBufferSize(32768);
 
         ServerConnector http = new ServerConnector(jettyServer, new HttpConnectionFactory(http_config));
-        http.setHost(HOST);
         http.setPort(DEFAULT_PORT);
         http.setIdleTimeout(30000);
 
@@ -103,7 +97,6 @@ class JettyServer implements WebServer {
         https_config.addCustomizer(new SecureRequestCustomizer());
 
         ServerConnector https = new ServerConnector(jettyServer, new SslConnectionFactory(sslContextFactory, HttpVersion.HTTP_1_1.asString()), new HttpConnectionFactory(https_config));
-        https.setHost(HOST);
         https.setPort(SECURE_PORT);
         https.setIdleTimeout(500000);
 
