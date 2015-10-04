@@ -1,9 +1,14 @@
 package com.provectus.budgetrush.service;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.AmountMovement;
 import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.repository.OrderRepository;
 
@@ -17,5 +22,9 @@ public class OrderService extends GenericService<Order, OrderRepository> {
     @Override
     protected OrderRepository getRepository() {
         return orderRepository;
+    }
+
+    public List<AmountMovement> getAmountMovementsByAccount(Account account, Date startDate, Date endDate) {
+        return getRepository().getAmountMovementsByAccount(account, startDate, endDate);
     }
 }

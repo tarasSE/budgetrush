@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
@@ -24,11 +26,13 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.AmountMovement;
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.data.Contractor;
 import com.provectus.budgetrush.data.Currency;
 import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.service.AccountService;
 import com.provectus.budgetrush.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, OrderService.class })
+@ContextConfiguration(classes = { InMemoryConfig.class, OrderService.class, AccountService.class })
 @WebAppConfiguration
 public class OrdersTest {
 
@@ -47,6 +51,8 @@ public class OrdersTest {
 
     @Autowired
     private OrderService service;
+    @Autowired
+    private AccountService accountService;
 
     @Before
     public void setUp() throws Exception {
@@ -130,5 +136,24 @@ public class OrdersTest {
         service.delete(order.getId());
 
         log.info("id  " + order.getId());
+    }
+
+    @Test
+    public void getAmountMovement() {
+        Order order = saveTestOrder();
+        assertNotNull(order);
+        Account account = order.getAccount();
+
+        Calendar startDate = new GregorianCalendar(2015, 9, 4, 0, 0);
+        Calendar endDate = new GregorianCalendar(2015, 9, 4, 23, 59);
+        List<AmountMovement> ammounts = service.getAmountMovementsByAccount(account,
+                new Date(startDate.getTimeInMillis()), new Date(endDate.getTimeInMillis()));
+
+        assertNotNull(ammounts);
+        assertEquals(ammounts.isEmpty(), false);
+        for (AmountMovement amountMovement : ammounts) {
+            log.info("Amount movement :" + amountMovement.toString());
+        }
+
     }
 }
