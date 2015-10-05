@@ -88,7 +88,8 @@ public class OrdersTest {
 
         Order order = new Order();
         order.setAmount(valueOf(random.nextDouble()));
-        order.setDate(new Date());
+        Calendar startDate = new GregorianCalendar(2015, 9, 4, 14, 0);
+        order.setDate(new Date(startDate.getTimeInMillis()));
         order.setAccount(account);
         order.setCategory(category);
         order.setContractor(contractor);
