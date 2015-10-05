@@ -20,12 +20,12 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("SELECT NEW com.provectus.budgetrush.data.OrderStatistic("
             + "o.account, o.contractor, o.category, SUM(o.amount)) "
             + "FROM Order o "
-            + "WHERE o.account = :account "
+            + "WHERE o.account.id = :account_id "
             + "AND o.date BETWEEN :start_date AND :end_date "
             + "GROUP BY o.account, o.contractor, o.category")
-    public List<OrderStatistic> getAmountMovementsByAccount(@Param("account") Account account,
-                                                            @Param("start_date") Date startDate,
-                                                            @Param("end_date") Date endDate);
+    public List<OrderStatistic> getTurnoverByAccount(@Param("account_id") int accountId,
+                                                     @Param("start_date") Date startDate,
+                                                     @Param("end_date") Date endDate);
 
     @Query("SELECT NEW com.provectus.budgetrush.data.OrderStatistic("
             + "o.account, o.contractor, o.category, SUM(o.amount)) "
