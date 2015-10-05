@@ -30,7 +30,7 @@ INSERT INTO accounts (name, user_id, currency_id) VALUES ('test_account_2', 3, 3
 INSERT INTO accounts (name, user_id, currency_id) VALUES ('test_account_3', 4, 4);
 INSERT INTO accounts (name, user_id, currency_id) VALUES ('test_account_4', 5, 5);
 
-/*Ordes*/
+/*Income orders*/
 INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)
 VALUES (1111.00, '2015-09-04 18:07:46', 0, 1, 1, 1, NULL , NULL );
 INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)
@@ -41,6 +41,20 @@ INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, 
 VALUES (4444.00, '2015-09-04 18:07:46', 0, 4, 4, 4, NULL , NULL );
 INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)
 VALUES (5555.00, '2015-09-04 18:07:46', 0, 5, 5, 5, NULL , NULL );
+
+
+/*Expense orders*/
+INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)
+VALUES (-1111.00, '2015-09-04 18:07:46', 0, 1, 1, 1, NULL , NULL );
+INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)
+VALUES (-2222.00, '2015-09-04 18:07:46', 0, 2, 2, 2, NULL , NULL );
+INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)
+VALUES (-3333.00, '2015-09-04 18:07:46', 0, 3, 3, 3, NULL , NULL );
+INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)
+VALUES (-4444.00, '2015-09-04 18:07:46', 0, 4, 4, 4, NULL , NULL );
+INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)
+VALUES (-5555.00, '2015-09-04 18:07:46', 0, 5, 5, 5, NULL , NULL );
+
 
 /*Transfers*/
 INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)

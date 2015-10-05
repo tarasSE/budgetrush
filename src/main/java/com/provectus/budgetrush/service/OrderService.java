@@ -27,4 +27,12 @@ public class OrderService extends GenericService<Order, OrderRepository> {
     public List<OrderStatistic> getAmountMovementsByAccount(Account account, Date startDate, Date endDate) {
         return getRepository().getAmountMovementsByAccount(account, startDate, endDate);
     }
+
+    public List<OrderStatistic> getIncomeByAccount(Account account, Date startDate, Date endDate){
+        return getRepository().getIncomeByAccount(account, startDate, endDate);
+    }
+
+    public List<OrderStatistic> getExpenseByAccount(Account account, Date startDate, Date endDate){
+        return getRepository().getExpenseByAccount(account, startDate, endDate);
+    }
 }
