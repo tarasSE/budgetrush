@@ -51,7 +51,7 @@ public class OrderController {
     }
 
     @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
-    @RequestMapping(value = "/turnover", method = GET)
+    @RequestMapping(value = "statistics/turnover", method = GET)
     @ResponseBody
     public List<OrderStatistic> getTurnover(@RequestParam int accountId,
                                             @RequestParam long startDate,
