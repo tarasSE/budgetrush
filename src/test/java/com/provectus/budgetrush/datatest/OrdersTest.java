@@ -169,10 +169,10 @@ public class OrdersTest {
         assertNotNull(order);
         Account account = order.getAccount();
 
-        Calendar startDate = new GregorianCalendar(2015, 9, 4, 0, 0);
-        Calendar endDate = new GregorianCalendar(2015, 9, 4, 23, 59);
+        Date startDate = new Date(0000000000000);
+        Date endDate = new Date(999999999);
         List<OrderStatistic> expenses = service.getExpenseByAccount(account,
-                new Date(startDate.getTimeInMillis()), new Date(endDate.getTimeInMillis()));
+                startDate, endDate);
 
         assertNotNull(expenses);
         assertEquals(expenses.isEmpty(), false);

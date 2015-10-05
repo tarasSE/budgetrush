@@ -1,8 +1,8 @@
 package com.provectus.budgetrush.controllers;
 
 import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,7 @@ import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -43,63 +42,42 @@ public class OrderController {
     }
 
     @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
-    @RequestMapping(value = "/{account_id}+{start_date}+{finish_date}", method = GET)
+    @RequestMapping(value = "statistics/amount={accountId}+{startDate}+{finishDate}", method = GET)
     @ResponseBody
-    public List<OrderStatistic> getAmountMovements(@PathVariable Integer accountId,
-                                                   @PathVariable String startDate,
-                                                   @PathVariable String finishDate)  {
+    public List<OrderStatistic> getAmountMovement(@PathVariable Integer accountId,
+                                           @PathVariable long startDate,
+                                           @PathVariable long finishDate) {
 
         Account account = new Account();
         account.setId(accountId);
 
-        SimpleDateFormat format = new SimpleDateFormat();
-
-        try {
-            return service.getAmountMovementsByAccount(account, format.parse(startDate), format.parse(finishDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return service.getAmountMovementsByAccount(account, new Date(startDate), new Date(finishDate));
     }
 
     @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
-    @RequestMapping(value = "/income?{account_id}+{start_date}+{finish_date}", method = GET)
+    @RequestMapping(value = "statistics/income={accountId}+{startDate}+{finishDate}", method = GET)
     @ResponseBody
     public List<OrderStatistic> getIncome(@PathVariable Integer accountId,
-                                                   @PathVariable String startDate,
-                                                   @PathVariable String finishDate)  {
+                                           @PathVariable long startDate,
+                                           @PathVariable long finishDate) {
 
         Account account = new Account();
         account.setId(accountId);
 
-        SimpleDateFormat format = new SimpleDateFormat();
-
-        try {
-            return service.getIncomeByAccount(account, format.parse(startDate), format.parse(finishDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return service.getIncomeByAccount(account, new Date(startDate), new Date(finishDate));
     }
 
     @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
-    @RequestMapping(value = "/expense?{account_id}+{start_date}+{finish_date}", method = GET)
+    @RequestMapping(value = "statistics/expense={accountId}+{startDate}+{finishDate}", method = GET)
     @ResponseBody
     public List<OrderStatistic> getExpense(@PathVariable Integer accountId,
-                                          @PathVariable String startDate,
-                                          @PathVariable String finishDate)  {
+                                           @PathVariable long startDate,
+                                           @PathVariable long finishDate) {
 
         Account account = new Account();
         account.setId(accountId);
 
-        SimpleDateFormat format = new SimpleDateFormat();
-
-        try {
-            return service.getIncomeByAccount(account, format.parse(startDate), format.parse(finishDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return service.getExpenseByAccount(account, new Date(startDate), new Date(finishDate));
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
