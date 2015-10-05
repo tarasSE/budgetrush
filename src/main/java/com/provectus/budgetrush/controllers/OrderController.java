@@ -1,7 +1,7 @@
 package com.provectus.budgetrush.controllers;
 
 import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.AmountMovement;
+import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +45,7 @@ public class OrderController {
     @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
     @RequestMapping(value = "/{account_id}+{start_date}+{finish_date}", method = GET)
     @ResponseBody
-    public List<AmountMovement> getAmountMovements(@PathVariable Integer accountId,
+    public List<OrderStatistic> getAmountMovements(@PathVariable Integer accountId,
                                                    @PathVariable String startDate,
                                                    @PathVariable String finishDate)  {
 

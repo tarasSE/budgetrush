@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AmountMovement {
+public class OrderStatistic {
 
     private Account account;
     private Contractor contractor;

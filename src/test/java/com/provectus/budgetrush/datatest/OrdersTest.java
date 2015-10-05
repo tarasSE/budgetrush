@@ -26,7 +26,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.AmountMovement;
+import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.data.Contractor;
 import com.provectus.budgetrush.data.Currency;
@@ -147,12 +147,12 @@ public class OrdersTest {
 
         Calendar startDate = new GregorianCalendar(2015, 9, 4, 0, 0);
         Calendar endDate = new GregorianCalendar(2015, 9, 4, 23, 59);
-        List<AmountMovement> ammounts = service.getAmountMovementsByAccount(account,
+        List<OrderStatistic> ammounts = service.getAmountMovementsByAccount(account,
                 new Date(startDate.getTimeInMillis()), new Date(endDate.getTimeInMillis()));
 
         assertNotNull(ammounts);
         assertEquals(ammounts.isEmpty(), false);
-        for (AmountMovement amountMovement : ammounts) {
+        for (OrderStatistic amountMovement : ammounts) {
             log.info("Amount movement :" + amountMovement.toString());
         }
 

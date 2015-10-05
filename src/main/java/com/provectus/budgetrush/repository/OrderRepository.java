@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.AmountMovement;
+import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.data.Order;
 
 @Repository
@@ -23,7 +23,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             + "WHERE o.account = :account "
             + "AND o.date BETWEEN :start_date AND :end_date "
             + "GROUP BY o.account, o.contractor, o.category")
-    public List<AmountMovement> getAmountMovementsByAccount(@Param("account") Account account,
+    public List<OrderStatistic> getAmountMovementsByAccount(@Param("account") Account account,
                                                             @Param("start_date") Date startDate,
                                                             @Param("end_date") Date endDate);
 }

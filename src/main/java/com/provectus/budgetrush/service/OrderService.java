@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.AmountMovement;
+import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.repository.OrderRepository;
 
@@ -24,7 +24,7 @@ public class OrderService extends GenericService<Order, OrderRepository> {
         return orderRepository;
     }
 
-    public List<AmountMovement> getAmountMovementsByAccount(Account account, Date startDate, Date endDate) {
+    public List<OrderStatistic> getAmountMovementsByAccount(Account account, Date startDate, Date endDate) {
         return getRepository().getAmountMovementsByAccount(account, startDate, endDate);
     }
 }
