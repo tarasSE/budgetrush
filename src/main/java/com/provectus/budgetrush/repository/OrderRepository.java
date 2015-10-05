@@ -10,14 +10,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.OrderStatistic;
 
 @Repository
 @Transactional
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
-    @Query("SELECT NEW com.provectus.budgetrush.data.AmountMovement("
+    @Query("SELECT NEW com.provectus.budgetrush.data.OrderStatistic("
             + "o.account, o.contractor, o.category, SUM(o.amount)) "
             + "FROM Order o "
             + "WHERE o.account = :account "

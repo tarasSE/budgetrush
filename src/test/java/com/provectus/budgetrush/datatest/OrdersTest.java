@@ -26,11 +26,11 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.data.Contractor;
 import com.provectus.budgetrush.data.Currency;
 import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.service.AccountService;
 import com.provectus.budgetrush.service.OrderService;
@@ -51,8 +51,6 @@ public class OrdersTest {
 
     @Autowired
     private OrderService service;
-    @Autowired
-    private AccountService accountService;
 
     @Before
     public void setUp() throws Exception {
