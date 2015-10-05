@@ -32,7 +32,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             + "FROM Order o "
             + "WHERE o.account = :account "
             + "AND o.date BETWEEN :start_date AND :end_date "
-            + "AND o.amount > 0.0"
+            + "AND o.amount > 0.0 "
             + "GROUP BY o.account, o.contractor, o.category")
     public List<OrderStatistic> getIncomeByAccount(@Param("account") Account account,
                                                    @Param("start_date") Date startDate,
@@ -43,7 +43,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             + "FROM Order o "
             + "WHERE o.account = :account "
             + "AND o.date BETWEEN :start_date AND :end_date "
-            + "AND o.amount < 0.0"
+            + "AND o.amount < 0.0 "
             + "GROUP BY o.account, o.contractor, o.category")
     public List<OrderStatistic> getExpenseByAccount(@Param("account") Account account,
                                                     @Param("start_date") Date startDate,

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -178,13 +179,14 @@ public class OrdersTest {
     @Test
     public void getExpenseByAccount() {
         Order order = saveTestOrder();
+        order.setAmount(BigDecimal.valueOf(-656.00));
         assertNotNull(order);
         Account account = order.getAccount();
 
-        Calendar startDate = new GregorianCalendar(2015, 9, 4, 0, 0);
-        Calendar endDate = new GregorianCalendar(2015, 9, 4, 23, 59);
+        Date startDate = new Date(0000000000000);
+        Date endDate = new Date(999999999);
         List<OrderStatistic> expenses = service.getExpenseByAccount(account,
-                new Date(startDate.getTimeInMillis()), new Date(endDate.getTimeInMillis()));
+                startDate, endDate);
 
         assertNotNull(expenses);
         // assertEquals(expenses.isEmpty(), false);

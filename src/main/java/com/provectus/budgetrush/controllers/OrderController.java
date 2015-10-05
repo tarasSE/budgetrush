@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.provectus.budgetrush.data.Account;
 import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.service.OrderService;
@@ -59,6 +60,32 @@ public class OrderController {
 
         return service.getTurnoverByAccount(accountId, new Date(startDate), new Date(finishDate));
 
+    }
+
+    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @RequestMapping(value = "statistics/income={accountId}+{startDate}+{finishDate}", method = GET)
+    @ResponseBody
+    public List<OrderStatistic> getIncome(@PathVariable Integer accountId,
+                                          @PathVariable long startDate,
+                                          @PathVariable long finishDate) {
+
+        Account account = new Account();
+        account.setId(accountId);
+
+        return service.getIncomeByAccount(account, new Date(startDate), new Date(finishDate));
+    }
+
+    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @RequestMapping(value = "statistics/expense={accountId}+{startDate}+{finishDate}", method = GET)
+    @ResponseBody
+    public List<OrderStatistic> getExpense(@PathVariable Integer accountId,
+                                           @PathVariable long startDate,
+                                           @PathVariable long finishDate) {
+
+        Account account = new Account();
+        account.setId(accountId);
+
+        return service.getExpenseByAccount(account, new Date(startDate), new Date(finishDate));
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
