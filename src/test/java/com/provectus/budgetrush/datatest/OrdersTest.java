@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.math.BigDecimal;
 import java.util.*;
 
 import static java.math.BigDecimal.valueOf;
@@ -164,6 +165,7 @@ public class OrdersTest {
     @Test
     public void getExpenseByAccount() {
         Order order = saveTestOrder();
+        order.setAmount(BigDecimal.valueOf(-656.00));
         assertNotNull(order);
         Account account = order.getAccount();
 
