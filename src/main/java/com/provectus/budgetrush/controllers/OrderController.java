@@ -62,6 +62,46 @@ public class OrderController {
         return null;
     }
 
+    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @RequestMapping(value = "/income?{account_id}+{start_date}+{finish_date}", method = GET)
+    @ResponseBody
+    public List<OrderStatistic> getIncome(@PathVariable Integer accountId,
+                                                   @PathVariable String startDate,
+                                                   @PathVariable String finishDate)  {
+
+        Account account = new Account();
+        account.setId(accountId);
+
+        SimpleDateFormat format = new SimpleDateFormat();
+
+        try {
+            return service.getIncomeByAccount(account, format.parse(startDate), format.parse(finishDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @RequestMapping(value = "/expense?{account_id}+{start_date}+{finish_date}", method = GET)
+    @ResponseBody
+    public List<OrderStatistic> getExpense(@PathVariable Integer accountId,
+                                          @PathVariable String startDate,
+                                          @PathVariable String finishDate)  {
+
+        Account account = new Account();
+        account.setId(accountId);
+
+        SimpleDateFormat format = new SimpleDateFormat();
+
+        try {
+            return service.getIncomeByAccount(account, format.parse(startDate), format.parse(finishDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
     @RequestMapping(method = POST)
     @ResponseBody
