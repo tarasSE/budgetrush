@@ -53,9 +53,9 @@ public class OrderController {
     @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
     @RequestMapping(value = "/turnover", method = GET)
     @ResponseBody
-    public List<OrderStatistic> getAmountMovements(@RequestParam int accountId,
-                                                   @RequestParam long startDate,
-                                                   @RequestParam long finishDate) {
+    public List<OrderStatistic> getTurnover(@RequestParam int accountId,
+                                            @RequestParam long startDate,
+                                            @RequestParam long finishDate) {
 
         return service.getTurnoverByAccount(accountId, new Date(startDate), new Date(finishDate));
 
