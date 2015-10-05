@@ -1,21 +1,10 @@
 package com.provectus.budgetrush.datatest;
 
-import static java.math.BigDecimal.valueOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import com.provectus.budgetrush.data.*;
+import com.provectus.budgetrush.data.Currency;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,17 +15,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Contractor;
-import com.provectus.budgetrush.data.Currency;
-import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.data.OrderStatistic;
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.AccountService;
-import com.provectus.budgetrush.service.OrderService;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.math.BigDecimal;
+import java.util.*;
 
-import lombok.extern.slf4j.Slf4j;
+import static java.math.BigDecimal.valueOf;
+import static org.junit.Assert.*;
 
 @Slf4j
 @DirtiesContext
@@ -160,13 +146,13 @@ public class OrdersTest {
     @Test
     public void getIncomeByAccount() {
         Order order = saveTestOrder();
+        order.setAmount(BigDecimal.valueOf(-656.00));
         assertNotNull(order);
         Account account = order.getAccount();
 
-        Calendar startDate = new GregorianCalendar(2015, 9, 4, 0, 0);
-        Calendar endDate = new GregorianCalendar(2015, 9, 4, 23, 59);
-        List<OrderStatistic> incomes = service.getIncomeByAccount(account,
-                new Date(startDate.getTimeInMillis()), new Date(endDate.getTimeInMillis()));
+        Date startDate = new Date(0);
+        Date endDate = new Date();
+        List<OrderStatistic> incomes = service.getIncomeByAccount(order.getAccount().getId(), startDate, endDate);
 
         assertNotNull(incomes);
         assertEquals(incomes.isEmpty(), false);
@@ -183,9 +169,9 @@ public class OrdersTest {
         assertNotNull(order);
         Account account = order.getAccount();
 
-        Date startDate = new Date(0000000000000);
-        Date endDate = new Date(999999999);
-        List<OrderStatistic> expenses = service.getExpenseByAccount(account,
+        Date startDate = new Date(0);
+        Date endDate = new Date();
+        List<OrderStatistic> expenses = service.getExpenseByAccount(order.getAccount().getId(),
                 startDate, endDate);
 
         assertNotNull(expenses);

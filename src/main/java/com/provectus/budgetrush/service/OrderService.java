@@ -1,16 +1,14 @@
 package com.provectus.budgetrush.service;
 
-import java.util.Date;
-import java.util.List;
-
+import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.OrderStatistic;
+import com.provectus.budgetrush.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.data.OrderStatistic;
-import com.provectus.budgetrush.repository.OrderRepository;
+import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
