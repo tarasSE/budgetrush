@@ -27,7 +27,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
                                                             @Param("start_date") Date startDate,
                                                             @Param("end_date") Date endDate);
 
-
     @Query("SELECT NEW com.provectus.budgetrush.data.OrderStatistic("
             + "o.account, o.contractor, o.category, SUM(o.amount)) "
             + "FROM Order o "
@@ -38,7 +37,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     public List<OrderStatistic> getIncomeByAccount(@Param("account") Account account,
                                                    @Param("start_date") Date startDate,
                                                    @Param("end_date") Date endDate);
-
 
     @Query("SELECT NEW com.provectus.budgetrush.data.OrderStatistic("
             + "o.account, o.contractor, o.category, SUM(o.amount)) "
@@ -51,5 +49,3 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
                                                     @Param("start_date") Date startDate,
                                                     @Param("end_date") Date endDate);
 }
-
-

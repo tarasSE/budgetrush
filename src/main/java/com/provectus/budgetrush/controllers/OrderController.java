@@ -1,21 +1,31 @@
 package com.provectus.budgetrush.controllers;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.OrderStatistic;
-import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.service.OrderService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PostFilter;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.OrderStatistic;
+import com.provectus.budgetrush.exceptions.CustomException;
+import com.provectus.budgetrush.service.OrderService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequestMapping(value = "/v1/orders", headers = "Accept=application/json")
@@ -47,7 +57,7 @@ public class OrderController {
     @ResponseBody
     public List<OrderStatistic> getAmountMovements(@PathVariable Integer accountId,
                                                    @PathVariable String startDate,
-                                                   @PathVariable String finishDate)  {
+                                                   @PathVariable String finishDate) {
 
         Account account = new Account();
         account.setId(accountId);
@@ -56,10 +66,9 @@ public class OrderController {
 
         try {
             return service.getAmountMovementsByAccount(account, format.parse(startDate), format.parse(finishDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } catch (ParseException exception) {
+            throw new CustomException("Can`t get amount movements. " + exception);
         }
-        return null;
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
