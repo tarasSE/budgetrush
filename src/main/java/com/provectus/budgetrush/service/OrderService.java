@@ -28,11 +28,11 @@ public class OrderService extends GenericService<Order, OrderRepository> {
         return getRepository().getTurnoverByAccount(accountId, startDate, endDate);
     }
 
-    public List<OrderStatistic> getIncomeByAccount(Account account, Date startDate, Date endDate) {
-        return getRepository().getIncomeByAccount(account, startDate, endDate);
+    public List<OrderStatistic> getIncomeByAccount(int accountId, Date startDate, Date endDate) {
+        return getRepository().getIncomeByAccount(accountId, startDate, endDate);
     }
 
-    public List<OrderStatistic> getExpenseByAccount(Account account, Date startDate, Date endDate) {
-        return getRepository().getExpenseByAccount(account, startDate, endDate);
+    public List<OrderStatistic> getExpenseByAccount(int accountId, Date startDate, Date endDate) {
+        return getRepository().getExpenseByAccount(accountId, startDate, endDate);
     }
 }
