@@ -47,9 +47,7 @@ public class AccountController {
     public Account getById(@PathVariable Integer id) {
         log.info("Get account by id " + id);
         Account account = service.getById(id);
-        if (account != null) {
-            log.info("Send account " + account.getName());
-        }
+        log.info("Send account " + account.getName());
 
         return account;
 
