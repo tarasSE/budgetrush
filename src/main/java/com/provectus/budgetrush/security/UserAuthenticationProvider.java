@@ -34,14 +34,14 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         try {
             user = service.find(authentication.getPrincipal().toString(), hexPassword);
         } catch (Exception exception) {
-            log.info("Can`t find user by hex pass.");
+            log.info("Can`t find user by hex pass. " + exception);
         }
         if (user == null) {
             try {
                 user = service.find(authentication.getPrincipal().toString(),
                         authentication.getCredentials().toString());
             } catch (Exception exception) {
-                log.info("Can`t find user by pass.");
+                log.info("Can`t find user by pass. " + exception);
             }
         }
 
