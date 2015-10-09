@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
@@ -27,5 +28,15 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.ORDINAL)
     private Roles role;
+
+    @JsonIgnore
+    public String getPassword() {
+        return password;
+    }
+
+    @JsonProperty
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 }
