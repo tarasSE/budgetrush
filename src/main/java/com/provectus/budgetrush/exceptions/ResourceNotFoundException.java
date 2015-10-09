@@ -6,14 +6,14 @@ public class ResourceNotFoundException extends RuntimeException {
     private final static String MESSAGE = "%s not found.";
 
     public ResourceNotFoundException() {
-        super(addResorceNameToMessage("Resource"));
+        super(addResourceNameToMessage("Resource"));
     }
 
     public ResourceNotFoundException(String resourceName) {
-        super(addResorceNameToMessage(resourceName));
+        super(addResourceNameToMessage(resourceName));
     }
 
-    private static String addResorceNameToMessage(String resourceName) {
+    private static String addResourceNameToMessage(String resourceName) {
         return String.format(MESSAGE, resourceName);
     }
 }
