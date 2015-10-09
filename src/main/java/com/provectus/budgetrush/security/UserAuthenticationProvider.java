@@ -38,7 +38,8 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         }
         if (user == null) {
             try {
-                user = service.find(authentication.getPrincipal().toString(), authentication.getCredentials().toString());
+                user = service.find(authentication.getPrincipal().toString(),
+                        authentication.getCredentials().toString());
             } catch (Exception exception) {
                 log.info("Can`t find user by pass.");
             }
@@ -46,7 +47,8 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
         Preconditions.checkNotNull(user, "Wrong login or password.");
 
-        return new UserAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), getUserAuthorities(user));
+        return new UserAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(),
+                getUserAuthorities(user));
 
     }
 
