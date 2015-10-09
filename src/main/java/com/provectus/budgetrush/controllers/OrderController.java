@@ -76,8 +76,8 @@ public class OrderController {
     @ResponseBody
     public Order create(@RequestBody Order order) {
         log.info("Create/update new order");
-        service.create(order);
-        return order;
+
+        return service.create(order);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
@@ -85,8 +85,7 @@ public class OrderController {
     @ResponseBody
     public Order update(@RequestBody Order order, @PathVariable Integer id) {
         log.info("Create/update order id " + id);
-        service.update(order, id);
-        return order;
+        return  service.update(order, id);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(@orderService.getById(#id), 'delete')")
