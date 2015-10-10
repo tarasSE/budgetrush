@@ -73,7 +73,7 @@ class JettyServer implements WebServer {
         WebAppContext webAppContext = new WebAppContext();
         webAppContext.setContextPath(CONTEXT_PATH);
         webAppContext.setWar(DIR_PATH + WEB_APP_ROOT);
-        webAppContext.setWar("/home/taras/Budget_Rush/src/main/webapp");
+        //webAppContext.setWar("/home/taras/Budget_Rush/src/main/webapp");
 
         return webAppContext;
     }
