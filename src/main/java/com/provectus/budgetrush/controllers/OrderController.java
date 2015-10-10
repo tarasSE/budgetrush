@@ -98,7 +98,7 @@ public class OrderController {
     public TransferOrder transfer(@RequestBody TransferOrder transfer) {
         log.info("Create/update new order");
 
-        return transferService.transfer(transfer);
+        return transferService.getById(transferService.transfer(transfer).getId());
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")

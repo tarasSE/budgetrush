@@ -57,10 +57,10 @@ VALUES (-5555.00, '2015-09-04 18:07:46', 0, 5, 5, 5, NULL , NULL );
 
 
 /*Transfers*/
-INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)
-VALUES (1111.00, '2015-09-04 18:07:46', 1, 1, 6, 1, 1 , 2 );
-INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)
-VALUES (1111.00, '2015-09-04 18:07:46', 1, 1, 6, 1, 3 , 4);
+INSERT INTO orders (amount, date, type, account_id, transfer_account_id, category_id, contractor_id, expense_id, income_id)
+VALUES (1111.00, '2015-09-04 18:07:46', 1, 1, 2 ,  6, 1, 1 , 2 );
+INSERT INTO orders (amount, date, type, account_id, transfer_account_id, category_id, contractor_id, expense_id, income_id)
+VALUES (1111.00, '2015-09-04 18:07:46', 1, 1, 2 ,  6, 1, 1 , 2 );
 
 
 

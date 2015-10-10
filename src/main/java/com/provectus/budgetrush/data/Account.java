@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = false)
 @Data
@@ -22,9 +20,5 @@ public class Account extends BaseEntity {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn
     private Currency currency;
-
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn
-    private Set<Order> account = new HashSet<Order>();
 
 }

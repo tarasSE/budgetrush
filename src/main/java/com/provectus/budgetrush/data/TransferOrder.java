@@ -26,12 +26,9 @@ public class TransferOrder extends Order {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn
     private Order income;
-/*
-    @ManyToOne(targetEntity=Account.class)
-    @JoinColumn(name="income_id.account_id")
-    Account account;
 
-    @ManyToOne(targetEntity=Account.class)
-    @JoinColumn(name="income_id.account_id")
-    Account account1;*/
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "transfer_account_id")
+    private Account transferAccount;
 }
