@@ -1,13 +1,13 @@
 package com.provectus.budgetrush.data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@EqualsAndHashCode(callSuper = false)
 @Data
 @Entity
 @Table(name = "accounts")
@@ -22,5 +22,9 @@ public class Account extends BaseEntity {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn
     private Currency currency;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn
+    private Set<Order> account = new HashSet<Order>();
 
 }

@@ -1,26 +1,17 @@
 package com.provectus.budgetrush.controllers;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
-import java.util.List;
-
+import com.provectus.budgetrush.data.Category;
+import com.provectus.budgetrush.service.CategoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.service.CategoryService;
+import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Slf4j
 @PreAuthorize("hasRole('ROLE_USER')")
@@ -52,8 +43,8 @@ public class CategoryController {
     @ResponseBody
     public Category create(@RequestBody Category category) {
         log.info("Create/update category");
-        service.create(category);
-        return category;
+
+        return service.create(category);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#category, 'write')")
@@ -61,8 +52,8 @@ public class CategoryController {
     @ResponseBody
     public Category update(@RequestBody Category category, @PathVariable Integer id) {
         log.info("Create/update category id " + id);
-        service.update(category, id);
-        return category;
+
+        return service.update(category, id);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(@categoryService.getById(#id), 'delete')")

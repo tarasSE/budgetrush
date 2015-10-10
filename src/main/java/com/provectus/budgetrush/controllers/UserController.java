@@ -1,12 +1,8 @@
 package com.provectus.budgetrush.controllers;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
-import java.util.List;
-
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
@@ -17,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.UserService;
+import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Slf4j
 @Controller
@@ -44,8 +39,8 @@ public class UserController {
     @ResponseBody
     public User getById(@PathVariable Integer id) {
         log.info("Send user by id " + id);
-        User user = service.getById(id);
-        return user;
+
+        return service.getById(id);
 
     }
 

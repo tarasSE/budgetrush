@@ -1,18 +1,8 @@
 package com.provectus.budgetrush.datatest;
 
-import static java.math.BigDecimal.valueOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import com.provectus.budgetrush.data.*;
+import com.provectus.budgetrush.service.TransferOrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,16 +13,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Contractor;
-import com.provectus.budgetrush.data.Currency;
-import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.data.TransferOrder;
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.TransferOrderService;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
-import lombok.extern.slf4j.Slf4j;
+import static java.math.BigDecimal.valueOf;
+import static org.junit.Assert.*;
 
 @Slf4j
 @DirtiesContext
@@ -106,8 +95,8 @@ public class TransferOrdersTest {
         transferOrder.setAccount(account);
         transferOrder.setCategory(category);
         transferOrder.setContractor(contractor);
-        transferOrder.setIncomeOrder(order);
-        transferOrder.setExpenseOrder(order1);
+        transferOrder.setIncome(order);
+        transferOrder.setExpense(order1);
 
         return service.create(transferOrder);
     }
@@ -150,6 +139,15 @@ public class TransferOrdersTest {
     public void deleteTransferOrderTest() throws Exception {
         TransferOrder transferOrder = saveTestTransferOrder();
         service.delete(transferOrder.getId());
+
+        log.info("id  " + transferOrder.getId());
+    }
+
+    @Test
+    @Transactional
+    public void transferTest() throws Exception {
+        TransferOrder transferOrder = saveTestTransferOrder();
+        service.transfer(transferOrder);
 
         log.info("id  " + transferOrder.getId());
     }

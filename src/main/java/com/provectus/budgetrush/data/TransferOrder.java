@@ -1,19 +1,10 @@
 package com.provectus.budgetrush.data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,13 +17,21 @@ public class TransferOrder extends Order {
     @Column(insertable = false, updatable = false)
     private OrderType type;
 
-    @JsonIgnore
+    @JsonProperty
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "expense_id")
-    private Order expenseOrder;
+    @JoinColumn
+    private Order expense;
 
-    @JsonIgnore
+    @JsonProperty
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "income_id")
-    private Order incomeOrder;
+    @JoinColumn
+    private Order income;
+/*
+    @ManyToOne(targetEntity=Account.class)
+    @JoinColumn(name="income_id.account_id")
+    Account account;
+
+    @ManyToOne(targetEntity=Account.class)
+    @JoinColumn(name="income_id.account_id")
+    Account account1;*/
 }

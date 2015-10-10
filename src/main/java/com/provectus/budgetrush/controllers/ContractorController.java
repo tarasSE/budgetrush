@@ -1,26 +1,17 @@
 package com.provectus.budgetrush.controllers;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
-import java.util.List;
-
+import com.provectus.budgetrush.data.Contractor;
+import com.provectus.budgetrush.service.ContractorService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.provectus.budgetrush.data.Contractor;
-import com.provectus.budgetrush.service.ContractorService;
+import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Slf4j
 @RequestMapping(value = "/v1/contractors", headers = "Accept=application/json")
@@ -52,8 +43,8 @@ public class ContractorController {
     @ResponseBody
     public Contractor create(@RequestBody Contractor contractor) {
         log.info("Create/update new contractor.");
-        service.create(contractor);
-        return contractor;
+
+        return service.create(contractor);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#contractor, 'write')")
@@ -61,8 +52,8 @@ public class ContractorController {
     @ResponseBody
     public Contractor update(@RequestBody Contractor contractor, @PathVariable Integer id) {
         log.info("Create/update contractor id " + id);
-        service.update(contractor, id);
-        return contractor;
+
+        return service.update(contractor, id);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(@contractorService.getById(#id), 'delete')")
