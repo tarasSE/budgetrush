@@ -35,7 +35,7 @@ public class Order extends BaseEntity {
     private Account account;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id")//todo
     private Category category;
 
 }

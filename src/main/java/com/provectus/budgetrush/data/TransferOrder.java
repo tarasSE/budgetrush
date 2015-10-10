@@ -29,6 +29,6 @@ public class TransferOrder extends Order {
 
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "transfer_account_id")
+    @JoinColumn
     private Account transferAccount;
 }

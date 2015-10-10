@@ -20,7 +20,8 @@ public class TransferOrderService extends GenericService<TransferOrder, Transfer
     @Autowired
     private TransferOrderRepository transferOrderRepository;
 
-    @Autowired OrderService orderService;
+    @Autowired
+    OrderService orderService;
 
     public TransferOrder transfer(TransferOrder transfer) {
         Order expense = new Order();
@@ -35,7 +36,7 @@ public class TransferOrderService extends GenericService<TransferOrder, Transfer
 
         transfer.setExpense(orderService.create(expense));
         transfer.setIncome(orderService.create(income));
-
+        log.info(transfer.toString());
         return create(transfer);
     }
 

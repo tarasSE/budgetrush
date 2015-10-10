@@ -1,17 +1,11 @@
 package com.provectus.budgetrush.security;
 
-import java.io.Serializable;
-
+import com.provectus.budgetrush.data.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Contractor;
-import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.data.User;
-
-import lombok.extern.slf4j.Slf4j;
+import java.io.Serializable;
 
 @Slf4j
 public class UserPermissionEvaluator implements PermissionEvaluator {
@@ -41,7 +35,10 @@ public class UserPermissionEvaluator implements PermissionEvaluator {
             return ((Contractor) object).getUser();
         } else if (object instanceof Order) {
             return ((Order) object).getAccount().getUser();
-        } else {
+        } else if (object instanceof Budget){
+            return ((Budget) object).getCategory().getUser();
+        }
+        else {
             throw new RuntimeException("Unknown class.");
         }
 

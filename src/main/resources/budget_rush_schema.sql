@@ -56,18 +56,32 @@ CREATE TABLE orders (
   date                TIMESTAMP          NOT NULL,
   type                INT(1)             NOT NULL,
   account_id          INT DEFAULT NULL,
-  transfer_account_id INT DEFAULT NULL,
+  transferAccount_id INT DEFAULT NULL,
   category_id         INT DEFAULT NULL,
   contractor_id       INT,
   expense_id          INT,
   income_id           INT,
   PRIMARY KEY (id),
   FOREIGN KEY (account_id) REFERENCES accounts (id),
-  FOREIGN KEY (transfer_account_id) REFERENCES accounts (id),
+  FOREIGN KEY (transferAccount_id) REFERENCES accounts (id),
   FOREIGN KEY (category_id) REFERENCES categories (id),
   FOREIGN KEY (contractor_id) REFERENCES contractors (id),
   FOREIGN KEY (expense_id) REFERENCES orders (id),
   FOREIGN KEY (income_id) REFERENCES orders (id)
+)
+  ENGINE = InnoDB;
+
+CREATE TABLE budgets (
+  id          INT AUTO_INCREMENT NOT NULL,
+  name VARCHAR(40),
+  amount DECIMAL(10,2),
+  startDate  DATE,
+  endDate    DATE,
+  category_id INT                NOT NULL,
+  user_id INT                NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (category_id) REFERENCES categories (id),
+  FOREIGN KEY (user_id) REFERENCES users (id)
 )
   ENGINE = InnoDB;
 

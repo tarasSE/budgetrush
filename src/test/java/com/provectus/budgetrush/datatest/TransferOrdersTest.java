@@ -1,6 +1,7 @@
 package com.provectus.budgetrush.datatest;
 
 import com.provectus.budgetrush.data.*;
+import com.provectus.budgetrush.service.OrderService;
 import com.provectus.budgetrush.service.TransferOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -26,7 +27,7 @@ import static org.junit.Assert.*;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, TransferOrderService.class })
+@ContextConfiguration(classes = { InMemoryConfig.class, TransferOrderService.class, OrderService.class})
 @WebAppConfiguration
 public class TransferOrdersTest {
 
@@ -92,7 +93,9 @@ public class TransferOrdersTest {
         TransferOrder transferOrder = new TransferOrder();
         transferOrder.setAmount(valueOf(random.nextDouble()));
         transferOrder.setDate(new Date());
+        transferOrder.setType(OrderType.TRANSFER_ORDER);
         transferOrder.setAccount(account);
+        transferOrder.setTransferAccount(account1);
         transferOrder.setCategory(category);
         transferOrder.setContractor(contractor);
         transferOrder.setIncome(order);
