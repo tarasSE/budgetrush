@@ -1,8 +1,18 @@
 package com.provectus.budgetrush.datatest;
 
-import com.provectus.budgetrush.data.*;
-import com.provectus.budgetrush.service.TransferOrderService;
-import lombok.extern.slf4j.Slf4j;
+import static java.math.BigDecimal.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,20 +23,24 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.Category;
+import com.provectus.budgetrush.data.Contractor;
+import com.provectus.budgetrush.data.Currency;
+import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.TransferOrder;
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.OrderService;
+import com.provectus.budgetrush.service.TransferOrderService;
 
-import static java.math.BigDecimal.valueOf;
-import static org.junit.Assert.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, TransferOrderService.class })
+@ContextConfiguration(classes = { InMemoryConfig.class, TransferOrderService.class, OrderService.class,
+        AccountService.class })
 @WebAppConfiguration
 public class TransferOrdersTest {
 
@@ -65,7 +79,7 @@ public class TransferOrdersTest {
         Account account1 = new Account();
         account1.setCurrency(currency);
         account1.setUser(user);
-        account1.setName("test_name");
+        account1.setName("test_name2");
 
         Contractor contractor = new Contractor();
         contractor.setName("test_name");
@@ -85,7 +99,7 @@ public class TransferOrdersTest {
         Order order1 = new Order();
         order1.setAmount(valueOf(random.nextDouble()));
         order1.setDate(new Date());
-        order1.setAccount(account);
+        order1.setAccount(account1);
         order1.setCategory(category);
         order1.setContractor(contractor);
 
@@ -93,10 +107,9 @@ public class TransferOrdersTest {
         transferOrder.setAmount(valueOf(random.nextDouble()));
         transferOrder.setDate(new Date());
         transferOrder.setAccount(account);
+        transferOrder.setTransferAccount(account1);
         transferOrder.setCategory(category);
         transferOrder.setContractor(contractor);
-        transferOrder.setIncome(order);
-        transferOrder.setExpense(order1);
 
         return service.create(transferOrder);
     }
@@ -143,12 +156,12 @@ public class TransferOrdersTest {
         log.info("id  " + transferOrder.getId());
     }
 
-    @Test
-    @Transactional
-    public void transferTest() throws Exception {
-        TransferOrder transferOrder = saveTestTransferOrder();
-        service.transfer(transferOrder);
-
-        log.info("id  " + transferOrder.getId());
-    }
+    // @Test
+    // @Transactional
+    // public void transferTest() throws Exception {
+    // TransferOrder transferOrder = saveTestTransferOrder();
+    // service.transfer(transferOrder);
+    //
+    // log.info("id " + transferOrder.getId());
+    // }
 }

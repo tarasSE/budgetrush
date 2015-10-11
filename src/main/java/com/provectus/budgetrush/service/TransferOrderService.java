@@ -1,16 +1,14 @@
 package com.provectus.budgetrush.service;
 
-import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.repository.AccountRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.data.TransferOrder;
 import com.provectus.budgetrush.repository.TransferOrderRepository;
 
-import java.math.BigDecimal;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -20,7 +18,8 @@ public class TransferOrderService extends GenericService<TransferOrder, Transfer
     @Autowired
     private TransferOrderRepository transferOrderRepository;
 
-    @Autowired OrderService orderService;
+    @Autowired
+    OrderService orderService;
 
     public TransferOrder transfer(TransferOrder transfer) {
         Order expense = new Order();
@@ -28,7 +27,7 @@ public class TransferOrderService extends GenericService<TransferOrder, Transfer
 
         log.info(transfer.toString());
         expense.setAccount(transfer.getAccount());
-        expense.setAmount(transfer.getAmount().multiply(BigDecimal.valueOf(-1.0)));
+        expense.setAmount(transfer.getAmount().negate());
 
         income.setAccount(transfer.getTransferAccount());
         income.setAmount(transfer.getAmount());

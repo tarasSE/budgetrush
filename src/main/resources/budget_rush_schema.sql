@@ -22,6 +22,7 @@ CREATE TABLE accounts (
   name        VARCHAR(50)        NOT NULL,
   user_id     INT                NOT NULL,
   currency_id INT                NOT NULL,
+  balance     DECIMAL(10, 2)     NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES users (id),
   FOREIGN KEY (currency_id) REFERENCES currencies (id)
