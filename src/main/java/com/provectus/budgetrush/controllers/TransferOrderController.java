@@ -4,15 +4,14 @@ import com.provectus.budgetrush.data.TransferOrder;
 import com.provectus.budgetrush.service.TransferOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -23,14 +22,21 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class TransferOrderController {
 
     @Autowired
-    private TransferOrderService transferService;
+    private TransferOrderService service;
 
     @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List getTransfers() {
         log.info("Get all orders");
-        return transferService.getAll();
+        return service.getAll();
+    }
+
+    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @RequestMapping(value = "/{id}", method = GET)
+    @ResponseBody
+    public TransferOrder getTransfer(@PathVariable int id) {
+        return service.getById(id);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
@@ -39,6 +45,14 @@ public class TransferOrderController {
     public TransferOrder transfer(@RequestBody TransferOrder transfer) {
         log.info("Create/update new order");
 
-        return transferService.getById(transferService.transfer(transfer).getId());
+        return service.getById(service.transfer(transfer).getId());
+    }
+
+    @PreAuthorize("isObjectOwnerOrAdmin(@transferOrderService.getById(#id), 'delete')")
+    @RequestMapping(value = "/{id}", method = DELETE)
+    @ResponseBody
+    public void delete(@PathVariable Integer id) {
+        log.info("Delete order by id" + id);
+        service.delete(id);
     }
 }
