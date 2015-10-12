@@ -1,18 +1,13 @@
 package com.provectus.budgetrush.data;
 
-import java.math.BigDecimal;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import java.math.BigDecimal;
 
 @EqualsAndHashCode(callSuper = false)
 @Data
@@ -30,6 +25,7 @@ public class Account extends BaseEntity {
     @JoinColumn
     private Currency currency;
 
+    @Min(value = 0)
     private BigDecimal balance;
 
     @JsonProperty

@@ -4,7 +4,7 @@ import com.provectus.budgetrush.data.Budget;
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.data.Roles;
 import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.BudgetService;
+import com.provectus.budgetrush.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,8 @@ import static org.junit.Assert.*;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, BudgetService.class })
+@ContextConfiguration(classes = {InMemoryConfig.class, BudgetService.class, OrderService.class,
+        AccountService.class, CategoryService.class, UserService.class, ContractorService.class})
 @WebAppConfiguration
 public class BudgetTest {
 
@@ -38,6 +39,16 @@ public class BudgetTest {
 
     @Autowired
     private BudgetService service;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private ContractorService contractorService;
+    @Autowired
+    private UserService userService;
 
     @Before
     public void setUp() throws Exception {
@@ -55,11 +66,13 @@ public class BudgetTest {
         user.setName("gcbhc");
         user.setPassword("sdsdfsdff");
         user.setRole(Roles.ROLE_USER);
+        user = userService.create(user);
 
         category.setId(1);
         category.setName("cfvbxcf");
         category.setParent(null);
         category.setUser(user);
+        category = categoryService.create(category);
 
         budget.setId(1);
         budget.setName("Budget");
@@ -77,7 +90,7 @@ public class BudgetTest {
     public void saveBudgetTest() throws Exception {
 
         Budget budget = saveTestBudget();
-        service.create(budget);
+       Budget budget1 = service.getById(budget.getId());
         assertNotNull(budget.getId());
 
     }

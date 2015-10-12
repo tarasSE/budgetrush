@@ -52,23 +52,25 @@ CREATE TABLE contractors (
   ENGINE = InnoDB;
 
 CREATE TABLE orders (
-  id                  INT AUTO_INCREMENT NOT NULL,
-  amount              DECIMAL(10, 2)     NOT NULL,
-  date                TIMESTAMP          NOT NULL,
-  type                INT(1)             NOT NULL,
-  account_id          INT DEFAULT NULL,
+  id                 INT AUTO_INCREMENT NOT NULL,
+  amount             DECIMAL(10, 2)     NOT NULL,
+  date               TIMESTAMP          NOT NULL,
+  type               INT(1)             NOT NULL,
+  account_id         INT DEFAULT NULL,
   transferAccount_id INT DEFAULT NULL,
-  category_id         INT DEFAULT NULL,
-  contractor_id       INT,
-  expense_id          INT,
-  income_id           INT,
+  category_id        INT DEFAULT NULL,
+  contractor_id      INT,
+  expense_id         INT,
+  income_id          INT,
   PRIMARY KEY (id),
   FOREIGN KEY (account_id) REFERENCES accounts (id),
   FOREIGN KEY (transferAccount_id) REFERENCES accounts (id),
   FOREIGN KEY (category_id) REFERENCES categories (id),
   FOREIGN KEY (contractor_id) REFERENCES contractors (id),
-  FOREIGN KEY (expense_id) REFERENCES orders (id),
+  FOREIGN KEY (expense_id) REFERENCES orders (id)
+    ON DELETE SET NULL,
   FOREIGN KEY (income_id) REFERENCES orders (id)
+    ON DELETE SET NULL
 )
   ENGINE = InnoDB;
 

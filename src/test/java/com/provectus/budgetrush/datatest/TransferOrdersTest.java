@@ -27,7 +27,8 @@ import static org.junit.Assert.*;
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {InMemoryConfig.class, TransferOrderService.class, OrderService.class,
-        AccountService.class, CurrencyService.class, ContractorService.class, UserService.class, CategoryService.class})
+        AccountService.class, CurrencyService.class, ContractorService.class,
+        UserService.class, CategoryService.class})
 @WebAppConfiguration
 public class TransferOrdersTest {
 
@@ -61,29 +62,40 @@ public class TransferOrdersTest {
         log.info("Start save test transferOrder");
 
         User user = new User();
+        user.setId(1);
         user.setName("test_name");
         user.setPassword("pass");
 
+
         Currency currency = new Currency();
+        currency.setId(1);
         currency.setName("test_name");
         currency.setShortName("usd");
         currency.setCode(1111);
         currency.setSymbol('s');
 
+
         Account account = new Account();
+        account.setId(1);
         account.setCurrency(currency);
         account.setUser(user);
         account.setName("test_name");
 
+
         Contractor contractor = new Contractor();
+        contractor.setId(1);
         contractor.setName("test_name");
         contractor.setDescription("test_description");
 
+
         Category category = new Category();
+        category.setId(1);
         category.setName("test_category");
         category.setParent(null);
 
+
         Order order = new Order();
+        order.setId(1);
         order.setAmount(valueOf(-999));
         Calendar startDate = new GregorianCalendar(2015, 9, 4, 14, 0);
         order.setDate(new Date(startDate.getTimeInMillis()));
@@ -91,13 +103,19 @@ public class TransferOrdersTest {
         order.setCategory(category);
         order.setContractor(contractor);
 
+
         Account account1 = account;
+        account1.setId(2);
+
 
         Order order1 = order;
         order1.setAmount(valueOf(999));
+        order1.setId(2);
+
 
         TransferOrder transferOrder = new TransferOrder();
 
+        transferOrder.setId(3);
         transferOrder.setAmount(valueOf(999));
         transferOrder.setDate(new Date());
         transferOrder.setAccount(account);
@@ -108,7 +126,7 @@ public class TransferOrdersTest {
         transferOrder.setExpense(order);
         transferOrder.setIncome(order1);
 
-        return transferService.create(transferOrder);
+        return transferOrder;
     }
 
     @Test
@@ -156,7 +174,7 @@ public class TransferOrdersTest {
     @Test
     @Transactional
     public void transferTest() throws Exception {
-        TransferOrder tro= saveTestTransferOrder();
+        TransferOrder tro = saveTestTransferOrder();
         TransferOrder transferOrder = new TransferOrder();
         transferOrder.setAmount(BigDecimal.ONE);
         transferOrder.setAccount(tro.getAccount());

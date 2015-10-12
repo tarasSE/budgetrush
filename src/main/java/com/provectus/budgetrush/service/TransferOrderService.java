@@ -24,30 +24,17 @@ public class TransferOrderService extends GenericService<TransferOrder, Transfer
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    AccountService accountService;
+
     @Override
     public boolean delete(int id) {
-        TransferOrder transferOrder = getById(id);
+        TransferOrder oldTransfer = getById(id);
 
-        Order income = transferOrder.getIncome();
+        accountService.decreaseBalance(oldTransfer.getTransferAccount(), oldTransfer.getAmount());
+        accountService.incressBalance(oldTransfer.getAccount(), oldTransfer.getAmount());
 
-        BigDecimal incomeAmount = income.getAmount();
-        Account incomeAccount = income.getAccount();
-        incomeAccount.setBalance(incomeAccount.getBalance().add(incomeAmount.negate()));
-
-        Order expense = transferOrder.getExpense();
-        Account expenseAccount = expense.getAccount();
-        BigDecimal expenseAmount = expense.getAmount();
-        expenseAccount.setBalance(expenseAccount.getBalance().add(expenseAmount.negate()));
-
-        log.info("Delete and return back income order");
-        orderService.delete(income.getId());
-        log.info("Delete and return back expense order");
-        orderService.delete(expense.getId());
-        log.info("Delete transfer order");
-        super.delete(id);
-
-
-        return true;
+        return super.delete(id);
     }
 
     public TransferOrder transfer(TransferOrder transfer) {
@@ -57,11 +44,11 @@ public class TransferOrderService extends GenericService<TransferOrder, Transfer
 
         expense.setAccount(transfer.getAccount());
         expense.setAmount(transfer.getAmount().negate());
-        expense=orderService.create(expense);
+        expense = orderService.create(expense);
 
         income.setAccount(transfer.getTransferAccount());
         income.setAmount(transfer.getAmount());
-        income=orderService.create(income);
+        income = orderService.create(income);
 
         transfer.setExpense(expense);
         transfer.setIncome(income);

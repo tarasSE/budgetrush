@@ -39,8 +39,8 @@ public class TransferOrderController {
         return service.getById(id);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
-    @RequestMapping(value = "/transfer", method = POST)
+    @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')") //todo
+    @RequestMapping(method = POST)
     @ResponseBody
     public TransferOrder transfer(@RequestBody TransferOrder transfer) {
         log.info("Create/update new order");
