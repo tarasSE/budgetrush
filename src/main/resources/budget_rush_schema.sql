@@ -7,6 +7,22 @@ CREATE TABLE users (
 )
   ENGINE = InnoDB;
 
+CREATE TABLE groups (
+  id       INT AUTO_INCREMENT    NOT NULL,
+  name     VARCHAR(20) UNIQUE    NOT NULL,
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB;
+
+CREATE TABLE users_groups (
+  group_id     INT                NOT NULL,
+  user_id     INT                NOT NULL,
+  PRIMARY KEY (group_id, user_id),
+  FOREIGN KEY (group_id) REFERENCES groups (id),
+  FOREIGN KEY (user_id) REFERENCES users (id)
+)
+  ENGINE = InnoDB;
+  
 CREATE TABLE currencies (
   id         INT AUTO_INCREMENT NOT NULL,
   name       VARCHAR(15)        NOT NULL,
@@ -20,21 +36,20 @@ CREATE TABLE currencies (
 CREATE TABLE accounts (
   id          INT AUTO_INCREMENT NOT NULL,
   name        VARCHAR(50)        NOT NULL,
-  user_id     INT                NOT NULL,
+  group_id     INT                NOT NULL,
   currency_id INT                NOT NULL,
   balance     DECIMAL(10, 2)     NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (group_id) REFERENCES groups (id),
   FOREIGN KEY (currency_id) REFERENCES currencies (id)
 )
   ENGINE = InnoDB;
-
 
 CREATE TABLE categories (
   id      INT AUTO_INCREMENT NOT NULL,
   name    VARCHAR(50)        NOT NULL,
   parent  INT,
-  user_id INT                NOT NULL,
+  user_id INT,
   PRIMARY KEY (id),
   FOREIGN KEY (parent) REFERENCES categories (id),
   FOREIGN KEY (user_id) REFERENCES users (id)
