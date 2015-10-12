@@ -1,5 +1,9 @@
 package com.provectus.budgetrush.service;
 
+import java.math.BigDecimal;
+
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,5 +21,24 @@ public class AccountService extends GenericService<Account, AccountRepository> {
     @Override
     protected AccountRepository getRepository() {
         return accountRepository;
+    }
+
+    public Account incressBalance(@NotNull Account account, BigDecimal amount) {
+        BigDecimal balance = account.getBalance();
+        if (balance == null) {
+            balance = new BigDecimal(0);
+        }
+
+        account.setBalance(balance.add(amount));
+        return update(account, account.getId());
+    }
+
+    public Account decreaseBalance(Account account, BigDecimal amount) {
+        BigDecimal balance = account.getBalance();
+        if (balance == null) {
+            balance = new BigDecimal(0);
+        }
+        account.setBalance(balance.subtract(amount));
+        return update(account, account.getId());
     }
 }
