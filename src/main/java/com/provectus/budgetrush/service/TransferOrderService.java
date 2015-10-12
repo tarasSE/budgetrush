@@ -28,12 +28,14 @@ public class TransferOrderService extends GenericService<TransferOrder, Transfer
         log.info(transfer.toString());
         expense.setAccount(transfer.getAccount());
         expense.setAmount(transfer.getAmount().negate());
+        expense=orderService.create(expense);
 
         income.setAccount(transfer.getTransferAccount());
         income.setAmount(transfer.getAmount());
+        income=orderService.create(income);
 
-        transfer.setExpense(orderService.create(expense));
-        transfer.setIncome(orderService.create(income));
+        transfer.setExpense(expense);
+        transfer.setIncome(income);
         log.info(transfer.toString());
         return create(transfer);
     }
