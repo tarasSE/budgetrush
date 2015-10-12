@@ -3,6 +3,7 @@ package com.provectus.budgetrush.repository;
 import java.util.Date;
 import java.util.List;
 
+import com.provectus.budgetrush.data.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -46,4 +47,15 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     public List<OrderStatistic> getExpenseByAccount(@Param("account_id") int accountId,
                                                     @Param("start_date") Date startDate,
                                                     @Param("end_date") Date endDate);
+
+    @Query("SELECT NEW com.provectus.budgetrush.data.OrderStatistic("
+            + "o.account, o.contractor, o.category, SUM(o.amount)) "
+            + "FROM Order o "
+            + "WHERE o.category = :category "
+            + "AND o.date BETWEEN :start_date AND :end_date "
+            + "AND o.amount < 0.0 "
+            + "GROUP BY o.account, o.contractor, o.category")
+    List<OrderStatistic> getExpenseByCategory(@Param("category") Category category,
+                                              @Param("start_date") Date startDate,
+                                              @Param("end_date") Date endDate);
 }

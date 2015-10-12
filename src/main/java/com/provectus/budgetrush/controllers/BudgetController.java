@@ -1,6 +1,7 @@
 package com.provectus.budgetrush.controllers;
 
 import com.provectus.budgetrush.data.Budget;
+import com.provectus.budgetrush.data.BudgetStatistic;
 import com.provectus.budgetrush.service.BudgetService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,25 @@ public class BudgetController {
     public Budget getById(@PathVariable Integer id) {
         log.info("Get budget by id " + id);
         return service.getById(id);
+    }
+
+    @PostFilter("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @RequestMapping(value = "/statistics",method = GET)
+    @ResponseBody
+    public List<BudgetStatistic>  getAllBudgetStatistics() {
+        log.info("Get all budget statistics");
+        return service.getAllBudgetStatistics();
+    }
+
+    //@PostFilter("isObjectOwnerOrAdmin(returnObject, 'read')") //todo
+    @RequestMapping(value = "/statistics/{id}",method = GET)
+    @ResponseBody
+    public BudgetStatistic getBudgetStatistic(@PathVariable int id) {
+
+        Budget budget = service.getById(id);
+
+        log.info("Get budget statistic");
+        return service.getBudgetStatistic(budget);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#budget, 'write')")
