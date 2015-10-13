@@ -12,7 +12,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -39,6 +38,7 @@ public class TransferOrdersTest {
 
     @Autowired
     private TransferOrderService transferService;
+    @Autowired
     private OrderService orderService;
     @Autowired
     private AccountService accountService;
@@ -57,80 +57,73 @@ public class TransferOrdersTest {
         em = emf.createEntityManager();
     }
 
-
-    private TransferOrder saveTestTransferOrder() {
-        log.info("Start save test transferOrder");
+    private Order saveTestOrder() {
+        log.info("Start save test order");
 
         User user = new User();
-        user.setId(1);
         user.setName("test_name");
         user.setPassword("pass");
-
+        user=userService.create(user);
 
         Currency currency = new Currency();
-        currency.setId(1);
         currency.setName("test_name");
         currency.setShortName("usd");
         currency.setCode(1111);
         currency.setSymbol('s');
-
+        currency=currencyService.create(currency);
 
         Account account = new Account();
-        account.setId(1);
         account.setCurrency(currency);
         account.setUser(user);
         account.setName("test_name");
-
+        account.setBalance(valueOf(578568));
+        account=accountService.create(account);
 
         Contractor contractor = new Contractor();
-        contractor.setId(1);
         contractor.setName("test_name");
         contractor.setDescription("test_description");
-
+        contractor.setUser(user);
+        contractor=contractorService.create(contractor);
 
         Category category = new Category();
-        category.setId(1);
         category.setName("test_category");
         category.setParent(null);
-
+        category.setUser(user);
+        category=categoryService.create(category);
 
         Order order = new Order();
-        order.setId(1);
-        order.setAmount(valueOf(-999));
+        order.setAmount(valueOf(random.nextDouble()));
         Calendar startDate = new GregorianCalendar(2015, 9, 4, 14, 0);
         order.setDate(new Date(startDate.getTimeInMillis()));
         order.setAccount(account);
         order.setCategory(category);
         order.setContractor(contractor);
 
+        return orderService.create(order);
+    }
 
-        Account account1 = account;
-        account1.setId(2);
+    private TransferOrder saveTestTransferOrder() {
+        log.info("Start save test transferOrder");
 
+        Order order = saveTestOrder();
 
-        Order order1 = order;
-        order1.setAmount(valueOf(999));
-        order1.setId(2);
-
+        Order order1 = saveTestOrder();
 
         TransferOrder transferOrder = new TransferOrder();
-
-        transferOrder.setId(3);
         transferOrder.setAmount(valueOf(999));
         transferOrder.setDate(new Date());
-        transferOrder.setAccount(account);
-        transferOrder.setTransferAccount(account1);
-        transferOrder.setCategory(category);
-        transferOrder.setContractor(contractor);
+        transferOrder.setAccount(order.getAccount());
+        transferOrder.setTransferAccount(order1.getAccount());
+        transferOrder.setCategory(null);
+        transferOrder.setContractor(null);
         transferOrder.setType(OrderType.TRANSFER_ORDER);
         transferOrder.setExpense(order);
-        transferOrder.setIncome(order1);
+         transferOrder.setIncome(order1);
 
-        return transferOrder;
+        return  transferService.create(transferOrder);
     }
 
     @Test
-    @Transactional
     public void saveTransferOrderTest() throws Exception {
 
         TransferOrder transferOrder = saveTestTransferOrder();
@@ -139,7 +132,6 @@ public class TransferOrdersTest {
     }
 
     @Test
-    @Transactional
     public void getAllTransferOrdersTest() throws Exception {
         log.info("Start get all test");
         int size = transferService.getAll().size();
@@ -153,7 +145,6 @@ public class TransferOrdersTest {
     }
 
     @Test
-    @Transactional
     public void getByIdTest() throws Exception {
         TransferOrder transferOrder = saveTestTransferOrder();
         TransferOrder order1 = transferService.getById(transferOrder.getId());
@@ -163,7 +154,6 @@ public class TransferOrdersTest {
     }
 
     @Test
-    @Transactional
     public void deleteTransferOrderTest() throws Exception {
         TransferOrder transferOrder = saveTestTransferOrder();
         transferService.delete(transferOrder.getId());
@@ -172,7 +162,6 @@ public class TransferOrdersTest {
     }
 
     @Test
-    @Transactional
     public void transferTest() throws Exception {
         TransferOrder tro = saveTestTransferOrder();
         TransferOrder transferOrder = new TransferOrder();
