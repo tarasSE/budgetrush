@@ -23,13 +23,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.service.CategoryService;
+import com.provectus.budgetrush.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, CategoryService.class })
+@ContextConfiguration(classes = { InMemoryConfig.class, CategoryService.class, UserService.class })
 @WebAppConfiguration
 public class CategoriesTest {
 
@@ -40,6 +41,8 @@ public class CategoriesTest {
 
     @Autowired
     private CategoryService service;
+    @Autowired
+    private UserService userService;
 
     @Before
     public void setUp() throws Exception {
@@ -53,6 +56,7 @@ public class CategoriesTest {
 
         category.setName(Integer.toString(random.nextInt()));
         category.setParent(null);
+        category.setUser(userService.getById(1));
         return service.create(category);
     }
 

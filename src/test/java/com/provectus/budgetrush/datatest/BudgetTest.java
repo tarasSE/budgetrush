@@ -1,11 +1,17 @@
 package com.provectus.budgetrush.datatest;
 
-import com.provectus.budgetrush.data.Budget;
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Roles;
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.*;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,20 +22,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import com.provectus.budgetrush.data.Budget;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.BudgetService;
+import com.provectus.budgetrush.service.CategoryService;
+import com.provectus.budgetrush.service.ContractorService;
+import com.provectus.budgetrush.service.OrderService;
+import com.provectus.budgetrush.service.UserService;
 
-import static org.junit.Assert.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {InMemoryConfig.class, BudgetService.class, OrderService.class,
-        AccountService.class, CategoryService.class, UserService.class, ContractorService.class})
+@ContextConfiguration(classes = { InMemoryConfig.class, BudgetService.class, OrderService.class,
+        AccountService.class, CategoryService.class, UserService.class, ContractorService.class })
 @WebAppConfiguration
 public class BudgetTest {
 
@@ -59,27 +66,13 @@ public class BudgetTest {
     private Budget saveTestBudget() {
         log.info("Start save test category");
         Budget budget = new Budget();
-        Category category = new Category();
-        User user = new User();
-
-        user.setId(1);
-        user.setName("gcbhc");
-        user.setPassword("sdsdfsdff");
-        user.setRole(Roles.ROLE_USER);
-        user = userService.create(user);
-
-        category.setId(1);
-        category.setName("cfvbxcf");
-        category.setParent(null);
-        category.setUser(user);
-        category = categoryService.create(category);
 
         budget.setId(1);
         budget.setName("Budget");
-        budget.setCategory(category);
+        budget.setCategory(categoryService.getById(1));
         budget.setStartDate(new Date());
         budget.setEndDate(new Date());
-        budget.setUser(user);
+        budget.setUser(userService.getById(1));
         budget.setAmount(BigDecimal.ONE);
 
         return service.create(budget);
@@ -90,7 +83,7 @@ public class BudgetTest {
     public void saveBudgetTest() throws Exception {
 
         Budget budget = saveTestBudget();
-       Budget budget1 = service.getById(budget.getId());
+        Budget budget1 = service.getById(budget.getId());
         assertNotNull(budget.getId());
 
     }

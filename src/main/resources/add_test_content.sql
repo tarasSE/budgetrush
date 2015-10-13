@@ -36,11 +36,11 @@ INSERT INTO contractors (name, description, user_id) VALUES ('test_contractor_3'
 INSERT INTO contractors (name, description, user_id) VALUES ('test_contractor_4', 'test_description_4', 4);
 
 
-INSERT INTO accounts (name, group_id, currency_id, balance) VALUES ('test_account', 1, 1, 0);
-INSERT INTO accounts (name, group_id, currency_id, balance) VALUES ('test_account_1', 2, 2, 0);
-INSERT INTO accounts (name, group_id, currency_id, balance) VALUES ('test_account_2', 3, 3, 0);
-INSERT INTO accounts (name, group_id, currency_id, balance) VALUES ('test_account_3', 4, 4, 0);
-INSERT INTO accounts (name, group_id, currency_id, balance) VALUES ('test_account_4', 5, 5, 0);
+INSERT INTO accounts (name, group_id, currency_id, balance) VALUES ('test_account', 1, 1, 9999999);
+INSERT INTO accounts (name, group_id, currency_id, balance) VALUES ('test_account_1', 2, 2, 9999999);
+INSERT INTO accounts (name, group_id, currency_id, balance) VALUES ('test_account_2', 3, 3, 9999999);
+INSERT INTO accounts (name, group_id, currency_id, balance) VALUES ('test_account_3', 4, 4, 9999999);
+INSERT INTO accounts (name, group_id, currency_id, balance) VALUES ('test_account_4', 5, 5, 9999999);
 
 /*Income orders*/
 INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)

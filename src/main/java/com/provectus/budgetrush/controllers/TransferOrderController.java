@@ -45,7 +45,7 @@ public class TransferOrderController {
     public TransferOrder transfer(@RequestBody TransferOrder transfer) {
         log.info("Create/update new order");
 
-        return service.getById(service.transfer(transfer).getId());
+        return service.getById(service.create(transfer).getId());
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(@transferOrderService.getById(#id), 'delete')")

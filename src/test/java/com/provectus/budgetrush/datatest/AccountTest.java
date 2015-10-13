@@ -20,6 +20,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
 import com.provectus.budgetrush.data.Account;
@@ -78,12 +79,14 @@ public class AccountTest {
     }
 
     @Test
+    @Transactional
     public void saveAccountTest() throws Exception {
         Account account = saveTestAccount();
         assertNotNull(account.getId());
     }
 
     @Test
+    @Transactional
     public void getAllCategoriesTest() throws Exception {
         log.info("Start get all test");
         int size = service.getAll().size();
@@ -97,6 +100,7 @@ public class AccountTest {
     }
 
     @Test
+    @Transactional
     public void getByIdTest() throws Exception {
         Account account = saveTestAccount();
         Account account1 = service.getById(account.getId());
@@ -106,6 +110,7 @@ public class AccountTest {
     }
 
     @Test
+    @Transactional
     public void deleteAccountTest() throws Exception {
         Account account = saveTestAccount();
         service.delete(account.getId());

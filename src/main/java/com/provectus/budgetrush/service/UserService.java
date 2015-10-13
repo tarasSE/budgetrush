@@ -32,7 +32,7 @@ public class UserService extends GenericService<User, UserRepository> {
         user.setPassword(hexPassword);
         user.setRole(Roles.ROLE_USER);
 
-        if (user.getGroups().isEmpty()) {
+        if (user.getGroups() == null || user.getGroups().isEmpty()) {
             Group group = new Group();
             group.setName("Main");
             Set<Group> groups = new HashSet<>();

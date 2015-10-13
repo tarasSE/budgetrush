@@ -23,13 +23,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Contractor;
 import com.provectus.budgetrush.service.ContractorService;
+import com.provectus.budgetrush.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, ContractorService.class })
+@ContextConfiguration(classes = { InMemoryConfig.class, ContractorService.class, UserService.class })
 @WebAppConfiguration
 public class ContractorsTest {
 
@@ -40,6 +41,8 @@ public class ContractorsTest {
 
     @Autowired
     private ContractorService service;
+    @Autowired
+    private UserService userService;
 
     @Before
     public void setUp() throws Exception {
@@ -52,6 +55,7 @@ public class ContractorsTest {
         Contractor contractor = new Contractor();
 
         contractor.setName(Integer.toString(random.nextInt()));
+        contractor.setUser(userService.getById(1));
         return service.create(contractor);
     }
 

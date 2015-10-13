@@ -15,7 +15,7 @@ public abstract class GenericService<E extends BaseEntity, R extends JpaReposito
         try {
             return getRepository().saveAndFlush(entity);
         } catch (Exception exception) {
-            throw new CustomException("Can`t create resource. " + exception);
+            throw new CustomException("Can`t create resource " + entity + "." + exception);
         }
 
     }

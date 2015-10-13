@@ -9,10 +9,8 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -29,14 +27,11 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Contractor;
-import com.provectus.budgetrush.data.Currency;
-import com.provectus.budgetrush.data.Group;
 import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.data.OrderStatistic;
-import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.CategoryService;
+import com.provectus.budgetrush.service.ContractorService;
 import com.provectus.budgetrush.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +39,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, OrderService.class, AccountService.class })
+@ContextConfiguration(classes = { InMemoryConfig.class, OrderService.class, AccountService.class,
+        CategoryService.class, ContractorService.class })
 @WebAppConfiguration
 public class OrdersTest {
 
@@ -56,6 +52,15 @@ public class OrdersTest {
     @Autowired
     private OrderService service;
 
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private ContractorService contractorService;
+
     @Before
     public void setUp() throws Exception {
         log.info("Init entity manager");
@@ -65,41 +70,13 @@ public class OrdersTest {
     private Order saveTestOrder() {
         log.info("Start save test order");
 
-        User user = new User();
-        user.setName("test_name");
-        user.setPassword("pass");
-        Group group = new Group();
-        group.setName("test");
-        Set<Group> groups = new HashSet<>();
-        groups.add(group);
-        user.setGroups(groups);
-
-        Currency currency = new Currency();
-        currency.setName("test_name");
-        currency.setShortName("usd");
-        currency.setCode(1111);
-        currency.setSymbol('s');
-
-        Account account = new Account();
-        account.setCurrency(currency);
-        account.setGroup(group);
-        account.setName("test_name");
-
-        Contractor contractor = new Contractor();
-        contractor.setName("test_name");
-        contractor.setDescription("test_description");
-
-        Category category = new Category();
-        category.setName("test_category");
-        category.setParent(null);
-
         Order order = new Order();
         order.setAmount(valueOf(random.nextDouble()));
         Calendar startDate = new GregorianCalendar(2015, 9, 4, 14, 0);
         order.setDate(new Date(startDate.getTimeInMillis()));
-        order.setAccount(account);
-        order.setCategory(category);
-        order.setContractor(contractor);
+        order.setAccount(accountService.getById(1));
+        order.setCategory(categoryService.getById(1));
+        order.setContractor(contractorService.getById(1));
 
         return service.create(order);
     }
@@ -189,7 +166,6 @@ public class OrdersTest {
         Order order = saveTestOrder();
         order.setAmount(BigDecimal.valueOf(-656.00));
         assertNotNull(order);
-        Account account = order.getAccount();
 
         Date startDate = new Date(0);
         Date endDate = new Date();

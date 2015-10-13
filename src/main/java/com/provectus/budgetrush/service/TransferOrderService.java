@@ -1,6 +1,5 @@
 package com.provectus.budgetrush.service;
 
-import com.provectus.budgetrush.data.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,8 +9,6 @@ import com.provectus.budgetrush.data.TransferOrder;
 import com.provectus.budgetrush.repository.TransferOrderRepository;
 
 import lombok.extern.slf4j.Slf4j;
-
-import java.math.BigDecimal;
 
 @Slf4j
 @Service
@@ -28,24 +25,21 @@ public class TransferOrderService extends GenericService<TransferOrder, Transfer
     AccountService accountService;
 
     @Override
-    public boolean delete(int id) {
-        TransferOrder oldTransfer = getById(id);
-
-        accountService.decreaseBalance(oldTransfer.getTransferAccount(), oldTransfer.getAmount());
-        accountService.incressBalance(oldTransfer.getAccount(), oldTransfer.getAmount());
-
-        return super.delete(id);
+    protected TransferOrderRepository getRepository() {
+        return transferOrderRepository;
     }
 
-    public TransferOrder transfer(TransferOrder transfer) {
+    @Override
+    public TransferOrder create(TransferOrder transfer) {
         Order expense = new Order();
         Order income = new Order();
 
-
+        expense.setDate(transfer.getDate());
         expense.setAccount(transfer.getAccount());
         expense.setAmount(transfer.getAmount().negate());
         expense = orderService.create(expense);
 
+        income.setDate(transfer.getDate());
         income.setAccount(transfer.getTransferAccount());
         income.setAmount(transfer.getAmount());
         income = orderService.create(income);
@@ -53,11 +47,16 @@ public class TransferOrderService extends GenericService<TransferOrder, Transfer
         transfer.setExpense(expense);
         transfer.setIncome(income);
         log.info("Create transfer");
-        return create(transfer);
+        return super.create(transfer);
     }
 
     @Override
-    protected TransferOrderRepository getRepository() {
-        return transferOrderRepository;
+    public boolean delete(int id) {
+        TransferOrder oldTransfer = getById(id);
+
+        accountService.decreaseBalance(oldTransfer.getTransferAccount(), oldTransfer.getAmount());
+        accountService.incressBalance(oldTransfer.getAccount(), oldTransfer.getAmount());
+
+        return super.delete(id);
     }
 }

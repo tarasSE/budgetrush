@@ -23,6 +23,14 @@ public class AccountService extends GenericService<Account, AccountRepository> {
         return accountRepository;
     }
 
+    @Override
+    public Account create(Account account) {
+        if (account.getBalance() == null) {
+            account.setBalance(new BigDecimal(0));
+        }
+        return super.create(account);
+    }
+
     public Account incressBalance(@NotNull Account account, BigDecimal amount) {
         BigDecimal balance = account.getBalance();
         if (balance == null) {
