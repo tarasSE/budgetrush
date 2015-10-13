@@ -16,14 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.datatest.InMemoryConfig;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, ObjectMapper.class, Category.class })
+@ContextConfiguration(classes = { ObjectMapper.class, Category.class })
 @WebAppConfiguration
 public class CategoryMappingTest {
 

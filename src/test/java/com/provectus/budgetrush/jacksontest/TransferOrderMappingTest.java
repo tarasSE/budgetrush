@@ -21,6 +21,7 @@ import com.provectus.budgetrush.data.Account;
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.data.Contractor;
 import com.provectus.budgetrush.data.Currency;
+import com.provectus.budgetrush.data.Group;
 import com.provectus.budgetrush.data.TransferOrder;
 import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.datatest.InMemoryConfig;
@@ -30,7 +31,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, ObjectMapper.class, TransferOrder.class, User.class, Account.class, Category.class, Contractor.class })
+@ContextConfiguration(classes = { InMemoryConfig.class, ObjectMapper.class, TransferOrder.class, User.class,
+        Account.class, Category.class, Contractor.class, Group.class })
 @WebAppConfiguration
 public class TransferOrderMappingTest {
 
@@ -61,7 +63,9 @@ public class TransferOrderMappingTest {
 
         Account account = new Account();
         account.setCurrency(currency);
-        account.setUser(user);
+        Group group = new Group();
+        group.setName("test");
+        account.setGroup(group);
         account.setName("test_name");
 
         Contractor contractor = new Contractor();

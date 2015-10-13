@@ -18,17 +18,17 @@ public class TransferOrder extends Order {
     private OrderType type;
 
     @JsonProperty
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn
     private Order expense;
 
     @JsonProperty
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn
     private Order income;
 
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "transfer_account_id")
+    @JoinColumn
     private Account transferAccount;
 }

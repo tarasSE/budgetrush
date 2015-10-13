@@ -1,12 +1,17 @@
 package com.provectus.budgetrush.datatest;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Currency;
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.AccountService;
-import com.provectus.budgetrush.service.CurrencyService;
-import com.provectus.budgetrush.service.UserService;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,20 +20,22 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import java.util.List;
-import java.util.Random;
+import com.google.common.base.Preconditions;
+import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.Group;
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.CurrencyService;
+import com.provectus.budgetrush.service.UserService;
 
-import static org.junit.Assert.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, AccountService.class, UserService.class, CurrencyService.class })
+@ContextConfiguration(classes = { InMemoryConfig.class, AccountService.class, UserService.class,
+        CurrencyService.class })
 @WebAppConfiguration
 public class AccountTest {
 
@@ -39,10 +46,12 @@ public class AccountTest {
 
     @Autowired
     private AccountService service;
-    @Autowired
-    private UserService userService;
+
     @Autowired
     private CurrencyService currencyService;
+
+    @Autowired
+    private UserService userService;
 
     @Before
     public void setUp() throws Exception {
@@ -56,34 +65,25 @@ public class AccountTest {
 
         account.setName(Integer.toString(random.nextInt()));
 
-        User user = new User();
-        user.setName(Integer.toString(random.nextInt()));
-        user.setPassword(Integer.toString(random.nextInt()));
-        account.setUser(userService.create(user));
+        User user = userService.getById(1);
 
-        Currency currency = new Currency();
+        Set<Group> groups = user.getGroups();
 
-        currency.setName("USD");
-        currency.setCode(840);
-        currency.setShortName("USD");
-        currency.setSymbol('$');
-        account.setCurrency(currencyService.create(currency));
+        Preconditions.checkNotNull(!groups.isEmpty(), "Can`t find user!");
+        account.setGroup(groups.iterator().next());
+
+        account.setCurrency(currencyService.getById(1));
 
         return service.create(account);
     }
 
     @Test
-    @Transactional
     public void saveAccountTest() throws Exception {
-
         Account account = saveTestAccount();
         assertNotNull(account.getId());
-        assertNotNull(account.getCurrency());
-        assertNotNull(account.getUser());
     }
 
     @Test
-    @Transactional
     public void getAllCategoriesTest() throws Exception {
         log.info("Start get all test");
         int size = service.getAll().size();
@@ -97,7 +97,6 @@ public class AccountTest {
     }
 
     @Test
-    @Transactional
     public void getByIdTest() throws Exception {
         Account account = saveTestAccount();
         Account account1 = service.getById(account.getId());
@@ -107,7 +106,6 @@ public class AccountTest {
     }
 
     @Test
-    @Transactional
     public void deleteAccountTest() throws Exception {
         Account account = saveTestAccount();
         service.delete(account.getId());

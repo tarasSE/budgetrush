@@ -1,10 +1,23 @@
 package com.provectus.budgetrush.datatest;
 
-import com.provectus.budgetrush.data.*;
-import com.provectus.budgetrush.data.Currency;
-import com.provectus.budgetrush.service.AccountService;
-import com.provectus.budgetrush.service.OrderService;
-import lombok.extern.slf4j.Slf4j;
+import static java.math.BigDecimal.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,14 +28,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import java.math.BigDecimal;
-import java.util.*;
+import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.Category;
+import com.provectus.budgetrush.data.Contractor;
+import com.provectus.budgetrush.data.Currency;
+import com.provectus.budgetrush.data.Group;
+import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.OrderStatistic;
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.OrderService;
 
-import static java.math.BigDecimal.valueOf;
-import static org.junit.Assert.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
@@ -51,6 +68,11 @@ public class OrdersTest {
         User user = new User();
         user.setName("test_name");
         user.setPassword("pass");
+        Group group = new Group();
+        group.setName("test");
+        Set<Group> groups = new HashSet<>();
+        groups.add(group);
+        user.setGroups(groups);
 
         Currency currency = new Currency();
         currency.setName("test_name");
@@ -60,7 +82,7 @@ public class OrdersTest {
 
         Account account = new Account();
         account.setCurrency(currency);
-        account.setUser(user);
+        account.setGroup(group);
         account.setName("test_name");
 
         Contractor contractor = new Contractor();
@@ -152,7 +174,7 @@ public class OrdersTest {
 
         Date startDate = new Date(0);
         Date endDate = new Date();
-        List<OrderStatistic> incomes = service.getIncomeByAccount(order.getAccount().getId(), startDate, endDate);
+        List<OrderStatistic> incomes = service.getIncomeByAccount(account.getId(), startDate, endDate);
 
         assertNotNull(incomes);
         assertEquals(incomes.isEmpty(), false);

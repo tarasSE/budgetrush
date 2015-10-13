@@ -38,7 +38,8 @@ public class InMemoryConfig {
 
     @Bean(destroyMethod = "shutdown")
     public EmbeddedDatabase dataSource() {
-        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("budget_rush_schema.sql").addScript("add_test_content.sql").build();
+        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("budget_rush_schema.sql")
+                .addScript("add_test_content.sql").build();
     }
 
     @Bean
@@ -55,7 +56,7 @@ public class InMemoryConfig {
         properties.put("hibernate.connection.url", "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
         properties.put("hibernate.current_session_context_class", "thread");
         properties.put("hibernate.show_sql", "true");
-        properties.put("hibernate.hbm2ddl.auto", "create");
+        properties.put("hibernate.hbm2ddl.auto", "validate");
 
         return properties;
     }

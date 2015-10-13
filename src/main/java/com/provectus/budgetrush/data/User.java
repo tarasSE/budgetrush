@@ -1,8 +1,14 @@
 package com.provectus.budgetrush.data;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
@@ -28,6 +34,12 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.ORDINAL)
     private Roles role;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(name = "users_groups",
+               joinColumns = { @JoinColumn(name = "user_id") },
+               inverseJoinColumns = { @JoinColumn(name = "group_id") })
+    private Set<Group> groups;
 
     @JsonIgnore
     public String getPassword() {

@@ -5,10 +5,9 @@ import java.io.Serializable;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 
-import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.Budget;
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.data.Contractor;
-import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.data.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,21 +25,20 @@ public class UserPermissionEvaluator implements PermissionEvaluator {
     }
 
     @Override
-    public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
+    public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType,
+                                 Object permission) {
         throw new RuntimeException("Id and Class permissions are not supperted by this application");
     }
 
     private User getUserFromObject(Object object) {
         if (object instanceof User) {
             return (User) object;
-        } else if (object instanceof Account) {
-            return ((Account) object).getUser();
         } else if (object instanceof Category) {
             return ((Category) object).getUser();
         } else if (object instanceof Contractor) {
             return ((Contractor) object).getUser();
-        } else if (object instanceof Order) {
-            return ((Order) object).getAccount().getUser();
+        } else if (object instanceof Budget) {
+            return ((Budget) object).getCategory().getUser();
         } else {
             throw new RuntimeException("Unknown class.");
         }

@@ -1,46 +1,36 @@
 package com.provectus.budgetrush.jacksontest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Currency;
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.datatest.InMemoryConfig;
-import com.provectus.budgetrush.service.AccountService;
-import com.provectus.budgetrush.service.CurrencyService;
-import com.provectus.budgetrush.service.UserService;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.File;
+import java.util.Random;
+import java.util.Scanner;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
-import java.util.Random;
-import java.util.Scanner;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.Currency;
+import com.provectus.budgetrush.data.Group;
 
-import static org.junit.Assert.assertNotNull;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, ObjectMapper.class, Account.class, AccountService.class, UserService.class, CurrencyService.class })
+@ContextConfiguration(classes = { ObjectMapper.class, Account.class })
 @WebAppConfiguration
 public class AccountMappingTest {
 
     private ObjectMapper mapper;
     private final Random random = new Random();
-
-    @Autowired
-    private AccountService service;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private CurrencyService currencyService;
 
     @Before
     public void setUp() throws Exception {
@@ -58,10 +48,9 @@ public class AccountMappingTest {
 
         account.setName(Integer.toString(random.nextInt()));
 
-        User user = new User();
-        user.setName(Integer.toString(random.nextInt()));
-        user.setPassword(Integer.toString(random.nextInt()));
-        account.setUser(userService.create(user));
+        Group group = new Group();
+        group.setName("test");
+        account.setGroup(group);
 
         Currency currency = new Currency();
 
@@ -69,7 +58,7 @@ public class AccountMappingTest {
         currency.setCode(840);
         currency.setShortName("USD");
         currency.setSymbol('$');
-        account.setCurrency(currencyService.create(currency));
+        account.setCurrency(currency);
 
         log.info("Writing JSON to file");
         mapper.writeValue(file, account);
