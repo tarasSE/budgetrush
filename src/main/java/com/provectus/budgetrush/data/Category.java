@@ -1,13 +1,11 @@
 package com.provectus.budgetrush.data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import javax.persistence.*;
+
+@EqualsAndHashCode(callSuper = false)
 @Data
 @Entity
 @Table(name = "categories")
