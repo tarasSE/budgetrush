@@ -1,100 +1,71 @@
 package com.provectus.budgetrush.jacksontest;
 
-import static java.math.BigDecimal.valueOf;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
-import java.util.Date;
 import java.util.Scanner;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Contractor;
-import com.provectus.budgetrush.data.Currency;
-import com.provectus.budgetrush.data.Group;
 import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.datatest.InMemoryConfig;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { ObjectMapper.class, Order.class, User.class, Account.class,
-        Category.class, Contractor.class, Group.class })
+@ContextConfiguration(classes = { ObjectMapper.class, InMemoryConfig.class, OrderService.class, AccountService.class })
 @WebAppConfiguration
 public class OrderMappingTest {
 
     private ObjectMapper mapper;
+    @Resource
+    private EntityManagerFactory emf;
+    protected EntityManager em;
+
+    @Autowired
+    private OrderService orderService;
 
     @Before
     public void setUp() throws Exception {
         log.info("Init object mapper");
         mapper = new ObjectMapper();
+        em = emf.createEntityManager();
     }
 
     @Test
-    @Transactional
     public void jsonMappingTest() throws Exception {
         Scanner scanner;
         File file = new File("order.json");
-        Order order1;
-
-        User user = new User();
-        user.setName("test_name");
-        user.setPassword("pass");
-
-        Currency currency = new Currency();
-        currency.setName("test_name");
-        currency.setShortName("usd");
-        currency.setCode(1111);
-        currency.setSymbol('s');
-
-        Account account = new Account();
-        account.setCurrency(currency);
-        Group group = new Group();
-        group.setName("test");
-        account.setGroup(group);
-        account.setName("test_name");
-
-        Contractor contractor = new Contractor();
-        contractor.setName("test_name");
-        contractor.setDescription("test_description");
-
-        Category category = new Category();
-        category.setName("test_category");
-        category.setParent(null);
-
-        Order order = new Order();
-        order.setAmount(valueOf(1234124));
-        order.setDate(new Date());
-        order.setAccount(account);
-        order.setCategory(category);
-        order.setContractor(contractor);
 
         log.info("Writing JSON to file");
-        mapper.writeValue(file, order);
+        mapper.writeValue(file, orderService.getById(1));
         scanner = new Scanner(file);
         log.info(scanner.nextLine());
         scanner.close();
 
         log.info("Cresting POJO from JSON");
-        order1 = mapper.readValue(file, Order.class);
-        log.info(order1.toString());
+        Order order = mapper.readValue(file, Order.class);
+        log.info(order.toString());
 
         file.delete();
 
-        assertNotNull(file.toString(), order1);
+        assertNotNull(file.toString(), order);
     }
 
 }

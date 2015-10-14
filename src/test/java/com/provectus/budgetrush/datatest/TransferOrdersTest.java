@@ -45,9 +45,6 @@ public class TransferOrdersTest {
     protected EntityManager em;
 
     @Autowired
-    private OrderService orderService;
-
-    @Autowired
     private TransferOrderService transferService;
 
     @Autowired

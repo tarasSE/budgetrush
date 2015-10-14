@@ -17,7 +17,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.provectus.budgetrush.data.Account;
@@ -29,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { ObjectMapper.class, InMemoryConfig.class, AccountService.class, })
+@ContextConfiguration(classes = { ObjectMapper.class, InMemoryConfig.class, AccountService.class })
 @WebAppConfiguration
 public class AccountMappingTest {
 
@@ -39,7 +38,7 @@ public class AccountMappingTest {
     protected EntityManager em;
 
     @Autowired
-    private AccountService service;
+    private AccountService accountService;
 
     @Before
     public void setUp() throws Exception {
@@ -49,19 +48,18 @@ public class AccountMappingTest {
     }
 
     @Test
-    @Transactional
     public void jsonMappingTest() throws Exception {
         Scanner scanner;
         File file = new File("account.json");
 
         log.info("Writing JSON to file");
-        mapper.writeValue(file, service.getById(1));
+        mapper.writeValue(file, accountService.getById(1));
         scanner = new Scanner(file);
         log.info(scanner.nextLine());
         scanner.close();
         ;
 
-        log.info("Cresting POJO from JSON");
+        log.info("Creating POJO from JSON");
         Account account1 = mapper.readValue(file, Account.class);
         log.info(account1.toString());
 
