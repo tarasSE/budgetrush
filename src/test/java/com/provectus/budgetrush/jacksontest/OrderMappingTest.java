@@ -17,6 +17,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.provectus.budgetrush.data.Order;
@@ -49,6 +50,7 @@ public class OrderMappingTest {
     }
 
     @Test
+    @Transactional
     public void jsonMappingTest() throws Exception {
         Scanner scanner;
         File file = new File("order.json");

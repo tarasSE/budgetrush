@@ -3,11 +3,13 @@ package com.provectus.budgetrush.service;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.BaseEntity;
 import com.provectus.budgetrush.exceptions.CustomException;
 import com.provectus.budgetrush.exceptions.ResourceNotFoundException;
 
+@Transactional
 public abstract class GenericService<E extends BaseEntity, R extends JpaRepository<E, Integer>> {
 
     public E create(E entity) {
