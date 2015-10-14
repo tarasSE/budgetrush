@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -22,20 +21,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.base.Preconditions;
 import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Group;
-import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.service.AccountService;
 import com.provectus.budgetrush.service.CurrencyService;
-import com.provectus.budgetrush.service.UserService;
+import com.provectus.budgetrush.service.GroupService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, AccountService.class, UserService.class,
+@ContextConfiguration(classes = { InMemoryConfig.class, AccountService.class, GroupService.class,
         CurrencyService.class })
 @WebAppConfiguration
 public class AccountTest {
@@ -52,7 +48,7 @@ public class AccountTest {
     private CurrencyService currencyService;
 
     @Autowired
-    private UserService userService;
+    private GroupService groupService;
 
     @Before
     public void setUp() throws Exception {
@@ -66,12 +62,7 @@ public class AccountTest {
 
         account.setName(Integer.toString(random.nextInt()));
 
-        User user = userService.getById(1);
-
-        Set<Group> groups = user.getGroups();
-
-        Preconditions.checkNotNull(!groups.isEmpty(), "Can`t find user!");
-        account.setGroup(groups.iterator().next());
+        account.setGroup(groupService.getById(1));
 
         account.setCurrency(currencyService.getById(1));
 
