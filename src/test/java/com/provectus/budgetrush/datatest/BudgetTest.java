@@ -46,14 +46,10 @@ public class BudgetTest {
 
     @Autowired
     private BudgetService service;
-    @Autowired
-    private OrderService orderService;
-    @Autowired
-    private AccountService accountService;
+
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private ContractorService contractorService;
+
     @Autowired
     private UserService userService;
 
@@ -84,7 +80,7 @@ public class BudgetTest {
 
         Budget budget = saveTestBudget();
         Budget budget1 = service.getById(budget.getId());
-        assertNotNull(budget.getId());
+        assertNotNull(budget1.getId());
 
     }
 
