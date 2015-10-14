@@ -1,16 +1,24 @@
 package com.provectus.budgetrush.server;
 
-import com.google.common.io.Resources;
-import lombok.extern.slf4j.Slf4j;
-import org.eclipse.jetty.http.HttpVersion;
-import org.eclipse.jetty.server.*;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
-import org.eclipse.jetty.webapp.WebAppContext;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import org.eclipse.jetty.http.HttpVersion;
+import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.HttpConfiguration;
+import org.eclipse.jetty.server.HttpConnectionFactory;
+import org.eclipse.jetty.server.SecureRequestCustomizer;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.SslConnectionFactory;
+import org.eclipse.jetty.util.ssl.SslContextFactory;
+import org.eclipse.jetty.webapp.WebAppContext;
+
+import com.google.common.io.Resources;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 class JettyServer implements WebServer {
@@ -19,7 +27,8 @@ class JettyServer implements WebServer {
     private static int SECURE_PORT;
     private static String WEB_APP_ROOT;
     private static String CONTEXT_PATH;
-    private static final String JAR_PATH = JettyServer.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    private static final String JAR_PATH = JettyServer.class.getProtectionDomain().getCodeSource().getLocation()
+            .getPath();
     private static final String DIR_PATH = new File(JAR_PATH).getParent();
     private static final String KEY_STORE_PATH = Resources.getResource("my-release-key.keystore").toExternalForm();
 
@@ -36,8 +45,7 @@ class JettyServer implements WebServer {
         try {
             Properties properties = new Properties();
 
-            InputStream stream =
-                    Resources.getResource("app.properties").openStream();
+            InputStream stream = Resources.getResource("app.properties").openStream();
 
             properties.load(stream);
             stream.close();
@@ -73,7 +81,7 @@ class JettyServer implements WebServer {
         WebAppContext webAppContext = new WebAppContext();
         webAppContext.setContextPath(CONTEXT_PATH);
         webAppContext.setWar(DIR_PATH + WEB_APP_ROOT);
-        webAppContext.setWar("/home/taras/Budget_Rush/src/main/webapp");
+        // webAppContext.setWar("/home/taras/Budget_Rush/src/main/webapp");
 
         return webAppContext;
     }
@@ -96,11 +104,13 @@ class JettyServer implements WebServer {
         HttpConfiguration https_config = new HttpConfiguration(http_config);
         https_config.addCustomizer(new SecureRequestCustomizer());
 
-        ServerConnector https = new ServerConnector(jettyServer, new SslConnectionFactory(sslContextFactory, HttpVersion.HTTP_1_1.asString()), new HttpConnectionFactory(https_config));
+        ServerConnector https = new ServerConnector(jettyServer,
+                new SslConnectionFactory(sslContextFactory, HttpVersion.HTTP_1_1.asString()),
+                new HttpConnectionFactory(https_config));
         https.setPort(SECURE_PORT);
         https.setIdleTimeout(500000);
 
-        return new Connector[]{http, https};
+        return new Connector[] { http, https };
     }
 
     @Override

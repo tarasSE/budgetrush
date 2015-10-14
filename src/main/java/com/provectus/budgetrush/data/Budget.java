@@ -23,10 +23,10 @@ public class Budget extends BaseEntity {
 
     private BigDecimal amount;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date startDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date endDate;
 
     @ManyToOne
