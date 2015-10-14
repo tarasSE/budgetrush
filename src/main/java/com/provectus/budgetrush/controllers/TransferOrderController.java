@@ -1,19 +1,25 @@
 package com.provectus.budgetrush.controllers;
 
-import com.provectus.budgetrush.data.TransferOrder;
-import com.provectus.budgetrush.service.TransferOrderService;
-import lombok.extern.slf4j.Slf4j;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.provectus.budgetrush.data.TransferOrder;
+import com.provectus.budgetrush.service.TransferOrderService;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequestMapping(value = "/v1/transfers", headers = "Accept=application/json")
@@ -27,7 +33,7 @@ public class TransferOrderController {
     @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
-    public List getTransfers() {
+    public List<TransferOrder> getTransfers() {
         log.info("Get all orders");
         return service.getAll();
     }
@@ -39,13 +45,13 @@ public class TransferOrderController {
         return service.getById(id);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')") //todo
+    @PreAuthorize("isObjectOwnerOrAdmin(#transfer, 'write')") // todo
     @RequestMapping(method = POST)
     @ResponseBody
     public TransferOrder transfer(@RequestBody TransferOrder transfer) {
-        log.info("Create/update new order");
+        log.info("Create new order");
 
-        return service.getById(service.create(transfer).getId());
+        return service.create(transfer);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(@transferOrderService.getById(#id), 'delete')")
