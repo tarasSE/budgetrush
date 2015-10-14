@@ -1,25 +1,17 @@
 package com.provectus.budgetrush.controllers;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
-import java.util.List;
-
+import com.provectus.budgetrush.data.TransferOrder;
+import com.provectus.budgetrush.service.TransferOrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.provectus.budgetrush.data.TransferOrder;
-import com.provectus.budgetrush.service.TransferOrderService;
+import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Slf4j
 @RequestMapping(value = "/v1/transfers", headers = "Accept=application/json")
@@ -51,7 +43,7 @@ public class TransferOrderController {
     public TransferOrder transfer(@RequestBody TransferOrder transfer) {
         log.info("Create new order");
 
-        return service.create(transfer);
+        return service.getById(service.create(transfer).getId());
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(@transferOrderService.getById(#id), 'delete')")

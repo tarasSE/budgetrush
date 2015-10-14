@@ -1,24 +1,16 @@
 package com.provectus.budgetrush.server;
 
+import com.google.common.io.Resources;
+import lombok.extern.slf4j.Slf4j;
+import org.eclipse.jetty.http.HttpVersion;
+import org.eclipse.jetty.server.*;
+import org.eclipse.jetty.util.ssl.SslContextFactory;
+import org.eclipse.jetty.webapp.WebAppContext;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
-import org.eclipse.jetty.http.HttpVersion;
-import org.eclipse.jetty.server.Connector;
-import org.eclipse.jetty.server.HttpConfiguration;
-import org.eclipse.jetty.server.HttpConnectionFactory;
-import org.eclipse.jetty.server.SecureRequestCustomizer;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.SslConnectionFactory;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
-import org.eclipse.jetty.webapp.WebAppContext;
-
-import com.google.common.io.Resources;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 class JettyServer implements WebServer {
@@ -81,7 +73,7 @@ class JettyServer implements WebServer {
         WebAppContext webAppContext = new WebAppContext();
         webAppContext.setContextPath(CONTEXT_PATH);
         webAppContext.setWar(DIR_PATH + WEB_APP_ROOT);
-        // webAppContext.setWar("/home/taras/Budget_Rush/src/main/webapp");
+        webAppContext.setWar("/home/taras/Budget_Rush/src/main/webapp");
 
         return webAppContext;
     }
