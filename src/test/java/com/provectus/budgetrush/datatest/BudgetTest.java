@@ -1,17 +1,8 @@
 package com.provectus.budgetrush.datatest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import com.provectus.budgetrush.data.Budget;
+import com.provectus.budgetrush.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,15 +13,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Budget;
-import com.provectus.budgetrush.service.AccountService;
-import com.provectus.budgetrush.service.BudgetService;
-import com.provectus.budgetrush.service.CategoryService;
-import com.provectus.budgetrush.service.ContractorService;
-import com.provectus.budgetrush.service.OrderService;
-import com.provectus.budgetrush.service.UserService;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.*;
 
 @Slf4j
 @DirtiesContext
@@ -68,7 +58,7 @@ public class BudgetTest {
         budget.setCategory(categoryService.getById(1));
         budget.setStartDate(new Date());
         budget.setEndDate(new Date());
-        budget.setUser(userService.getById(1));
+       // budget.setGroup( todo );
         budget.setAmount(BigDecimal.ONE);
 
         return service.create(budget);
