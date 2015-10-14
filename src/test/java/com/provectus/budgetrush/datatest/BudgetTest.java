@@ -25,8 +25,9 @@ import static org.junit.Assert.*;
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, BudgetService.class, OrderService.class,
-        AccountService.class, CategoryService.class, UserService.class, ContractorService.class })
+@ContextConfiguration(classes = {InMemoryConfig.class, BudgetService.class, OrderService.class,
+        AccountService.class, CategoryService.class, UserService.class,
+        ContractorService.class, GroupService.class})
 @WebAppConfiguration
 public class BudgetTest {
 
@@ -43,6 +44,9 @@ public class BudgetTest {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private GroupService groupService;
+
     @Before
     public void setUp() throws Exception {
         log.info("Init entity manager");
@@ -58,7 +62,7 @@ public class BudgetTest {
         budget.setCategory(categoryService.getById(1));
         budget.setStartDate(new Date());
         budget.setEndDate(new Date());
-       // budget.setGroup( todo );
+        budget.setGroup(groupService.getById(1));
         budget.setAmount(BigDecimal.ONE);
 
         return service.create(budget);
