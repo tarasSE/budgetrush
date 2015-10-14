@@ -96,10 +96,10 @@ CREATE TABLE budgets (
   startDate  DATE,
   endDate    DATE,
   category_id INT            NOT NULL,
-  user_id INT                NOT NULL,
+  group_id INT                NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (category_id) REFERENCES categories (id),
-  FOREIGN KEY (user_id) REFERENCES users (id)
+  FOREIGN KEY (group_id) REFERENCES groups (id)
 )
   ENGINE = InnoDB;
 
