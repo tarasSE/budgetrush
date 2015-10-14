@@ -48,7 +48,7 @@ public class BudgetController {
     }
 
     //@PostFilter("isObjectOwnerOrAdmin(returnObject, 'read')") //todo
-    @RequestMapping(value = "/statistics/{id}",method = GET)
+    @RequestMapping(value = "/{id}/statistics",method = GET)
     @ResponseBody
     public BudgetStatistic getBudgetStatistic(@PathVariable int id) {
 
