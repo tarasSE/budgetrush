@@ -1,8 +1,17 @@
 package com.provectus.budgetrush.datatest;
 
-import com.provectus.budgetrush.data.Budget;
-import com.provectus.budgetrush.service.*;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,20 +22,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import com.provectus.budgetrush.data.Budget;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.BudgetService;
+import com.provectus.budgetrush.service.CategoryService;
+import com.provectus.budgetrush.service.ContractorService;
+import com.provectus.budgetrush.service.GroupService;
+import com.provectus.budgetrush.service.OrderService;
 
-import static org.junit.Assert.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { InMemoryConfig.class, BudgetService.class, OrderService.class,
-        AccountService.class, CategoryService.class, UserService.class, ContractorService.class })
+        AccountService.class, CategoryService.class, GroupService.class, ContractorService.class })
 @WebAppConfiguration
 public class BudgetTest {
 
@@ -41,7 +51,7 @@ public class BudgetTest {
     private CategoryService categoryService;
 
     @Autowired
-    private UserService userService;
+    private GroupService groupService;
 
     @Before
     public void setUp() throws Exception {
@@ -58,7 +68,7 @@ public class BudgetTest {
         budget.setCategory(categoryService.getById(1));
         budget.setStartDate(new Date());
         budget.setEndDate(new Date());
-       // budget.setGroup( todo );
+        budget.setGroup(groupService.getById(1));
         budget.setAmount(BigDecimal.ONE);
 
         return service.create(budget);

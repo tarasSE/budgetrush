@@ -20,7 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.data.Group;
 import com.provectus.budgetrush.datatest.InMemoryConfig;
 import com.provectus.budgetrush.service.GroupService;
 
@@ -61,12 +61,12 @@ public class GroupMappingTest {
         scanner.close();
 
         log.info("Cresting POJO from JSON");
-        User user = mapper.readValue(file, User.class);
+        Group group = mapper.readValue(file, Group.class);
 
-        log.info(user.toString());
+        log.info(group.toString());
         file.delete();
 
-        assertNotNull(file.toString(), user);
+        assertNotNull(file.toString(), group);
     }
 
 }
