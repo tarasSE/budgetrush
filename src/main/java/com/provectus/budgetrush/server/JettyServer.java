@@ -76,7 +76,9 @@ class JettyServer implements WebServer {
             webAppContext.setWar(DIR_PATH + WEB_APP_ROOT);
         }
         if (startArgs.equals(StartArgs.TEST)) {
-            webAppContext.setWar("/home/taras/Budget_Rush/src/main/webapp");
+            String s = File.separator;
+            webAppContext.setWar(new File(DIR_PATH).getParent() +
+                    s + "src" + s + "main" + s + "webapp");
         }
 
         return webAppContext;
