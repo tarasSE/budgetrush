@@ -60,10 +60,9 @@ class JettyServer implements WebServer {
     }
 
     @Override
-    public void start() {
+    public void start(StartArgs startArgs) {
         log.info(KEY_STORE_PATH);
-        log.info(DIR_PATH);
-        WebAppContext webAppContext = createContext();
+        WebAppContext webAppContext = createContext(startArgs);
         jettyServer = new Server();
         jettyServer.setConnectors(createConnectors());
         jettyServer.setHandler(webAppContext);
@@ -78,12 +77,16 @@ class JettyServer implements WebServer {
         log.info("Server started...");
     }
 
-    private WebAppContext createContext() {
+    private WebAppContext createContext(StartArgs startArgs) {
         WebAppContext webAppContext = new WebAppContext();
         webAppContext.setContextPath(CONTEXT_PATH);
-        // webAppContext.setWar(DIR_PATH + WEB_APP_ROOT);
-        // webAppContext.setWar("/home/taras/Budget_Rush/src/main/webapp");
-        webAppContext.setWar(new File(DIR_PATH).getParent() + "\\src\\main\\webapp");
+
+        if (startArgs.equals(StartArgs.NORMAL)) {
+            webAppContext.setWar(DIR_PATH + WEB_APP_ROOT);
+        }
+        if (startArgs.equals(StartArgs.TEST)) {
+            webAppContext.setWar(new File(DIR_PATH).getParent() + "\\src\\main\\webapp");
+        }
         return webAppContext;
     }
 
