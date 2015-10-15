@@ -24,6 +24,7 @@ public class AccountService extends GenericService<Account, AccountRepository> {
     }
 
     @Override
+    @Transactional
     public Account create(Account account) {
         if (account.getBalance() == null) {
             account.setBalance(new BigDecimal(0));
@@ -31,6 +32,7 @@ public class AccountService extends GenericService<Account, AccountRepository> {
         return super.create(account);
     }
 
+    @Transactional
     public Account incressBalance(@NotNull Account account, BigDecimal amount) {
         BigDecimal balance = account.getBalance();
         if (balance == null) {
@@ -41,6 +43,7 @@ public class AccountService extends GenericService<Account, AccountRepository> {
         return update(account, account.getId());
     }
 
+    @Transactional
     public Account decreaseBalance(Account account, BigDecimal amount) {
         BigDecimal balance = account.getBalance();
         if (balance == null) {

@@ -1,15 +1,16 @@
 package com.provectus.budgetrush.service;
 
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.data.OrderStatistic;
-import com.provectus.budgetrush.repository.OrderRepository;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import com.provectus.budgetrush.data.Category;
+import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.OrderStatistic;
+import com.provectus.budgetrush.repository.OrderRepository;
 
 @Service
 @Transactional
@@ -56,19 +57,23 @@ public class OrderService extends GenericService<Order, OrderRepository> {
 
     }
 
+    @Transactional
     public List<OrderStatistic> getTurnoverByAccount(int accountId, Date startDate, Date endDate) {
         return getRepository().getTurnoverByAccount(accountId, startDate, endDate);
     }
 
+    @Transactional
     public List<OrderStatistic> getIncomeByAccount(int accountId, Date startDate, Date endDate) {
         return getRepository().getIncomeByAccount(accountId, startDate, endDate);
     }
 
+    @Transactional
     public List<OrderStatistic> getExpenseByAccount(int accountId, Date startDate, Date endDate) {
         return getRepository().getExpenseByAccount(accountId, startDate, endDate);
     }
 
-    public List<OrderStatistic> getExpenseByCategory(Category category, Date startDate, Date endDate){
+    @Transactional
+    public List<OrderStatistic> getExpenseByCategory(Category category, Date startDate, Date endDate) {
         return getRepository().getExpenseByCategory(category, startDate, endDate);
     }
 

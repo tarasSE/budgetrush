@@ -3,15 +3,18 @@ package com.provectus.budgetrush.service;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.BaseEntity;
 import com.provectus.budgetrush.exceptions.CustomException;
 import com.provectus.budgetrush.exceptions.ResourceNotFoundException;
 
+@Service
 @Transactional
 public abstract class GenericService<E extends BaseEntity, R extends JpaRepository<E, Integer>> {
 
+    @Transactional
     public E create(E entity) {
         entity.setId(0);
         try {
@@ -22,6 +25,7 @@ public abstract class GenericService<E extends BaseEntity, R extends JpaReposito
 
     }
 
+    @Transactional
     public E update(E entity, int id) {
         entity.setId(id);
         try {
@@ -32,6 +36,7 @@ public abstract class GenericService<E extends BaseEntity, R extends JpaReposito
 
     }
 
+    @Transactional
     public boolean delete(int id) {
         try {
             getRepository().delete(id);
@@ -41,6 +46,7 @@ public abstract class GenericService<E extends BaseEntity, R extends JpaReposito
         return getRepository().exists(id);
     }
 
+    @Transactional
     public E getById(int id) {
         E entity = getRepository().findOne(id);
         if (entity == null) {
@@ -49,6 +55,7 @@ public abstract class GenericService<E extends BaseEntity, R extends JpaReposito
         return entity;
     }
 
+    @Transactional
     public List<E> getAll() {
         return getRepository().findAll();
     }

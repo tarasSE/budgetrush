@@ -27,6 +27,7 @@ public class UserService extends GenericService<User, UserRepository> {
     }
 
     @Override
+    @Transactional
     public User create(User user) {
         String hexPassword = DigestUtils.md5Hex(user.getPassword());
         user.setPassword(hexPassword);
@@ -44,12 +45,14 @@ public class UserService extends GenericService<User, UserRepository> {
     }
 
     @Override
+    @Transactional
     public User update(User user, int id) {
         String hexPassword = DigestUtils.md5Hex(user.getPassword());
         user.setPassword(hexPassword);
         return super.update(user, id);
     }
 
+    @Transactional
     public User find(String name, String password) {
         User user = getRepository().findByNameAndPassword(name, password);
         if (user == null) {
@@ -58,6 +61,7 @@ public class UserService extends GenericService<User, UserRepository> {
         return user;
     }
 
+    @Transactional
     public User find(String name) {
         User user = getRepository().findByName(name);
         if (user == null) {
@@ -66,6 +70,7 @@ public class UserService extends GenericService<User, UserRepository> {
         return user;
     }
 
+    @Transactional
     public Enum<?> getRoleByName(String name) {
         User user = getRepository().findByName(name);
         return user.getRole();

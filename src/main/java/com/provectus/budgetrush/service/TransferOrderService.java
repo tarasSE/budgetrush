@@ -30,6 +30,7 @@ public class TransferOrderService extends GenericService<TransferOrder, Transfer
     }
 
     @Override
+    @Transactional
     public TransferOrder create(TransferOrder transfer) {
         Order expense = new Order();
         Order income = new Order();
@@ -51,6 +52,7 @@ public class TransferOrderService extends GenericService<TransferOrder, Transfer
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         TransferOrder oldTransfer = getById(id);
 
