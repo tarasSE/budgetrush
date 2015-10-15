@@ -52,9 +52,9 @@ class JettyServer implements WebServer {
     }
 
     @Override
-    public void start() {
+    public void start(StartArgs startArgs) {
         log.info(KEY_STORE_PATH);
-        WebAppContext webAppContext = createContext();
+        WebAppContext webAppContext = createContext(startArgs);
         jettyServer = new Server();
         jettyServer.setConnectors(createConnectors());
         jettyServer.setHandler(webAppContext);
@@ -69,11 +69,15 @@ class JettyServer implements WebServer {
         log.info("Server started...");
     }
 
-    private WebAppContext createContext() {
+    private WebAppContext createContext(StartArgs startArgs) {
         WebAppContext webAppContext = new WebAppContext();
         webAppContext.setContextPath(CONTEXT_PATH);
-        webAppContext.setWar(DIR_PATH + WEB_APP_ROOT);
-        webAppContext.setWar("/home/taras/Budget_Rush/src/main/webapp");
+        if (startArgs.equals(StartArgs.NORMAL)) {
+            webAppContext.setWar(DIR_PATH + WEB_APP_ROOT);
+        }
+        if (startArgs.equals(StartArgs.TEST)) {
+            webAppContext.setWar("/home/taras/Budget_Rush/src/main/webapp");
+        }
 
         return webAppContext;
     }
@@ -102,7 +106,7 @@ class JettyServer implements WebServer {
         https.setPort(SECURE_PORT);
         https.setIdleTimeout(500000);
 
-        return new Connector[] { http, https };
+        return new Connector[]{http, https};
     }
 
     @Override
