@@ -22,7 +22,7 @@ public class ServerStarter {
     }
 
     private static StartArgs getStartType(String[] args) {
-        if (args != null && args.length > 0 && args[0].equals("-test")) {
+        if (args != null && args.length > 0 && args[0].equals("-t")) {
             log.info("Start type is 'TEST'");
             return StartArgs.TEST;
         }
