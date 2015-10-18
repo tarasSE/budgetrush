@@ -93,7 +93,9 @@ class JettyServer implements WebServer {
             return DIR_PATH + WEB_APP_ROOT;
         } else if (startType.equals(StartArgs.TEST)) {
 
-            return new File(DIR_PATH).getParent() + "\\src\\main\\webapp";
+            String s = File.separator;
+            return new File(DIR_PATH).getParent() +
+                    s + "src" + s + "main" + s + "webapp";
         }
 
         throw new CustomException("Unknown start type!");
