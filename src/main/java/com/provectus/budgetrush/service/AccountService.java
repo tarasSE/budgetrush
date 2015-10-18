@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +13,7 @@ import com.provectus.budgetrush.data.Account;
 import com.provectus.budgetrush.repository.AccountRepository;
 
 @Service
-@Transactional
+@Repository
 public class AccountService extends GenericService<Account, AccountRepository> {
 
     @Autowired

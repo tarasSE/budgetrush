@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Budget;
 import com.provectus.budgetrush.data.BudgetStatistic;
@@ -14,7 +14,7 @@ import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.repository.BudgetRepository;
 
 @Service
-@Transactional
+@Repository
 public class BudgetService extends GenericService<Budget, BudgetRepository> {
 
     @Autowired
@@ -28,7 +28,6 @@ public class BudgetService extends GenericService<Budget, BudgetRepository> {
         return budgetRepository;
     }
 
-    @Transactional
     public BudgetStatistic getBudgetStatistic(Budget budget) {
 
         BigDecimal amount = BigDecimal.ZERO;
@@ -46,7 +45,6 @@ public class BudgetService extends GenericService<Budget, BudgetRepository> {
         return new BudgetStatistic(budget, amount, balance);
     }
 
-    @Transactional
     public List<BudgetStatistic> getAllBudgetStatistics() {
         List<BudgetStatistic> budgetStatistics = new ArrayList<>();
         for (Budget budget : getAll()) {

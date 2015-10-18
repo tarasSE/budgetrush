@@ -3,9 +3,12 @@ package com.provectus.budgetrush.service;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,12 +17,16 @@ import com.provectus.budgetrush.data.Roles;
 import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.repository.UserRepository;
 
+@Slf4j
 @Service
-@Transactional
+@Repository
 public class UserService extends GenericService<User, UserRepository> {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private GroupService groupService;
 
     @Override
     protected UserRepository getRepository() {
@@ -33,15 +40,20 @@ public class UserService extends GenericService<User, UserRepository> {
         user.setPassword(hexPassword);
         user.setRole(Roles.ROLE_USER);
 
-        if (user.getGroups() == null || user.getGroups().isEmpty()) {
+        User creatUser = super.create(user);
+
+        if (creatUser.getGroups() == null || creatUser.getGroups().isEmpty()) {
+            log.info("Add main group to new user");
             Group group = new Group();
             group.setName("Main");
-            Set<Group> groups = new HashSet<>();
-            groups.add(group);
-            user.setGroups(groups);
+            Set<User> users = new HashSet<>();
+            users.add(creatUser);
+            group.setUsers(users);
+            groupService.create(group);
+
         }
 
-        return super.create(user);
+        return creatUser;
     }
 
     @Override

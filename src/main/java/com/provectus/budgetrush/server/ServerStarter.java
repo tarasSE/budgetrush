@@ -10,24 +10,23 @@ public class ServerStarter {
 
             WebServer server = new JettyServer();
 
-
-            if (args[0].equals("-s")) {
-                server.start(StartArgs.NORMAL);
-            } else if (args[0].equals("--test")) {
-                server.start(StartArgs.TEST);
-            }
-
-
+            server.start(getStartType(args));
             log.info("Server started");
 
             server.join();
 
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Use -s or --test options to start");
         } catch (Exception exception) {
             log.error("Failed to start server.", exception);
         }
 
     }
 
+    private static StartArgs getStartType(String[] args) {
+        if (args != null && args.length > 0 && args[0].equals("-test")) {
+            log.info("Start type is 'TEST'");
+            return StartArgs.TEST;
+        }
+        return StartArgs.NORMAL;
+
+    }
 }

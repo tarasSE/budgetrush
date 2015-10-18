@@ -10,9 +10,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -22,12 +19,11 @@ import lombok.ToString;
 @Data
 @Entity
 @Table(name = "groups")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "g_key")
 public class Group extends BaseEntity {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "users_groups", joinColumns = { @JoinColumn(name = "group_id") },
                inverseJoinColumns = { @JoinColumn(name = "user_id") })
     private Set<User> users;

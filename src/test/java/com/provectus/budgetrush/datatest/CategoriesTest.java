@@ -11,6 +11,8 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,14 +25,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.service.CategoryService;
+import com.provectus.budgetrush.service.GroupService;
 import com.provectus.budgetrush.service.UserService;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, CategoryService.class, UserService.class })
+@ContextConfiguration(classes = { InMemoryConfig.class, CategoryService.class, UserService.class, GroupService.class })
 @WebAppConfiguration
 public class CategoriesTest {
 

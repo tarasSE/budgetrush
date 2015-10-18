@@ -6,9 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Account;
 
-
 @Repository
-@Transactional
+@Transactional(readOnly = true)
 public interface AccountRepository extends JpaRepository<Account, Integer> {
     public Account findByName(String name);
 }

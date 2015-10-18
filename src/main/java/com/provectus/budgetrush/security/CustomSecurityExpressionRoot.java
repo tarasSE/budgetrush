@@ -1,13 +1,16 @@
 package com.provectus.budgetrush.security;
 
+import java.util.Set;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
 
 import com.google.common.base.Preconditions;
+import com.provectus.budgetrush.data.Group;
 import com.provectus.budgetrush.data.User;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CustomSecurityExpressionRoot extends SecurityExpressionRoot implements MethodSecurityExpressionOperations {
@@ -30,6 +33,25 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
         }
 
         return hasPermission(object, permission);
+    }
+
+    public boolean inGroupOrAdmin(Object object, Object permission) {
+        if (this.hasAuthority("ROLE_ADMIN")) {
+            return true;
+        }
+        Set<User> users = ((Group) object).getUsers();
+        if (users == null || users.isEmpty()) {
+            return false;
+        }
+
+        for (User user : users) {
+            if (hasPermission(user, permission)) {
+                return true;
+            }
+        }
+
+        return false;
+
     }
 
     public boolean chageRolePermission(Object object) {

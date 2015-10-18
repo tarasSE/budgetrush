@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.eclipse.jetty.http.HttpVersion;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.HttpConfiguration;
@@ -17,12 +19,12 @@ import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 import com.google.common.io.Resources;
-
-import lombok.extern.slf4j.Slf4j;
+import com.provectus.budgetrush.exceptions.CustomException;
 
 @Slf4j
 class JettyServer implements WebServer {
 
+    private StartArgs startType;
     private static int DEFAULT_PORT;
     private static int SECURE_PORT;
     private static String WEB_APP_ROOT;
@@ -35,9 +37,7 @@ class JettyServer implements WebServer {
     private Server jettyServer;
 
     public JettyServer() {
-
         getProperties();
-
     }
 
     public void getProperties() {
@@ -60,9 +60,11 @@ class JettyServer implements WebServer {
     }
 
     @Override
-    public void start(StartArgs startArgs) {
+    public void start(StartArgs startType) {
         log.info(KEY_STORE_PATH);
-        WebAppContext webAppContext = createContext(startArgs);
+
+        this.startType = startType;
+        WebAppContext webAppContext = createContext();
         jettyServer = new Server();
         jettyServer.setConnectors(createConnectors());
         jettyServer.setHandler(webAppContext);
@@ -77,17 +79,25 @@ class JettyServer implements WebServer {
         log.info("Server started...");
     }
 
-    private WebAppContext createContext(StartArgs startArgs) {
+    private WebAppContext createContext() {
         WebAppContext webAppContext = new WebAppContext();
         webAppContext.setContextPath(CONTEXT_PATH);
 
-        if (startArgs.equals(StartArgs.NORMAL)) {
-            webAppContext.setWar(DIR_PATH + WEB_APP_ROOT);
-        }
-        if (startArgs.equals(StartArgs.TEST)) {
-            webAppContext.setWar(new File(DIR_PATH).getParent() + "\\src\\main\\webapp");
-        }
+        webAppContext.setWar(getWarPath());
+
         return webAppContext;
+    }
+
+    private String getWarPath() {
+        if (startType.equals(StartArgs.NORMAL)) {
+            return DIR_PATH + WEB_APP_ROOT;
+        } else if (startType.equals(StartArgs.TEST)) {
+
+            return new File(DIR_PATH).getParent() + "\\src\\main\\webapp";
+        }
+
+        throw new CustomException("Unknown start type!");
+
     }
 
     private Connector[] createConnectors() {

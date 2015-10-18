@@ -9,7 +9,7 @@ CREATE TABLE users (
 
 CREATE TABLE groups (
   id       INT AUTO_INCREMENT    NOT NULL,
-  name     VARCHAR(20) UNIQUE    NOT NULL,
+  name     VARCHAR(20)    NOT NULL,
   PRIMARY KEY (id)
 )
   ENGINE = InnoDB;
