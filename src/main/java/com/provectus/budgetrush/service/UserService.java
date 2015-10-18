@@ -87,4 +87,10 @@ public class UserService extends GenericService<User, UserRepository> {
         User user = getRepository().findByName(name);
         return user.getRole();
     }
+
+    @Transactional
+    public Set<Group> getUserGroups(int id) {
+        User user = getRepository().getOne(id);
+        return user.getGroups();
+    }
 }

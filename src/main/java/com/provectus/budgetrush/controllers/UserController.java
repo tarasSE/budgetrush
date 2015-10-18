@@ -6,6 +6,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.util.List;
+import java.util.Set;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.provectus.budgetrush.data.Group;
 import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.service.UserService;
 
@@ -48,6 +50,16 @@ public class UserController {
         log.info("Send user by id " + id);
 
         return service.getById(id);
+
+    }
+
+    @PostAuthorize("isObjectOwnerOrAdmin(@userService.getById(#id), 'read')")
+    @RequestMapping(value = "/{id}/groups", method = GET)
+    @ResponseBody
+    public Set<Group> getGroupsById(@PathVariable Integer id) {
+        log.info("Send users groups by id " + id);
+
+        return service.getUserGroups(id);
 
     }
 
