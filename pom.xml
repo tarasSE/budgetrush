@@ -41,7 +41,7 @@
 		<spring.security.version>4.0.2.RELEASE</spring.security.version>
 		<commons-codec.version>1.10</commons-codec.version>
 		<spring.contextt.support.version>4.2.1.RELEASE</spring.contextt.support.version>
-		<guava.version>r05</guava.version>
+		<guava.version>19.0-rc2</guava.version>
 		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
 		<velocity.version>1.7</velocity.version>
 		<velocity.tools.version>2.0</velocity.tools.version>
