@@ -26,7 +26,6 @@
 		<junit.test>4.12</junit.test>
 		<h2.version>1.4.188</h2.version>
 		<mysql.version>5.1.36</mysql.version>
-		<guava.version>12.0</guava.version>
 		<hibernate-jpa.version>1.0.0.Final</hibernate-jpa.version>
 		<hibernate-entitymanager.version>5.0.0.Final</hibernate-entitymanager.version>
 		<lombok.version>1.16.6</lombok.version>
