@@ -26,7 +26,6 @@
 		<junit.test>4.12</junit.test>
 		<h2.version>1.4.188</h2.version>
 		<mysql.version>5.1.36</mysql.version>
-		<guava.version>12.0</guava.version>
 		<hibernate-jpa.version>1.0.0.Final</hibernate-jpa.version>
 		<hibernate-entitymanager.version>5.0.0.Final</hibernate-entitymanager.version>
 		<lombok.version>1.16.6</lombok.version>
@@ -41,7 +40,7 @@
 		<spring.security.version>4.0.2.RELEASE</spring.security.version>
 		<commons-codec.version>1.10</commons-codec.version>
 		<spring.contextt.support.version>4.2.1.RELEASE</spring.contextt.support.version>
-		<guava.version>r05</guava.version>
+		<guava.version>19.0-rc2</guava.version>
 		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
 		<velocity.version>1.7</velocity.version>
 		<velocity.tools.version>2.0</velocity.tools.version>
