@@ -18,14 +18,6 @@ INSERT INTO users_groups (group_id, user_id)  VALUES (3,3);
 INSERT INTO users_groups (group_id, user_id)  VALUES (4,4);
 INSERT INTO users_groups (group_id, user_id)  VALUES (5,5);
 
-/*Categories*/
-INSERT INTO categories (name, parent, user_id) VALUES ('test_category', NULL , 1);
-INSERT INTO categories (name, parent, user_id) VALUES ('test_category_1', 1, 1);
-INSERT INTO categories (name, parent, user_id) VALUES ('test_category_2', 1, 1);
-INSERT INTO categories (name, parent, user_id) VALUES ('test_category_3', NULL, 2);
-INSERT INTO categories (name, parent, user_id) VALUES ('test_category_4', NULL, 3);
-INSERT INTO categories (name, parent, user_id) VALUES ('transfer', NULL, 4);
-
 /*currensies*/
 INSERT INTO currencies (name, short_name, code, symbol) VALUES ('test_currency', 'TC0', 0000, '!');
 INSERT INTO currencies (name, short_name, code, symbol) VALUES ('test_currency_1', 'TC1', 1111, '@');

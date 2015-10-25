@@ -45,9 +45,11 @@ CREATE TABLE accounts (
 )
   ENGINE = InnoDB;
 
+BEGIN; 
 CREATE TABLE categories (
   id      INT AUTO_INCREMENT NOT NULL,
   name    VARCHAR(50)        NOT NULL,
+  predefined  BOOLEAN,
   parent  INT,
   user_id INT,
   PRIMARY KEY (id),
@@ -55,6 +57,15 @@ CREATE TABLE categories (
   FOREIGN KEY (user_id) REFERENCES users (id)
 )
   ENGINE = InnoDB;
+  
+INSERT INTO categories (name, predefined) VALUES ('Food', TRUE);
+INSERT INTO categories (name, predefined) VALUES ('Clothes', TRUE);
+INSERT INTO categories (name, predefined) VALUES ('Transport', TRUE);
+INSERT INTO categories (name, predefined) VALUES ('Health', TRUE);
+INSERT INTO categories (name, predefined) VALUES ('Rent', TRUE);
+INSERT INTO categories (name, predefined) VALUES ('Other', TRUE);
+
+COMMIT;
 
 CREATE TABLE contractors (
   id          INT AUTO_INCREMENT NOT NULL,
