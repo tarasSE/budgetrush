@@ -1,16 +1,15 @@
 package com.provectus.budgetrush.security;
 
-import java.util.Set;
-
+import com.google.common.base.Preconditions;
+import com.provectus.budgetrush.data.Category;
+import com.provectus.budgetrush.data.Group;
+import com.provectus.budgetrush.data.User;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
 
-import com.google.common.base.Preconditions;
-import com.provectus.budgetrush.data.Group;
-import com.provectus.budgetrush.data.User;
+import java.util.Set;
 
 @Slf4j
 public class CustomSecurityExpressionRoot extends SecurityExpressionRoot implements MethodSecurityExpressionOperations {
@@ -33,6 +32,29 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
         }
 
         return hasPermission(object, permission);
+    }
+
+    public boolean isObjectOwnerOrAdminOrAll(Category category, Object permission) {
+        if (this.hasAuthority("ROLE_ADMIN")) {
+            return true;
+        }
+        else  if(category.isPredefined()){
+            return true;
+        }
+
+        return hasPermission((Object) category, permission);
+    }
+
+    public boolean isObjectOwnerOrAdminForUpdateAndDelete(Category category, Object permission) {
+        if(category.isPredefined()){
+            return false;
+        }
+        if (this.hasAuthority("ROLE_ADMIN")) {
+            return true;
+        }
+
+
+        return hasPermission((Object) category, permission);
     }
 
     public boolean inGroupOrAdmin(Object object, Object permission) {

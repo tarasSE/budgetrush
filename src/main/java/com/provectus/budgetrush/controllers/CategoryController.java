@@ -22,7 +22,7 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
-    @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
+    @PostFilter("isObjectOwnerOrAdminOrAll(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<Category> listAll() {
@@ -30,7 +30,7 @@ public class CategoryController {
         return service.getAll();
     }
 
-    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @PostAuthorize("isObjectOwnerOrAdminOrAll(returnObject, 'read')")
     @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     public Category getById(@PathVariable Integer id) {
@@ -42,21 +42,21 @@ public class CategoryController {
     @RequestMapping(method = POST)
     @ResponseBody
     public Category create(@RequestBody Category category) {
-        log.info("Create/update category");
+        log.info("Create category");
 
         return service.create(category);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#category, 'write')")
+    @PreAuthorize("isObjectOwnerOrAdminForUpdateAndDelete(#category, 'write')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Category update(@RequestBody Category category, @PathVariable Integer id) {
-        log.info("Create/update category id " + id);
+        log.info("Update category id " + id);
 
         return service.update(category, id);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(@categoryService.getById(#id), 'delete')")
+    @PreAuthorize("isObjectOwnerOrAdminForUpdateAndDelete(@categoryService.getById(#id), 'delete')")
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {

@@ -1,14 +1,10 @@
 package com.provectus.budgetrush.jacksontest;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.io.File;
-import java.util.Scanner;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.provectus.budgetrush.data.Category;
+import com.provectus.budgetrush.datatest.InMemoryConfig;
+import com.provectus.budgetrush.service.CategoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,12 +15,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.datatest.InMemoryConfig;
-import com.provectus.budgetrush.service.CategoryService;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.io.File;
+import java.util.Scanner;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertNotNull;
 
 @Slf4j
 @DirtiesContext
@@ -65,7 +62,7 @@ public class CategoryMappingTest {
         Category category = mapper.readValue(file, Category.class);
         log.info(category.toString());
 
-        file.delete();
+        //file.delete();
 
         assertNotNull(file.toString(), category);
     }

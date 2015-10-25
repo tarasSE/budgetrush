@@ -1,16 +1,14 @@
 package com.provectus.budgetrush.security;
 
-import java.io.Serializable;
-
-import org.springframework.security.access.PermissionEvaluator;
-import org.springframework.security.core.Authentication;
-
 import com.provectus.budgetrush.data.Budget;
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.data.Contractor;
 import com.provectus.budgetrush.data.User;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.PermissionEvaluator;
+import org.springframework.security.core.Authentication;
+
+import java.io.Serializable;
 
 @Slf4j
 public class UserPermissionEvaluator implements PermissionEvaluator {
@@ -27,7 +25,7 @@ public class UserPermissionEvaluator implements PermissionEvaluator {
     @Override
     public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType,
                                  Object permission) {
-        throw new RuntimeException("Id and Class permissions are not supperted by this application");
+        throw new RuntimeException("Id and Class permissions are not supported by this application");
     }
 
     private User getUserFromObject(Object object) {

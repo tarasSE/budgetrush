@@ -1,15 +1,10 @@
 package com.provectus.budgetrush.data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -20,6 +15,7 @@ public class Category extends BaseEntity {
 	private boolean predefined = false;
 	
     private String name;
+
 
     @ManyToOne
     @JoinColumn(name = "parent")
