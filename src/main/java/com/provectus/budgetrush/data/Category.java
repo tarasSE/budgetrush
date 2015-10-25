@@ -19,6 +19,7 @@ public class Category extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "parent")
+    //@NotNull
     private Category parent;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
