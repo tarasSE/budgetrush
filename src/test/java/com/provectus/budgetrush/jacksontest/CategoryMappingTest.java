@@ -62,7 +62,7 @@ public class CategoryMappingTest {
         Category category = mapper.readValue(file, Category.class);
         log.info(category.toString());
 
-        //file.delete();
+        file.delete();
 
         assertNotNull(file.toString(), category);
     }
