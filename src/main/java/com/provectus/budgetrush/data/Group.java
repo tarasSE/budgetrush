@@ -23,7 +23,7 @@ public class Group extends BaseEntity {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "users_groups", joinColumns = { @JoinColumn(name = "group_id") },
                inverseJoinColumns = { @JoinColumn(name = "user_id") })
     private Set<User> users;

@@ -14,6 +14,7 @@ import com.provectus.budgetrush.repository.TransferOrderRepository;
 @Slf4j
 @Service
 @Repository
+@Transactional(readOnly = true)
 public class TransferOrderService extends GenericService<TransferOrder, TransferOrderRepository> {
 
     @Autowired

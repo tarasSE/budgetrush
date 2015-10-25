@@ -15,6 +15,7 @@ import com.provectus.budgetrush.repository.OrderRepository;
 
 @Service
 @Repository
+@Transactional(readOnly = true)
 public class OrderService extends GenericService<Order, OrderRepository> {
 
     @Autowired

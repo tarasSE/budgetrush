@@ -14,6 +14,7 @@ import com.provectus.budgetrush.repository.AccountRepository;
 
 @Service
 @Repository
+@Transactional(readOnly = true)
 public class AccountService extends GenericService<Account, AccountRepository> {
 
     @Autowired

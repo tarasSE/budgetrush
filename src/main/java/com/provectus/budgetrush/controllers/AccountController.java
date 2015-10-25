@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class AccountController {
     @PostFilter("inGroupOrAdmin(filterObject.group, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
+    @Transactional
     public List<Account> listAll() {
         log.info("Get all accounts");
         List<Account> accounts = service.getAll();

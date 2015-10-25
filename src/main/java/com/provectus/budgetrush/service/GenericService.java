@@ -13,6 +13,7 @@ import com.provectus.budgetrush.exceptions.ResourceNotFoundException;
 
 @Service
 @Repository
+@Transactional(readOnly = true)
 public abstract class GenericService<E extends BaseEntity, R extends JpaRepository<E, Integer>> {
 
     @Transactional

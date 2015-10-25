@@ -20,6 +20,7 @@ import com.provectus.budgetrush.repository.UserRepository;
 @Slf4j
 @Service
 @Repository
+@Transactional(readOnly = true)
 public class UserService extends GenericService<User, UserRepository> {
 
     @Autowired
