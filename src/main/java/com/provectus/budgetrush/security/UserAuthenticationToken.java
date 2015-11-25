@@ -2,11 +2,13 @@ package com.provectus.budgetrush.security;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
 @Transactional
+@EnableTransactionManagement
 public class UserAuthenticationToken extends AbstractAuthenticationToken {
 
     private static final long serialVersionUID = 4077726713424012376L;
