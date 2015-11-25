@@ -1,6 +1,5 @@
-package com.provectus.budgetrush;
+package com.provectus.budgetrush.mail;
 
-import com.provectus.budgetrush.mail.MailConfig;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
