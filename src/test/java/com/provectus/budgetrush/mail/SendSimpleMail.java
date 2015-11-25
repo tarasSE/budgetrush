@@ -11,11 +11,15 @@ import javax.mail.internet.MimeMessage;
 public class SendSimpleMail {
     @Test
     public void MailTest() throws MessagingException {
+
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
         ctx.register(MailConfig.class);
         ctx.refresh();
-        JavaMailSenderImpl mailSender = ctx.getBean(JavaMailSenderImpl.class);
+
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
+
         MimeMessage mimeMessage = mailSender.createMimeMessage();
+
         MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage, true);
         mailMsg.setFrom("budgetrush@gmail.com");
         mailMsg.setTo("budgetrush@gmail.com"); //todo testing without sending message
