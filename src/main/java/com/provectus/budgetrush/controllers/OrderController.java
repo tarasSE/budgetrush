@@ -45,9 +45,9 @@ public class OrderController {
     @ResponseBody
     public List<OrderStatistic> getTurnover(@RequestParam int accountId,
                                             @RequestParam long startDate,
-                                            @RequestParam long finishDate) {
+                                            @RequestParam long endDate) {
 
-        return service.getTurnoverByAccount(accountId, new Date(startDate), new Date(finishDate));
+        return service.getTurnoverByAccount(accountId, new Date(startDate), new Date(endDate));
 
     }
 
@@ -56,9 +56,29 @@ public class OrderController {
     @ResponseBody
     public List<OrderStatistic> getIncome(@RequestParam int accountId,
                                           @RequestParam long startDate,
-                                          @RequestParam long finishDate) {
+                                          @RequestParam long endDate) {
 
-        return service.getIncomeByAccount(accountId, new Date(startDate), new Date(finishDate));
+        return service.getIncomeByAccount(accountId, new Date(startDate), new Date(endDate));
+    }
+
+    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @RequestMapping(value = "statistics/income/sum", method = GET)
+    @ResponseBody
+    public OrderStatistic getIncomeSum(@RequestParam int accountId,
+                                          @RequestParam long startDate,
+                                          @RequestParam long endDate) {
+
+        return service.getSumIncomeByAccount(accountId, new Date(startDate), new Date(endDate));
+    }
+
+    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @RequestMapping(value = "statistics/expense/sum", method = GET)
+    @ResponseBody
+    public OrderStatistic getExpenseSum(@RequestParam int accountId,
+                                       @RequestParam long startDate,
+                                       @RequestParam long endDate) {
+
+        return service.getSumExpenseByAccount(accountId, new Date(startDate), new Date(endDate));
     }
 
     @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
@@ -66,9 +86,9 @@ public class OrderController {
     @ResponseBody
     public List<OrderStatistic> getExpense(@RequestParam int accountId,
                                            @RequestParam long startDate,
-                                           @RequestParam long finishDate) {
+                                           @RequestParam long endDate) {
 
-        return service.getExpenseByAccount(accountId, new Date(startDate), new Date(finishDate));
+        return service.getExpenseByAccount(accountId, new Date(startDate), new Date(endDate));
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")

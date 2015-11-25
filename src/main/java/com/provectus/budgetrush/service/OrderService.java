@@ -1,5 +1,6 @@
 package com.provectus.budgetrush.service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -69,6 +70,24 @@ public class OrderService extends GenericService<Order, OrderRepository> {
 
     public List<OrderStatistic> getExpenseByAccount(int accountId, Date startDate, Date endDate) {
         return getRepository().getExpenseByAccount(accountId, startDate, endDate);
+    }
+
+    public OrderStatistic getSumExpenseByAccount(int accountId, Date startDate, Date endDate) {
+        List<OrderStatistic> statistics = getRepository().getExpenseByAccount(accountId, startDate, endDate);
+        BigDecimal sumAmount = new BigDecimal(0);
+        for (OrderStatistic st : statistics){
+            sumAmount = sumAmount.add(st.getAmount());
+        }
+        return new OrderStatistic(accountService.getById(accountId), null , null, sumAmount);
+    }
+
+    public OrderStatistic getSumIncomeByAccount(int accountId, Date startDate, Date endDate) {
+        List<OrderStatistic> statistics = getRepository().getIncomeByAccount(accountId, startDate, endDate);
+        BigDecimal sumAmount = new BigDecimal(0);
+        for (OrderStatistic st : statistics){
+            sumAmount = sumAmount.add(st.getAmount());
+        }
+        return new OrderStatistic(accountService.getById(accountId), null , null, sumAmount);
     }
 
     public List<OrderStatistic> getExpenseByCategory(Category category, Date startDate, Date endDate) {
