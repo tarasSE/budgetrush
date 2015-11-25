@@ -16,11 +16,17 @@ public class SendSimpleMail {
         ctx.refresh();
         JavaMailSenderImpl mailSender = ctx.getBean(JavaMailSenderImpl.class);
         MimeMessage mimeMessage = mailSender.createMimeMessage();
-        MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage);
+        MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage, true);
         mailMsg.setFrom("budgetrush@gmail.com");
         mailMsg.setTo("budgetrush@gmail.com"); //todo testing without sending message
         mailMsg.setSubject("Test mail");
-        mailMsg.setText("Hello World!");
+        mailMsg.setText("<p><h2>Everytime when you forget the password... \n" +
+                "in the world dies one kitten.</h2></p>\n" +
+                "<p><img src='http://troll-face.ru/static/mememaker/3/d/5564-grustnyij-kot.jpg'/></p>", true);
+
+//        FileSystemResource file = new FileSystemResource(new File(Resources.getResource("kitten.jpg").getFile()));
+//        mailMsg.addAttachment("save-kitten.jpg", file);
+//        mailMsg.addInline("kitten" , file);
         mailSender.send(mimeMessage);
         System.out.println("---Done---");
     }
