@@ -41,7 +41,7 @@ public class MailConfig {
             properties.load(stream);
             stream.close();
 
-            userName = properties.getProperty("mail-not.username");
+            userName = properties.getProperty("mail-notify.username");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -60,7 +60,7 @@ public class MailConfig {
             properties.load(stream);
             stream.close();
 
-            password = properties.getProperty("mail-not.password");
+            password = properties.getProperty("mail-notify.password");
 
         } catch (IOException e) {
             e.printStackTrace();
