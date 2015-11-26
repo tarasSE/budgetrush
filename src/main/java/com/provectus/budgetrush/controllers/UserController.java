@@ -10,6 +10,7 @@ import java.util.Set;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
@@ -19,10 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.provectus.budgetrush.data.Group;
 import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.mail.MailSender;
+import com.provectus.budgetrush.mail.ResetPasswordEMailBuilder;
 import com.provectus.budgetrush.service.UserService;
 
 @Slf4j
@@ -33,7 +37,10 @@ public class UserController {
 
     @Autowired
     private UserService service;
-
+    
+    @Autowired
+    private MailSender mailSender;
+    
     @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
@@ -97,5 +104,21 @@ public class UserController {
         log.info("Save user " + user.getName());
         return service.update(user, id);
     }
-
+    
+    @PreAuthorize("isAnonymous()")
+    @RequestMapping(value = "/reset_pass", method = GET)
+    @ResponseBody
+    @Transactional
+    public void resetPassword(@RequestParam String email) {
+        log.debug("Start to reset password by email " + email);
+        User user = service.findByEmail(email);
+        String newPass = RandomStringUtils.random(8);
+        user.setPassword(newPass);
+        service.update(user, user.getId());
+        
+        String emailText = ResetPasswordEMailBuilder.newInstance().setPassword(newPass).build();
+        
+        mailSender.sendEmail(email, "Password resset message", emailText);
+        
+    }
 }

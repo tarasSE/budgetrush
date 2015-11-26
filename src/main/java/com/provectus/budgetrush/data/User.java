@@ -29,7 +29,10 @@ public class User extends BaseEntity {
     @NotEmpty
     @Length(min = 4, max = 20)
     private String name;
-
+    
+    @NotEmpty
+    private String email;
+    
     @NotEmpty
     @JsonIgnore
     private String password;

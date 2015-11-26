@@ -82,7 +82,16 @@ public class UserService extends GenericService<User, UserRepository> {
         }
         return user;
     }
-
+    
+    @Transactional
+    public User findByEmail(String email) {
+        User user = getRepository().findByEmail(email);
+        if (user == null) {
+            throw new ResourceNotFoundException("User");
+        }
+        return user;
+    }
+    
     @Transactional
     public Enum<?> getRoleByName(String name) {
         User user = getRepository().findByName(name);
