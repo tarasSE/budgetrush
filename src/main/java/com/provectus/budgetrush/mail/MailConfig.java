@@ -1,57 +1,31 @@
 package com.provectus.budgetrush.mail;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Slf4j
 @Configuration
 @EnableTransactionManagement
+@PropertySource("classpath:app.properties")
 public class MailConfig {
+
+    @Autowired
+    Environment env;
+
     @Bean
     public MailSender mailSender() {
 
         log.info("Creating mail sender.");
-        return new MailService().getMailSender();
+        MailService mailService = new MailService();
+        mailService.setUserName(env.getProperty("mail-notify.userName"));
+        mailService.setPassword(env.getProperty("mail-notify.password"));
+
+        return mailService.getMailSender();
     }
 
-//    private String getUserName() {
-//
-//        String userName = null;
-//
-//        try {
-//            Properties properties = new Properties();
-//            InputStream stream = Resources.getResource("app.properties").openStream();
-//            properties.load(stream);
-//            stream.close();
-//
-//            userName = properties.getProperty("mail-notify.username");
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            log.info("Oops, It seems that something wrong with getting app.properties!");
-//        }
-//        return userName;
-//    }
-//
-//    private String getPassword() {
-//
-//        String password = null;
-//
-//        try {
-//            Properties properties = new Properties();
-//            InputStream stream = Resources.getResource("app.properties").openStream();
-//            properties.load(stream);
-//            stream.close();
-//
-//            password = properties.getProperty("mail-notify.password");
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            log.info("Oops, It seems that something wrong with getting app.properties!");
-//        }
-//        return password;
-//    }
-
-} 
+}
