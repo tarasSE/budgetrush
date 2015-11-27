@@ -8,6 +8,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -109,16 +111,17 @@ public class UserController {
     @RequestMapping(value = "/reset_pass", method = GET)
     @ResponseBody
     @Transactional
-    public void resetPassword(@RequestParam String email) {
-        log.debug("Start to reset password by email " + email);
+    public void resetPassword(@RequestParam String email, HttpServletResponse response) {
+        log.info("Start to reset password by email " + email);
         User user = service.findByEmail(email);
-        String newPass = RandomStringUtils.random(8);
+        String newPass = RandomStringUtils.randomAlphanumeric(8);
         user.setPassword(newPass);
         service.update(user, user.getId());
         
-        String emailText = ResetPasswordEMailBuilder.newInstance().setPassword(newPass).build();
-        
+        String emailText = ResetPasswordEMailBuilder.newInstance().setPassword(newPass).setName(user.getName()).build();
+
         mailSender.sendEmail(email, "Password resset message", emailText);
         
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 }

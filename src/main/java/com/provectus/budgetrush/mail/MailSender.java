@@ -14,12 +14,16 @@ import org.springframework.stereotype.Component;
 public class MailSender extends JavaMailSenderImpl {
 
 	public void sendEmail(String recipient, String subject, String text) {
+		sendEmail(getUsername(), recipient, subject, text);
+	}
+	
+	public void sendEmail(String sender, String recipient, String subject, String text) {
 		MimeMessage mimeMessage = createMimeMessage();
 
 		MimeMessageHelper mailMsg;
 		try {
 			mailMsg = new MimeMessageHelper(mimeMessage, true);
-			mailMsg.setFrom(getUsername());
+			mailMsg.setFrom(sender);
 			mailMsg.setTo(recipient);
 			mailMsg.setSubject(subject);
 			mailMsg.setText(text, true);

@@ -14,7 +14,7 @@
 
 
 CREATE TABLE oauth_client_details (
-  client_id               VARCHAR(256) PRIMARY KEY,
+  client_id               VARCHAR(128) PRIMARY KEY,
   resource_ids            VARCHAR(256),
   client_secret           VARCHAR(256),
   scope                   VARCHAR(256),
@@ -37,7 +37,7 @@ VALUES ('ios_id', 'springsec', 'ios_key', 'trust,read,write', 'client_credential
         '1800', '45000');
 
 CREATE TABLE oauth_access_token (
-  token_id          VARCHAR(256) DEFAULT NULL,
+  token_id          VARCHAR(128) DEFAULT NULL,
   token             BLOB,
   authentication_id VARCHAR(256) DEFAULT NULL,
   user_name         VARCHAR(256) DEFAULT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE oauth_access_token (
   DEFAULT CHARSET = latin1;
 
 CREATE TABLE oauth_refresh_token (
-  token_id       VARCHAR(256) DEFAULT NULL,
+  token_id       VARCHAR(128) DEFAULT NULL,
   token          BLOB,
   authentication BLOB
 )
