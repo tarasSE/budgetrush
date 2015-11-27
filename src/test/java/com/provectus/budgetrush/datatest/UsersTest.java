@@ -53,6 +53,7 @@ public class UsersTest {
 
         user.setName(Integer.toString(random.nextInt()));
         user.setPassword(Integer.toString(random.nextInt()));
+        user.setEmail("test@mail.ru");
         return service.create(user);
     }
 
