@@ -35,7 +35,7 @@ public class MailTests {
 
 		assertTrue(!Strings.isNullOrEmpty(text));
 
-		mailSender.sendEmail("baevkir@gmail.com",
+		mailSender.sendEmail(mailSender.getUsername(),
 				"Test mail", text);
 
 		log.info("---Done---");

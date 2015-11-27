@@ -1,6 +1,6 @@
 /*Users*/
 INSERT INTO users (name, password, email, role) VALUES ('admin', '1', 'test@mail.ru',  1);
-INSERT INTO users (name, password, email, role) VALUES ('user', '1', 'baevkir@gmail.com', 0);
+INSERT INTO users (name, password, email, role) VALUES ('user', '1', 'test@mail.ru', 0);
 INSERT INTO users (name, password, email, role) VALUES ('test_user_2', '2222', 'test@mail.ru', 0);
 INSERT INTO users (name, password, email, role) VALUES ('test_user_3', '3333', 'test@mail.ru', 0);
 INSERT INTO users (name, password, email, role) VALUES ('test_user_4', '4444', 'test@mail.ru', 0);
