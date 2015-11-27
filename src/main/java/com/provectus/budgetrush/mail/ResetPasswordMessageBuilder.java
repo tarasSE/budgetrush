@@ -31,8 +31,8 @@ public class ResetPasswordMessageBuilder {
 						+"<p>YOUR NEW PASSWORD: %s</p><br>"
 						+"<p><h2>REMEMBER: </h2></p>"
 						+ "<p>Everytime when you forget the password...  in the world dies one kitten.</p>"
-						+ "<p><img src='http://troll-face.ru/static/mememaker/3/d/5564-grustnyij-kot.jpg'/></p>", name,
-						password);
+						+ "<p><img src='http://troll-face.ru/static/mememaker/3/d/5564-grustnyij-kot.jpg'/></p>"
+						, name,	password);
 
 		return emailText;
 	}
