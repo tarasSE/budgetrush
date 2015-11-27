@@ -30,7 +30,7 @@ public class MailTests {
 	@Test
 	public void SendTestResetMail() throws MessagingException {
 
-		String text = ResetPasswordEMailBuilder.newInstance()
+		String text = ResetPasswordMessageBuilder.newInstance()
 				.setName("Anonymus").setPassword("test").build();
 
 		assertTrue(!Strings.isNullOrEmpty(text));

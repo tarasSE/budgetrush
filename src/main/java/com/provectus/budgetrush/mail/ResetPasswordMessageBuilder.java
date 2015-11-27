@@ -1,23 +1,23 @@
 package com.provectus.budgetrush.mail;
 
-public class ResetPasswordEMailBuilder {
+public class ResetPasswordMessageBuilder {
 
 	private String password;
 	private String name;
 	
-	private ResetPasswordEMailBuilder() {
+	private ResetPasswordMessageBuilder() {
 	}
 
-	public static ResetPasswordEMailBuilder newInstance() {
-		return new ResetPasswordEMailBuilder();
+	public static ResetPasswordMessageBuilder newInstance() {
+		return new ResetPasswordMessageBuilder();
 	}
 
-	public ResetPasswordEMailBuilder setPassword(String password) {
+	public ResetPasswordMessageBuilder setPassword(String password) {
 		this.password = password;
 		return this;
 	}
 	
-	public ResetPasswordEMailBuilder setName(String name) {
+	public ResetPasswordMessageBuilder setName(String name) {
 		this.name = name;
 		return this;
 	}

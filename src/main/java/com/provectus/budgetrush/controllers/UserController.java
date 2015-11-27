@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.provectus.budgetrush.data.Group;
 import com.provectus.budgetrush.data.User;
 import com.provectus.budgetrush.mail.MailSender;
-import com.provectus.budgetrush.mail.ResetPasswordEMailBuilder;
+import com.provectus.budgetrush.mail.ResetPasswordMessageBuilder;
 import com.provectus.budgetrush.service.UserService;
 
 @Slf4j
@@ -118,7 +118,7 @@ public class UserController {
         user.setPassword(newPass);
         service.update(user, user.getId());
         
-        String emailText = ResetPasswordEMailBuilder.newInstance().setPassword(newPass).setName(user.getName()).build();
+        String emailText = ResetPasswordMessageBuilder.newInstance().setPassword(newPass).setName(user.getName()).build();
 
         mailSender.sendEmail(email, "Password resset message", emailText);
         
