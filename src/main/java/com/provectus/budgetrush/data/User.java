@@ -1,23 +1,16 @@
 package com.provectus.budgetrush.data;
 
-import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.*;
+import java.util.Set;
 
 @EqualsAndHashCode(exclude = "groups", callSuper = true)
 @ToString(exclude = "groups")
@@ -31,6 +24,7 @@ public class User extends BaseEntity {
     private String name;
     
     @NotEmpty
+    @Email
     private String email;
     
     @NotEmpty
