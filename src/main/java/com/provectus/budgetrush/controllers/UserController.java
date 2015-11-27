@@ -120,7 +120,7 @@ public class UserController {
         
         String emailText = ResetPasswordMessageBuilder.newInstance().setPassword(newPass).setName(user.getName()).build();
 
-        mailSender.sendEmail(email, "Password resset message", emailText);
+        mailSender.sendEmail(email, "Password reset message", emailText);
         
         response.setStatus(HttpServletResponse.SC_OK);
     }
