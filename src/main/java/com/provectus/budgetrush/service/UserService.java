@@ -98,9 +98,9 @@ public class UserService extends GenericService<User, UserRepository> {
         return user.getRole();
     }
 
-    @Transactional
-    public Set<Group> getUserGroups(int id) {
-        User user = getRepository().getOne(id);
-        return user.getGroups();
-    }
+//    @Transactional
+//    public Set<Group> getUserGroups(int id) {     todo something with IT
+//        User user = getRepository().getOne(id);
+//        return user.getGroups();
+//    }
 }

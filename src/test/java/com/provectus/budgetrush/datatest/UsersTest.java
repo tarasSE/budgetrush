@@ -1,17 +1,9 @@
 package com.provectus.budgetrush.datatest;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.service.GroupService;
+import com.provectus.budgetrush.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,9 +14,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.User;
-import com.provectus.budgetrush.service.GroupService;
-import com.provectus.budgetrush.service.UserService;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.util.List;
+import java.util.Random;
+
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 @Slf4j
 @DirtiesContext
@@ -53,7 +50,7 @@ public class UsersTest {
 
         user.setName(Integer.toString(random.nextInt()));
         user.setPassword(Integer.toString(random.nextInt()));
-        user.setEmail("test@mail.ru");
+        user.setEmail("test@Mail.com");
         return service.create(user);
     }
 
@@ -65,6 +62,30 @@ public class UsersTest {
         assertNotNull(user.getId());
 
     }
+
+    @Test
+    @Transactional
+    public void testGetRoleByName() throws Exception {
+        User user = saveTestUser();
+        Enum<?> role = service.getRoleByName(user.getName());
+        assertNotNull(role);
+        log.info("User  id:" + user.getId() + " has role  " + role.toString());
+    }
+
+//    @Test
+//    @Transactional
+//    public void testGetUserGroups() throws Exception {
+//        User user = saveTestUser();
+//        Set<Group> groups = service.getById(user.getId()).getGroups();
+//        assertFalse(groups.isEmpty());
+//        log.info("User id " + user.getId() + " groups: \n");
+//
+//        for (Group group : groups) {
+//
+//            log.info(group.toString() + "\n");
+//
+//        }
+//    }
 
     @Test
     @Transactional
@@ -85,6 +106,24 @@ public class UsersTest {
     public void testGetById() throws Exception {
         User user = saveTestUser();
         User user2 = service.getById(user.getId());
+        assertNotNull(user2.getId());
+        log.info("id1 " + user.getId() + " id2 " + user2.getId());
+    }
+
+    @Test
+    @Transactional
+    public void testFind() throws Exception {
+        User user = saveTestUser();
+        User user2 = service.find(user.getName());
+        assertNotNull(user2.getId());
+        log.info("id1 " + user.getId() + " id2 " + user2.getId());
+    }
+
+    @Test
+    @Transactional
+    public void testFindByEmail() throws Exception {
+        User user = saveTestUser();
+        User user2 = service.findByEmail(user.getEmail());
         assertNotNull(user2.getId());
         log.info("id1 " + user.getId() + " id2 " + user2.getId());
     }

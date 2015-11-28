@@ -39,7 +39,7 @@ public class BudgetController {
         return service.getById(id);
     }
 
-    @PostFilter("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
     @RequestMapping(value = "/statistics",method = GET)
     @ResponseBody
     public List<BudgetStatistic>  getAllBudgetStatistics() {
@@ -47,7 +47,7 @@ public class BudgetController {
         return service.getAllBudgetStatistics();
     }
 
-    //@PostFilter("isObjectOwnerOrAdmin(returnObject, 'read')") //todo
+    @PostAuthorize("isObjectOwnerOrAdmin(#budget, 'read')")
     @RequestMapping(value = "/{id}/statistics",method = GET)
     @ResponseBody
     public BudgetStatistic getBudgetStatistic(@PathVariable int id) {
