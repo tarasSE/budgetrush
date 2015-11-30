@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import javax.validation.constraints.NotNull;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.provectus.budgetrush.data.Account;
 import com.provectus.budgetrush.repository.AccountRepository;
 
+@Slf4j
 @Service
 @Repository
 @Transactional(readOnly = true)
@@ -28,12 +31,19 @@ public class AccountService extends GenericService<Account, AccountRepository> {
     @Override
     @Transactional
     public Account create(Account account) {
-        if (account.getBalance() == null) {
-            account.setBalance(new BigDecimal(0));
-        }
+        account.setBalance(new BigDecimal(0));
         return super.create(account);
     }
-
+    
+    @Override
+    @Transactional
+    public Account update(Account account, int id) {
+    	if(account.getBalance()==null){
+    		account.setBalance(accountRepository.getOne(id).getBalance());
+    	}
+        return super.update(account, id);
+    }
+    
     @Transactional
     public Account incressBalance(@NotNull Account account, BigDecimal amount) {
         BigDecimal balance = account.getBalance();

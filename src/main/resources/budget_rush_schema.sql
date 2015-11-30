@@ -37,7 +37,7 @@ CREATE TABLE currencies (
 CREATE TABLE accounts (
   id          INT AUTO_INCREMENT NOT NULL,
   name        VARCHAR(50)        NOT NULL,
-  group_id     INT                NOT NULL,
+  group_id    INT                NOT NULL,
   currency_id INT                NOT NULL,
   balance     DECIMAL(10, 2)     NOT NULL,
   PRIMARY KEY (id),

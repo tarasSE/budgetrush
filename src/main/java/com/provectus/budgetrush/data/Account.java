@@ -28,7 +28,6 @@ public class Account extends BaseEntity {
     @ManyToOne(cascade = CascadeType.DETACH)
     private Currency currency;
 
-    @Min(value = 0)
     private BigDecimal balance;
 
     @JsonProperty

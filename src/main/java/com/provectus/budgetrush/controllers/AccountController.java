@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.provectus.budgetrush.data.Account;
 import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.GroupService;
 
 @Slf4j
 @RequestMapping(value = "/v1/accounts", headers = "Accept=application/json")
@@ -31,7 +32,10 @@ public class AccountController {
 
     @Autowired
     private AccountService service;
-
+    
+    @Autowired
+    private GroupService groupService;
+    
     @PostFilter("inGroupOrAdmin(filterObject.group, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
@@ -63,7 +67,7 @@ public class AccountController {
         service.delete(id);
     }
 
-    @PreAuthorize("inGroupOrAdmin(#user.group, 'write')")
+    @PreAuthorize("inGroupOrAdmin(@groupService.getById(#account.getGroup().getId()), 'write')")
     @RequestMapping(method = POST)
     @ResponseBody
     public Account newUser(@RequestBody Account account) {
@@ -72,11 +76,13 @@ public class AccountController {
 
     }
 
-    @PreAuthorize("inGroupOrAdmin(#user.group, 'write')")
+    @PreAuthorize("inGroupOrAdmin(@accountService.getById(#id).group, 'write')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Account saveUser(@RequestBody Account account, @PathVariable Integer id) {
         log.info("Save account " + account.getName());
-        return service.update(account, id);
+        Account result = service.update(account, id);
+        log.info(result.toString());
+        return result;
     }
 }
