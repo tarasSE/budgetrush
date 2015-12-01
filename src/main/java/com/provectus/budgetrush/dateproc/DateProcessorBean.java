@@ -1,6 +1,6 @@
 package com.provectus.budgetrush.dateproc;
 
-import com.provectus.budgetrush.data.DateType;
+import com.provectus.budgetrush.data.Periods;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ public class DateProcessorBean implements DateProcessor{
     @Setter(value = AccessLevel.PRIVATE)
     private DateTime endDate;
 
-    public void createPeriod(DateType period, String startDate, String endDate) {
+    public void createPeriod(Periods period, String startDate, String endDate) {
 
         switch (period) {
 

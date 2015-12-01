@@ -1,6 +1,6 @@
 package com.provectus.budgetrush.data;
 
-public enum DateType {
+public enum Periods {
 
 
     TODAY,

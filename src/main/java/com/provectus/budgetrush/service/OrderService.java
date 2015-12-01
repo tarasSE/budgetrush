@@ -1,13 +1,12 @@
 package com.provectus.budgetrush.service;
 
 import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.DateType;
+import com.provectus.budgetrush.data.Periods;
 import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.dateproc.DateProcessorBean;
 import com.provectus.budgetrush.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +25,9 @@ public class OrderService extends GenericService<Order, OrderRepository> {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private DateProcessorBean dateProcessor;
 
     @Override
     protected OrderRepository getRepository() {
@@ -96,14 +98,9 @@ public class OrderService extends GenericService<Order, OrderRepository> {
         return getRepository().getExpenseByCategory(category, startDate, endDate);
     }
 
-    public List<Order> getOrdersByPeriod(DateType dateType, String date){
+    public List<Order> getOrdersByPeriod(Periods periods, String startDate, String endDate){
 
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-        ctx.register(DateProcessorBean.class);
-        ctx.refresh();
-
-        DateProcessorBean dateProcessor = (DateProcessorBean) ctx.getBean("dateProcessor");
-        dateProcessor.createPeriod(DateType.TODAY, null, null);
+        dateProcessor.createPeriod(periods, startDate, endDate);
         return getRepository().findByDateBetween(dateProcessor.getStartDate().toDate(), dateProcessor.getEndDate().toDate());
     }
 

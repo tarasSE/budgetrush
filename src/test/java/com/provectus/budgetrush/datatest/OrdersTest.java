@@ -1,21 +1,14 @@
 package com.provectus.budgetrush.datatest;
 
-import static java.math.BigDecimal.valueOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.OrderStatistic;
+import com.provectus.budgetrush.dateproc.DateProcessorBean;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.CategoryService;
+import com.provectus.budgetrush.service.ContractorService;
+import com.provectus.budgetrush.service.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,21 +19,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.data.OrderStatistic;
-import com.provectus.budgetrush.service.AccountService;
-import com.provectus.budgetrush.service.CategoryService;
-import com.provectus.budgetrush.service.ContractorService;
-import com.provectus.budgetrush.service.OrderService;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.math.BigDecimal;
+import java.util.*;
 
-import lombok.extern.slf4j.Slf4j;
+import static com.provectus.budgetrush.data.Periods.LAST_YEAR;
+import static java.math.BigDecimal.valueOf;
+import static org.junit.Assert.*;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { InMemoryConfig.class, OrderService.class, AccountService.class,
-        CategoryService.class, ContractorService.class })
+        CategoryService.class, ContractorService.class, DateProcessorBean.class})
 @WebAppConfiguration
 public class OrdersTest {
 
@@ -60,6 +53,9 @@ public class OrdersTest {
 
     @Autowired
     private ContractorService contractorService;
+
+    @Autowired
+    private DateProcessorBean dateProcessor;
 
     @Before
     public void setUp() throws Exception {
@@ -176,6 +172,17 @@ public class OrdersTest {
         // assertEquals(expenses.isEmpty(), false);
         for (OrderStatistic expense : expenses) {
             log.info("Expense :" + expense.toString());
+        }
+
+    }
+
+    @Test
+    public void getOrdersByPeriodTest(){
+
+       List<Order> orders =  service.getOrdersByPeriod(LAST_YEAR, null, null);
+
+        for (Order order: orders) {
+            log.info(order.toString());
         }
 
     }

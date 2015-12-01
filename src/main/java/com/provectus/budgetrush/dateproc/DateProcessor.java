@@ -1,11 +1,11 @@
 package com.provectus.budgetrush.dateproc;
 
-import com.provectus.budgetrush.data.DateType;
+import com.provectus.budgetrush.data.Periods;
 import org.joda.time.DateTime;
 
 public interface DateProcessor {
 
-    public void createPeriod(DateType dateType, String startDate, String endDate);
+    public void createPeriod(Periods periods, String startDate, String endDate);
 
     public DateTime getStartDate();
 

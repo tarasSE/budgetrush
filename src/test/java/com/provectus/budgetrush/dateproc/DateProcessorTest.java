@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import static com.provectus.budgetrush.data.DateType.*;
+import static com.provectus.budgetrush.data.Periods.*;
 
 @Slf4j
 @DirtiesContext

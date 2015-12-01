@@ -1,5 +1,6 @@
 package com.provectus.budgetrush.controllers;
 
+import com.provectus.budgetrush.data.Periods;
 import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.service.OrderService;
@@ -27,7 +28,15 @@ public class OrderController {
     @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
-    public List<Order> listAll() {
+    public List<Order> listAll(@RequestParam(required = false) Periods period,
+                               @RequestParam(required = false) String startDate,
+                               @RequestParam(required = false) String endDate) {
+
+        if (period != null) {
+            log.info("Get orders by period.");
+            return service.getOrdersByPeriod(period, startDate, endDate);
+        }
+
         log.info("Get all orders");
         return service.getAll();
     }
@@ -65,8 +74,8 @@ public class OrderController {
     @RequestMapping(value = "statistics/income/sum", method = GET)
     @ResponseBody
     public OrderStatistic getIncomeSum(@RequestParam int accountId,
-                                          @RequestParam long startDate,
-                                          @RequestParam long endDate) {
+                                       @RequestParam long startDate,
+                                       @RequestParam long endDate) {
 
         return service.getSumIncomeByAccount(accountId, new Date(startDate), new Date(endDate));
     }
@@ -75,8 +84,8 @@ public class OrderController {
     @RequestMapping(value = "statistics/expense/sum", method = GET)
     @ResponseBody
     public OrderStatistic getExpenseSum(@RequestParam int accountId,
-                                       @RequestParam long startDate,
-                                       @RequestParam long endDate) {
+                                        @RequestParam long startDate,
+                                        @RequestParam long endDate) {
 
         return service.getSumExpenseByAccount(accountId, new Date(startDate), new Date(endDate));
     }
@@ -106,7 +115,7 @@ public class OrderController {
     @ResponseBody
     public Order update(@RequestBody Order order, @PathVariable Integer id) {
         log.info("Create/update order id " + id);
-        return  service.update(order, id);
+        return service.update(order, id);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(@orderService.getById(#id), 'delete')")
