@@ -1,13 +1,16 @@
-package com.provectus.budgetrush.dateproc;
+package com.provectus.budgetrush.dateprocessor;
 
 import com.provectus.budgetrush.data.Periods;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.joda.time.DateTime;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
-
+@Component
+@Scope("request")
 public class DateProcessorBean implements DateProcessor{
 
     @Getter

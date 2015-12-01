@@ -1,16 +1,15 @@
 package com.provectus.budgetrush.mail;
 
-import static org.junit.Assert.assertTrue;
-
-import javax.mail.MessagingException;
-
+import com.google.common.base.Strings;
+import com.provectus.budgetrush.utils.AppConfig;
 import lombok.extern.slf4j.Slf4j;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.google.common.base.Strings;
+import javax.mail.MessagingException;
+
+import static org.junit.Assert.assertTrue;
 
 @Slf4j
 public class MailTests {
@@ -21,7 +20,7 @@ public class MailTests {
 	@Before
 	public void setUp() throws Exception {
 		ctx = new AnnotationConfigApplicationContext();
-		ctx.register(MailConfig.class);
+		ctx.register(AppConfig.class);
 		ctx.refresh();
 
 		mailSender = (MailSender) ctx.getBean("mailSender");

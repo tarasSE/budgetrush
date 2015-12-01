@@ -1,4 +1,4 @@
-package com.provectus.budgetrush.dateproc;
+package com.provectus.budgetrush.dateprocessor;
 
 import com.provectus.budgetrush.data.Periods;
 import org.joda.time.DateTime;

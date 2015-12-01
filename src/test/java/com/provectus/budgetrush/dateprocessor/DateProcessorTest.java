@@ -1,4 +1,4 @@
-package com.provectus.budgetrush.dateproc;
+package com.provectus.budgetrush.dateprocessor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

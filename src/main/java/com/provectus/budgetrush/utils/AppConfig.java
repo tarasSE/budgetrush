@@ -1,5 +1,8 @@
-package com.provectus.budgetrush.mail;
+package com.provectus.budgetrush.utils;
 
+import com.provectus.budgetrush.dateprocessor.DateProcessorBean;
+import com.provectus.budgetrush.mail.MailSender;
+import com.provectus.budgetrush.mail.MailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:app.properties")
-public class MailConfig {
+public class AppConfig {
 
     @Autowired
     Environment env;
@@ -26,6 +29,13 @@ public class MailConfig {
         mailService.setPassword(env.getProperty("mail-notify.password"));
 
         return mailService.getMailSender();
+    }
+
+
+    @Bean
+    public DateProcessorBean dateProcessor(){
+
+        return new DateProcessorBean();
     }
 
 }

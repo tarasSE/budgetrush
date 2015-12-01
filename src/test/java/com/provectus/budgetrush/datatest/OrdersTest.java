@@ -3,7 +3,7 @@ package com.provectus.budgetrush.datatest;
 import com.provectus.budgetrush.data.Account;
 import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.data.OrderStatistic;
-import com.provectus.budgetrush.dateproc.DateProcessorBean;
+import com.provectus.budgetrush.dateprocessor.DateProcessorBean;
 import com.provectus.budgetrush.service.AccountService;
 import com.provectus.budgetrush.service.CategoryService;
 import com.provectus.budgetrush.service.ContractorService;
@@ -25,14 +25,14 @@ import javax.persistence.EntityManagerFactory;
 import java.math.BigDecimal;
 import java.util.*;
 
-import static com.provectus.budgetrush.data.Periods.LAST_YEAR;
+import static com.provectus.budgetrush.data.Periods.TODAY;
 import static java.math.BigDecimal.valueOf;
 import static org.junit.Assert.*;
 
 @Slf4j
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, OrderService.class, AccountService.class,
+@ContextConfiguration(classes = {InMemoryConfig.class, OrderService.class, AccountService.class,
         CategoryService.class, ContractorService.class, DateProcessorBean.class})
 @WebAppConfiguration
 public class OrdersTest {
@@ -177,11 +177,14 @@ public class OrdersTest {
     }
 
     @Test
-    public void getOrdersByPeriodTest(){
+    public void getOrdersByPeriodTest() {
 
-       List<Order> orders =  service.getOrdersByPeriod(LAST_YEAR, null, null);
+        dateProcessor.createPeriod(TODAY, null, null);
+        List<Order> orders = service.getOrdersByPeriod(
+                dateProcessor.getStartDate().toDate(),
+                dateProcessor.getEndDate().toDate());
 
-        for (Order order: orders) {
+        for (Order order : orders) {
             log.info(order.toString());
         }
 
