@@ -1,13 +1,17 @@
 package com.provectus.budgetrush.security;
 
 import com.google.common.base.Preconditions;
+import com.provectus.budgetrush.data.Account;
 import com.provectus.budgetrush.data.Category;
 import com.provectus.budgetrush.data.Group;
 import com.provectus.budgetrush.data.User;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
+import org.springframework.util.Assert;
 
 import java.util.Set;
 
@@ -61,11 +65,10 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
         if (this.hasAuthority("ROLE_ADMIN")) {
             return true;
         }
+        
         Set<User> users = ((Group) object).getUsers();
-        if (users == null || users.isEmpty()) {
-            return false;
-        }
-
+        Assert.notEmpty(users, "Empty group "+((Group) object));
+        
         for (User user : users) {
             if (hasPermission(user, permission)) {
                 return true;

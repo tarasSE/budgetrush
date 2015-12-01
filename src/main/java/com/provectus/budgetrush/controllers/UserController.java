@@ -62,16 +62,6 @@ public class UserController {
 
     }
 
-//    @PostAuthorize("isObjectOwnerOrAdmin(@userService.getById(#id), 'read')")
-//    @RequestMapping(value = "/{id}/groups", method = GET)
-//    @ResponseBody
-//    public Set<Group> getGroupsById(@PathVariable Integer id) {
-//        log.info("Send users groups by id " + id);
-//
-//        return service.getUserGroups(id);
-//
-//    }
-
     @PreAuthorize("adminOnly() or #name == authentication.name")
     @RequestMapping(value = "/role/{name}", method = GET)
     @ResponseBody

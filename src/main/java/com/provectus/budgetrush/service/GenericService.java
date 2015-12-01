@@ -35,7 +35,6 @@ public abstract class GenericService<E extends BaseEntity, R extends JpaReposito
         } catch (Exception exception) {
             throw new CustomException("Can`t create resource. " + exception);
         }
-
     }
 
     @Transactional
