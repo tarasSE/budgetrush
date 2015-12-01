@@ -1,93 +1,79 @@
 package com.provectus.budgetrush.dateprocessor;
 
-import com.provectus.budgetrush.data.Periods;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import com.provectus.budgetrush.data.PeriodsEnum;
+import com.provectus.budgetrush.exceptions.CustomException;
 import org.joda.time.DateTime;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
-@Component
-@Scope("request")
-public class DateProcessorBean implements DateProcessor{
 
-    @Getter
-    @Setter(value = AccessLevel.PRIVATE)
-    private DateTime startDate;
+public class DateProcessorBean implements DateProcessor {
 
-    @Getter
-    @Setter(value = AccessLevel.PRIVATE)
-    private DateTime endDate;
-
-    public void createPeriod(Periods period, String startDate, String endDate) {
+    public Period createPeriod(PeriodsEnum period, String startDate, String endDate) {
 
         switch (period) {
 
             case TODAY:
-                setTodayPeriod();
-                break;
+               return setTodayPeriod();
 
             case YESTERDAY:
-                setYesterdayPeriod();
-                break;
+                return setYesterdayPeriod();
 
             case LAST_WEEK:
-                setLastWeekPeriod();
-                break;
+               return setLastWeekPeriod();
 
             case LAST_MONTH:
-                setLastMonthPeriod();
-                break;
+                return setLastMonthPeriod();
 
             case LAST_YEAR:
-                setLastYearPeriod();
-                break;
+               return setLastYearPeriod();
 
             case CUSTOM:
-                setCustomPeriod(startDate, endDate);
-                break;
+                return setCustomPeriod(startDate, endDate);
+
+            default:
+                throw new CustomException("Wrong request parameters!");
         }
 
     }
 
-    private void setCustomPeriod(String startDate, String endDate) {
-        setStartDate(DateTime.parse(startDate));
-        setEndDate(DateTime.parse(endDate));
+    private Period setCustomPeriod(String startDate, String endDate) {
+
+        return new Period(
+                DateTime.parse(startDate).toDate(),
+                DateTime.parse(endDate).toDate());
     }
 
-    private void setLastYearPeriod() {
-        setCurrentDateAsEndDate();
+    private Period setLastYearPeriod() {
+        DateTime endDate = DateTime.now();
 
-        DateTime startDate = new DateTime(getEndDate())
+        DateTime startDate = new DateTime(endDate)
                 .withHourOfDay(0)
                 .withMinuteOfHour(0)
                 .withSecondOfMinute(0)
                 .withMillisOfDay(0);
         startDate = startDate.minusYears(1);
 
-        setStartDate(startDate);
+        return new Period(startDate.toDate(), endDate.toDate());
     }
 
-    private void setLastMonthPeriod() {
-        setCurrentDateAsEndDate();
+    private Period setLastMonthPeriod() {
+        DateTime endDate = DateTime.now();
 
-        DateTime startDate = new DateTime(getEndDate())
+        DateTime startDate = new DateTime(endDate)
                 .withHourOfDay(0)
                 .withMinuteOfHour(0)
                 .withSecondOfMinute(0)
                 .withMillisOfDay(0);
 
         startDate = startDate.minusMonths(1);
-        setStartDate(startDate);
+        return new Period(startDate.toDate(), endDate.toDate());
     }
 
-    private void setLastWeekPeriod() {
+    private Period setLastWeekPeriod() {
 
-        setCurrentDateAsEndDate();
+        DateTime endDate = DateTime.now();
 
-        DateTime startDate = new DateTime(getEndDate())
+        DateTime startDate = new DateTime(endDate)
                 .withHourOfDay(0)
                 .withMinuteOfHour(0)
                 .withSecondOfMinute(0)
@@ -95,10 +81,10 @@ public class DateProcessorBean implements DateProcessor{
 
         startDate = startDate.minusDays(7);
 
-        setStartDate(startDate);
+        return new Period(startDate.toDate(), endDate.toDate());
     }
 
-    private void setYesterdayPeriod() {
+    private Period setYesterdayPeriod() {
 
         DateTime endDate = new DateTime(new Date());
         endDate = endDate.minusDays(1);
@@ -107,32 +93,25 @@ public class DateProcessorBean implements DateProcessor{
                 .minuteOfHour().setCopy(59)
                 .secondOfMinute().setCopy(59);
 
-        setEndDate(endDate);
-
-        DateTime startDate = new DateTime(getEndDate())
+        DateTime startDate = new DateTime(endDate)
                 .withHourOfDay(0)
                 .withMinuteOfHour(0)
                 .withSecondOfMinute(0)
                 .withMillisOfDay(0);
-
         startDate = startDate.minusDays(1);
 
-        setStartDate(startDate);
+        return new Period(startDate.toDate(), endDate.toDate());
     }
 
-    private void setTodayPeriod() {
-        DateTime startDate = new DateTime(getEndDate())
+    private Period setTodayPeriod() {
+        DateTime endDate = DateTime.now();
+
+        DateTime startDate = new DateTime(endDate)
                 .withHourOfDay(0)
                 .withMinuteOfHour(0)
                 .withSecondOfMinute(0)
                 .withMillisOfDay(0);
 
-        setStartDate(startDate);
-        setCurrentDateAsEndDate();
+        return new Period(startDate.toDate(), endDate.toDate());
     }
-
-    private void setCurrentDateAsEndDate() {
-        setEndDate(DateTime.now());
-    }
-
 }

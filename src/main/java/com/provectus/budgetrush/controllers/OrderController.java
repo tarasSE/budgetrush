@@ -1,9 +1,10 @@
 package com.provectus.budgetrush.controllers;
 
-import com.provectus.budgetrush.data.Periods;
+import com.provectus.budgetrush.data.PeriodsEnum;
 import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.dateprocessor.DateProcessorBean;
+import com.provectus.budgetrush.dateprocessor.Period;
 import com.provectus.budgetrush.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +33,18 @@ public class OrderController {
     @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
-    public List<Order> listAll(@RequestParam(required = false) Periods period,
+    public List<Order> listAll(@RequestParam(required = false) PeriodsEnum period,
                                @RequestParam(required = false) String startDate,
                                @RequestParam(required = false) String endDate) {
 
         if (period != null) {
 
-            dateProcessor.createPeriod(period, startDate, endDate);
+            Period createdPeriod = dateProcessor.createPeriod(period, startDate, endDate);
             log.info("Get orders by period.");
+
             return service.getOrdersByPeriod(
-                    dateProcessor.getStartDate().toDate(),
-                    dateProcessor.getEndDate().toDate());
+                    createdPeriod.getStartDate(),
+                    createdPeriod.getEndDate());
         }
 
         log.info("Get all orders");

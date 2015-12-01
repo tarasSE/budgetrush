@@ -4,6 +4,7 @@ import com.provectus.budgetrush.data.Account;
 import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.data.OrderStatistic;
 import com.provectus.budgetrush.dateprocessor.DateProcessorBean;
+import com.provectus.budgetrush.dateprocessor.Period;
 import com.provectus.budgetrush.service.AccountService;
 import com.provectus.budgetrush.service.CategoryService;
 import com.provectus.budgetrush.service.ContractorService;
@@ -25,7 +26,7 @@ import javax.persistence.EntityManagerFactory;
 import java.math.BigDecimal;
 import java.util.*;
 
-import static com.provectus.budgetrush.data.Periods.TODAY;
+import static com.provectus.budgetrush.data.PeriodsEnum.TODAY;
 import static java.math.BigDecimal.valueOf;
 import static org.junit.Assert.*;
 
@@ -179,10 +180,10 @@ public class OrdersTest {
     @Test
     public void getOrdersByPeriodTest() {
 
-        dateProcessor.createPeriod(TODAY, null, null);
+        Period period = dateProcessor.createPeriod(TODAY, null, null);
         List<Order> orders = service.getOrdersByPeriod(
-                dateProcessor.getStartDate().toDate(),
-                dateProcessor.getEndDate().toDate());
+               period.getStartDate(),
+                period.getEndDate());
 
         for (Order order : orders) {
             log.info(order.toString());

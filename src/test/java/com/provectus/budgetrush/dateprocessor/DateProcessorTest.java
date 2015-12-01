@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import static com.provectus.budgetrush.data.Periods.*;
+import static com.provectus.budgetrush.data.PeriodsEnum.*;
 
 @Slf4j
 @DirtiesContext
@@ -24,23 +24,25 @@ public class DateProcessorTest {
     @Test
     public void DateTypeTest() {
 
-        dateProcessorBean.createPeriod(TODAY, null, null);
-        log.info(dateProcessorBean.getStartDate().toDate().toString() + dateProcessorBean.getEndDate().toDate().toString());
+        Period period;
 
-        dateProcessorBean.createPeriod(YESTERDAY, null, null);
-        log.info(dateProcessorBean.getStartDate().toDate().toString() + dateProcessorBean.getEndDate().toDate().toString());
+        period = dateProcessorBean.createPeriod(TODAY, null, null);
+        log.info(period.getStartDate().toString() + " " + period.getEndDate().toString());
 
-        dateProcessorBean.createPeriod(LAST_WEEK, null, null);
-        log.info(dateProcessorBean.getStartDate().toDate().toString() + dateProcessorBean.getEndDate().toDate().toString());
+        period = dateProcessorBean.createPeriod(YESTERDAY, null, null);
+        log.info(period.getStartDate().toString() + " " + period.getEndDate().toString());
 
-        dateProcessorBean.createPeriod(LAST_MONTH, null, null);
-        log.info(dateProcessorBean.getStartDate().toDate().toString() + dateProcessorBean.getEndDate().toDate().toString());
+        period = dateProcessorBean.createPeriod(LAST_WEEK, null, null);
+        log.info(period.getStartDate().toString() + " " + period.getEndDate().toString());
 
-        dateProcessorBean.createPeriod(LAST_YEAR, null, null);
-        log.info(dateProcessorBean.getStartDate().toDate().toString() + dateProcessorBean.getEndDate().toDate().toString());
+        period = dateProcessorBean.createPeriod(LAST_MONTH, null, null);
+        log.info(period.getStartDate().toString() + " " + period.getEndDate().toString());
 
-        dateProcessorBean.createPeriod(CUSTOM, "2015-02-01", "2015-01-01");
-        log.info(dateProcessorBean.getStartDate().toDate().toString() + dateProcessorBean.getEndDate().toDate().toString());
+        period = dateProcessorBean.createPeriod(LAST_YEAR, null, null);
+        log.info(period.getStartDate().toString() + " " + period.getEndDate().toString());
+
+        period = dateProcessorBean.createPeriod(CUSTOM, "2015-02-01", "2015-01-01");
+        log.info(period.getStartDate().toString() + " " + period.getEndDate().toString());
 
     }
 
