@@ -1,18 +1,20 @@
 package com.provectus.budgetrush.service;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-
+import com.provectus.budgetrush.data.Category;
+import com.provectus.budgetrush.data.DateType;
+import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.OrderStatistic;
+import com.provectus.budgetrush.dateproc.DateProcessorBean;
+import com.provectus.budgetrush.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.data.OrderStatistic;
-import com.provectus.budgetrush.repository.OrderRepository;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 @Service
 @Repository
@@ -92,6 +94,17 @@ public class OrderService extends GenericService<Order, OrderRepository> {
 
     public List<OrderStatistic> getExpenseByCategory(Category category, Date startDate, Date endDate) {
         return getRepository().getExpenseByCategory(category, startDate, endDate);
+    }
+
+    public List<Order> getOrdersByPeriod(DateType dateType, String date){
+
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(DateProcessorBean.class);
+        ctx.refresh();
+
+        DateProcessorBean dateProcessor = (DateProcessorBean) ctx.getBean("dateProcessor");
+        dateProcessor.createPeriod(DateType.TODAY, null, null);
+        return getRepository().findByDateBetween(dateProcessor.getStartDate().toDate(), dateProcessor.getEndDate().toDate());
     }
 
 }

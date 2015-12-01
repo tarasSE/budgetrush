@@ -47,6 +47,7 @@
 		<activation.version>1.0.2</activation.version>
 		<mail.version>1.4.7</mail.version>
 		<commons-lang3.version>3.0</commons-lang3.version>
+		<joda-time.version>2.9.1</joda-time.version>
 	</properties>
 
 	<repositories>
@@ -290,6 +291,12 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons-lang3.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${joda-time.version}</version>
 		</dependency>
 		
 	</dependencies>

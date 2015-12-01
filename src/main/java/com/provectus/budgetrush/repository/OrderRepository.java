@@ -3,6 +3,8 @@ package com.provectus.budgetrush.repository;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -59,4 +61,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<OrderStatistic> getExpenseByCategory(@Param("category") Category category,
                                               @Param("start_date") Date startDate,
                                               @Param("end_date") Date endDate);
+
+    List<Order> findByDateBetween(Date startDate, Date endDate);
 }
