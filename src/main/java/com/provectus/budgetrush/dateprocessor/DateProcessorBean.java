@@ -13,19 +13,19 @@ public class DateProcessorBean implements DateProcessor {
         switch (period) {
 
             case TODAY:
-               return setTodayPeriod();
+                return setTodayPeriod();
 
             case YESTERDAY:
                 return setYesterdayPeriod();
 
             case LAST_WEEK:
-               return setLastWeekPeriod();
+                return setLastWeekPeriod();
 
             case LAST_MONTH:
                 return setLastMonthPeriod();
 
             case LAST_YEAR:
-               return setLastYearPeriod();
+                return setLastYearPeriod();
 
             case CUSTOM:
                 return setCustomPeriod(startDate, endDate);
@@ -44,28 +44,22 @@ public class DateProcessorBean implements DateProcessor {
     }
 
     private Period setLastYearPeriod() {
+
         DateTime endDate = DateTime.now();
 
-        DateTime startDate = new DateTime(endDate)
-                .withHourOfDay(0)
-                .withMinuteOfHour(0)
-                .withSecondOfMinute(0)
-                .withMillisOfDay(0);
+        DateTime startDate = roundDayMin(endDate);
         startDate = startDate.minusYears(1);
 
         return new Period(startDate.toDate(), endDate.toDate());
     }
 
     private Period setLastMonthPeriod() {
+
         DateTime endDate = DateTime.now();
 
-        DateTime startDate = new DateTime(endDate)
-                .withHourOfDay(0)
-                .withMinuteOfHour(0)
-                .withSecondOfMinute(0)
-                .withMillisOfDay(0);
-
+        DateTime startDate = roundDayMin(endDate);
         startDate = startDate.minusMonths(1);
+
         return new Period(startDate.toDate(), endDate.toDate());
     }
 
@@ -73,12 +67,7 @@ public class DateProcessorBean implements DateProcessor {
 
         DateTime endDate = DateTime.now();
 
-        DateTime startDate = new DateTime(endDate)
-                .withHourOfDay(0)
-                .withMinuteOfHour(0)
-                .withSecondOfMinute(0)
-                .withMillisOfDay(0);
-
+        DateTime startDate = roundDayMin(endDate);
         startDate = startDate.minusDays(7);
 
         return new Period(startDate.toDate(), endDate.toDate());
@@ -88,30 +77,37 @@ public class DateProcessorBean implements DateProcessor {
 
         DateTime endDate = new DateTime(new Date());
         endDate = endDate.minusDays(1);
-        endDate = endDate
-                .hourOfDay().setCopy(23)
-                .minuteOfHour().setCopy(59)
-                .secondOfMinute().setCopy(59);
+        endDate = roundDayMax(endDate);
 
-        DateTime startDate = new DateTime(endDate)
-                .withHourOfDay(0)
-                .withMinuteOfHour(0)
-                .withSecondOfMinute(0)
-                .withMillisOfDay(0);
+        DateTime startDate = roundDayMin(endDate);
         startDate = startDate.minusDays(1);
 
         return new Period(startDate.toDate(), endDate.toDate());
     }
 
     private Period setTodayPeriod() {
-        DateTime endDate = DateTime.now();
 
-        DateTime startDate = new DateTime(endDate)
+        DateTime endDate = DateTime.now();
+        DateTime startDate = roundDayMin(endDate);
+
+        return new Period(startDate.toDate(), endDate.toDate());
+    }
+
+    private DateTime roundDayMin(final DateTime date) {
+
+        return new DateTime(date)
                 .withHourOfDay(0)
                 .withMinuteOfHour(0)
                 .withSecondOfMinute(0)
-                .withMillisOfDay(0);
+                .withMillisOfSecond(0);
+    }
 
-        return new Period(startDate.toDate(), endDate.toDate());
+    private DateTime roundDayMax(final DateTime date) {
+
+        return new DateTime(date)
+                .withHourOfDay(23)
+                .withMinuteOfHour(59)
+                .withSecondOfMinute(59)
+                .withMillisOfSecond(999);
     }
 }
