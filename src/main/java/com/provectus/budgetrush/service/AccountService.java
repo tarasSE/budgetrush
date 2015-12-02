@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.provectus.budgetrush.data.Account;
 import com.provectus.budgetrush.data.AccountStatistic;
@@ -72,18 +73,35 @@ public class AccountService extends GenericService<Account, AccountRepository> {
 
 	public List<AccountStatistic> getTurnoverByAccount(int accountId,
 			Date startDate, Date endDate) {
+		Assert.isTrue(accountId!=0, "Account id can`t be null");
+	  	Assert.notNull(startDate, "Start date can`t be null");
+    	Assert.notNull(endDate, "End date can`t be null");
+    	Assert.isTrue(endDate.after(startDate), "End date must be after start date");
+    	
 		return getRepository().getTurnoverByAccount(accountId, startDate,
 				endDate);
 	}
 
 	public List<AccountStatistic> getIncomeByAccount(int accountId,
 			Date startDate, Date endDate) {
+		
+		Assert.isTrue(accountId!=0, "Account id can`t be null");
+	  	Assert.notNull(startDate, "Start date can`t be null");
+    	Assert.notNull(endDate, "End date can`t be null");
+    	Assert.isTrue(endDate.after(startDate), "End date must be after start date");
+    	
 		return getRepository()
 				.getIncomeByAccount(accountId, startDate, endDate);
 	}
 
 	public List<AccountStatistic> getExpenseByAccount(int accountId,
 			Date startDate, Date endDate) {
+		
+		Assert.isTrue(accountId!=0, "Account id can`t be null");
+	  	Assert.notNull(startDate, "Start date can`t be null");
+    	Assert.notNull(endDate, "End date can`t be null");
+    	Assert.isTrue(endDate.after(startDate), "End date must be after start date");
+    	
 		return getRepository().getExpenseByAccount(accountId, startDate,
 				endDate);
 	}
@@ -91,6 +109,12 @@ public class AccountService extends GenericService<Account, AccountRepository> {
 	public List<AccountStatistic> getExpenseByCategoryAndGroup(Category category, Group group, 
 															   Date startDate, 	  Date endDate) {
 		
+		Assert.notNull(category, "Category can`t be null");
+		Assert.notNull(group, "Group can`t be null");
+	  	Assert.notNull(startDate, "Start date can`t be null");
+    	Assert.notNull(endDate, "End date can`t be null");
+    	Assert.isTrue(endDate.after(startDate), "End date must be after start date");
+    	
 		return getRepository().getExpenseByCategoryAndGroup(category, group, startDate, endDate);
 	}
 
