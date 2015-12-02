@@ -51,9 +51,8 @@ public class BudgetController {
     @RequestMapping(value = "/{id}/statistics",method = GET)
     @ResponseBody
     public BudgetStatistic getBudgetStatistic(@PathVariable int id) {
-
-        Budget budget = service.getById(id);
-
+    	
+    	Budget budget = service.getById(id);
         log.info("Get budget statistic");
         return service.getBudgetStatistic(budget);
     }

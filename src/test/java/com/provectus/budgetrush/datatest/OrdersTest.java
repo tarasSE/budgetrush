@@ -1,15 +1,23 @@
 package com.provectus.budgetrush.datatest;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.data.OrderStatistic;
-import com.provectus.budgetrush.dateprocessor.DateProcessorBean;
-import com.provectus.budgetrush.dateprocessor.Period;
-import com.provectus.budgetrush.service.AccountService;
-import com.provectus.budgetrush.service.CategoryService;
-import com.provectus.budgetrush.service.ContractorService;
-import com.provectus.budgetrush.service.OrderService;
+import static com.provectus.budgetrush.data.PeriodsEnum.TODAY;
+import static java.math.BigDecimal.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,15 +28,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import java.math.BigDecimal;
-import java.util.*;
-
-import static com.provectus.budgetrush.data.PeriodsEnum.TODAY;
-import static java.math.BigDecimal.valueOf;
-import static org.junit.Assert.*;
+import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.dateprocessor.DateProcessorBean;
+import com.provectus.budgetrush.dateprocessor.Period;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.CategoryService;
+import com.provectus.budgetrush.service.ContractorService;
+import com.provectus.budgetrush.service.OrderService;
 
 @Slf4j
 @DirtiesContext
@@ -118,63 +124,6 @@ public class OrdersTest {
         service.delete(order.getId());
 
         log.info("id  " + order.getId());
-    }
-
-    @Test
-    public void getAmountMovement() {
-        Order order = saveTestOrder();
-        assertNotNull(order);
-        Account account = order.getAccount();
-
-        Calendar startDate = new GregorianCalendar(2015, 9, 4, 0, 0);
-        Calendar endDate = new GregorianCalendar(2015, 9, 4, 23, 59);
-        List<OrderStatistic> ammounts = service.getTurnoverByAccount(account.getId(),
-                new Date(startDate.getTimeInMillis()), new Date(endDate.getTimeInMillis()));
-
-        assertNotNull(ammounts);
-        assertEquals(ammounts.isEmpty(), false);
-        for (OrderStatistic amountMovement : ammounts) {
-            log.info("Amount movement :" + amountMovement.toString());
-        }
-
-    }
-
-    @Test
-    public void getIncomeByAccount() {
-        Order order = saveTestOrder();
-        order.setAmount(BigDecimal.valueOf(-656.00));
-        assertNotNull(order);
-        Account account = order.getAccount();
-
-        Date startDate = new Date(0);
-        Date endDate = new Date();
-        List<OrderStatistic> incomes = service.getIncomeByAccount(account.getId(), startDate, endDate);
-
-        assertNotNull(incomes);
-        assertEquals(incomes.isEmpty(), false);
-        for (OrderStatistic income : incomes) {
-            log.info("Income :" + income.toString());
-        }
-
-    }
-
-    @Test
-    public void getExpenseByAccount() {
-        Order order = saveTestOrder();
-        order.setAmount(BigDecimal.valueOf(-656.00));
-        assertNotNull(order);
-
-        Date startDate = new Date(0);
-        Date endDate = new Date();
-        List<OrderStatistic> expenses = service.getExpenseByAccount(order.getAccount().getId(),
-                startDate, endDate);
-
-        assertNotNull(expenses);
-        // assertEquals(expenses.isEmpty(), false);
-        for (OrderStatistic expense : expenses) {
-            log.info("Expense :" + expense.toString());
-        }
-
     }
 
     @Test

@@ -7,11 +7,9 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class OrderStatistic {
+public class AccountStatistic {
 
     private Account account;
-    private Contractor contractor;
-    private Category category;
     private BigDecimal amount;
 
 }

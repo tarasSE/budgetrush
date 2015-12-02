@@ -1,17 +1,16 @@
 package com.provectus.budgetrush.service;
 
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.data.OrderStatistic;
-import com.provectus.budgetrush.repository.OrderRepository;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.repository.OrderRepository;
 
 @Service
 @Repository
@@ -58,45 +57,12 @@ public class OrderService extends GenericService<Order, OrderRepository> {
         return super.delete(id);
 
     }
-
-    public List<OrderStatistic> getTurnoverByAccount(int accountId, Date startDate, Date endDate) {
-        return getRepository().getTurnoverByAccount(accountId, startDate, endDate);
-    }
-
-    public List<OrderStatistic> getIncomeByAccount(int accountId, Date startDate, Date endDate) {
-        return getRepository().getIncomeByAccount(accountId, startDate, endDate);
-    }
-
-    public List<OrderStatistic> getExpenseByAccount(int accountId, Date startDate, Date endDate) {
-        return getRepository().getExpenseByAccount(accountId, startDate, endDate);
-    }
-
-    public OrderStatistic getSumExpenseByAccount(int accountId, Date startDate, Date endDate) {
-        List<OrderStatistic> statistics = getRepository().getExpenseByAccount(accountId, startDate, endDate);
-        BigDecimal sumAmount = new BigDecimal(0);
-        for (OrderStatistic st : statistics){
-            sumAmount = sumAmount.add(st.getAmount());
-        }
-        return new OrderStatistic(accountService.getById(accountId), null , null, sumAmount);
-    }
-
-    public OrderStatistic getSumIncomeByAccount(int accountId, Date startDate, Date endDate) {
-        List<OrderStatistic> statistics = getRepository().getIncomeByAccount(accountId, startDate, endDate);
-        BigDecimal sumAmount = new BigDecimal(0);
-        for (OrderStatistic st : statistics){
-            sumAmount = sumAmount.add(st.getAmount());
-        }
-        return new OrderStatistic(accountService.getById(accountId), null , null, sumAmount);
-    }
-
-    public List<OrderStatistic> getExpenseByCategory(Category category, Date startDate, Date endDate) {
-        return getRepository().getExpenseByCategory(category, startDate, endDate);
-    }
-
+    
     public List<Order> getOrdersByPeriod(Date startDate, Date endDate){
-
-
+    	Assert.notNull(startDate, "Start date can`t be null");
+    	Assert.notNull(endDate, "End date can`t be null");
+    	Assert.isTrue(endDate.after(startDate), "End date must be after start date");
+    	
         return getRepository().findByDateBetween(startDate, endDate);
     }
-
-}
+ }

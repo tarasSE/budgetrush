@@ -1,9 +1,12 @@
 package com.provectus.budgetrush.datatest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 
+import static org.junit.Assert.*;
+
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
@@ -22,6 +25,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.AccountStatistic;
+import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.service.AccountService;
 import com.provectus.budgetrush.service.CurrencyService;
 import com.provectus.budgetrush.service.GroupService;
@@ -107,5 +112,54 @@ public class AccountTest {
         service.delete(account.getId());
 
         log.info("id  " + account.getId());
+    }
+    
+    @Test
+    public void getAmountMovement() {
+        Account account = saveTestAccount();
+        assertNotNull(account);
+        Date startDate = new Date(0);
+        Date endDate = new Date();
+        
+        List<AccountStatistic> ammounts = service.getTurnoverByAccount(account.getId(),
+        		startDate, endDate);
+
+        assertNotNull(ammounts);
+        for (AccountStatistic amountMovement : ammounts) {
+            log.info("Amount movement :" + amountMovement.toString());
+        }
+
+    }
+
+    @Test
+    public void getIncomeByAccount() {
+    	Account account = saveTestAccount();
+        assertNotNull(account);
+        Date startDate = new Date(0);
+        Date endDate = new Date();
+        List<AccountStatistic> incomes = service.getIncomeByAccount(account.getId(), startDate, endDate);
+
+        assertNotNull(incomes);
+        for (AccountStatistic income : incomes) {
+            log.info("Income :" + income.toString());
+        }
+
+    }
+
+    @Test
+    public void getExpenseByAccount() {
+    	Account account = saveTestAccount();
+        assertNotNull(account);
+        Date startDate = new Date(0);
+        Date endDate = new Date();
+        
+        List<AccountStatistic> expenses = service.getExpenseByAccount(account.getId(),
+                startDate, endDate);
+
+        assertNotNull(expenses);
+        for (AccountStatistic expense : expenses) {
+            log.info("Expense :" + expense.toString());
+        }
+
     }
 }

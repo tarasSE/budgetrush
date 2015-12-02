@@ -10,4 +10,5 @@ import com.provectus.budgetrush.data.Budget;
 @Transactional(readOnly = true)
 public interface BudgetRepository extends JpaRepository<Budget, Integer> {
     public Budget findByName(String name);
-}
+}   
+                                                     

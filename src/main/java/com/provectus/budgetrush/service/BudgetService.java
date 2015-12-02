@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Budget;
 import com.provectus.budgetrush.data.BudgetStatistic;
-import com.provectus.budgetrush.data.OrderStatistic;
+import com.provectus.budgetrush.data.AccountStatistic;
 import com.provectus.budgetrush.repository.BudgetRepository;
 
 @Service
@@ -23,7 +23,7 @@ public class BudgetService extends GenericService<Budget, BudgetRepository> {
     private BudgetRepository budgetRepository;
 
     @Autowired
-    private OrderService orderService;
+    private AccountService accountService;
 
     @Override
     protected BudgetRepository getRepository() {
@@ -35,12 +35,13 @@ public class BudgetService extends GenericService<Budget, BudgetRepository> {
         BigDecimal amount = BigDecimal.ZERO;
         BigDecimal balance = BigDecimal.ZERO;
 
-        List<OrderStatistic> statisticsByCategory = orderService.getExpenseByCategory(budget.getCategory(),
+        List<AccountStatistic> statistics = accountService.getExpenseByCategoryAndGroup(budget.getCategory(),
+        		budget.getGroup(),
                 budget.getStartDate(),
                 budget.getEndDate());
 
-        for (OrderStatistic orderStatistic : statisticsByCategory) {
-            amount = amount.add(orderStatistic.getAmount());
+        for (AccountStatistic statistic : statistics) {
+            amount = amount.add(statistic.getAmount());
         }
 
         balance = budget.getAmount().add(amount);
