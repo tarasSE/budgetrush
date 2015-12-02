@@ -106,7 +106,7 @@ public class AccountController {
 		Period createdPeriod = dateProcessor.createPeriod(period, startDate, endDate);
 		log.info("Get account turnover by period.");
 									
-		return service.getIncomeByAccount(accountId, createdPeriod.getStartDate(), createdPeriod.getStartDate());
+		return service.getIncomeByAccount(accountId, createdPeriod.getStartDate(), createdPeriod.getEndDate());
 
 	}
 
