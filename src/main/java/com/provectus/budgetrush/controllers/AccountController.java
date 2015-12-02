@@ -123,7 +123,7 @@ public class AccountController {
 		log.info("Get account incom by period.");
 
 		return service.getIncomeByAccount(accountId,
-				createdPeriod.getStartDate(), createdPeriod.getStartDate());
+				createdPeriod.getStartDate(), createdPeriod.getEndDate());
 	}
 
 	@PostFilter("inGroupOrAdmin(filterObject.account.group, 'read')")
@@ -137,6 +137,6 @@ public class AccountController {
 		Period createdPeriod = dateProcessor.createPeriod(period, startDate, endDate);
 		log.info("Get account expense by period.");
 
-		return service.getExpenseByAccount(accountId, createdPeriod.getStartDate(), createdPeriod.getStartDate());
+		return service.getExpenseByAccount(accountId, createdPeriod.getStartDate(), createdPeriod.getEndDate());
 	}
 }
