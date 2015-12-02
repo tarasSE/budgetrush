@@ -1,18 +1,19 @@
 package com.provectus.budgetrush.datatest;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
+import lombok.extern.slf4j.Slf4j;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,12 +27,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.Account;
 import com.provectus.budgetrush.data.AccountStatistic;
-import com.provectus.budgetrush.data.Order;
 import com.provectus.budgetrush.service.AccountService;
 import com.provectus.budgetrush.service.CurrencyService;
 import com.provectus.budgetrush.service.GroupService;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DirtiesContext
