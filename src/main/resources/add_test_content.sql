@@ -33,11 +33,11 @@ INSERT INTO contractors (name, description, user_id) VALUES ('test_contractor_3'
 INSERT INTO contractors (name, description, user_id) VALUES ('test_contractor_4', 'test_description_4', 4);
 
 /* Accounts */
-INSERT INTO accounts (name, group_id, currency_id, balance, initBalance) VALUES ('test_account', 1, 1, 99999, 99999);
-INSERT INTO accounts (name, group_id, currency_id, balance, initBalance) VALUES ('test_account_1', 2, 2, 99999, 99999);
-INSERT INTO accounts (name, group_id, currency_id, balance, initBalance) VALUES ('test_account_2', 3, 3, 99999, 99999);
-INSERT INTO accounts (name, group_id, currency_id, balance, initBalance) VALUES ('test_account_3', 4, 4, 99999, 99999);
-INSERT INTO accounts (name, group_id, currency_id, balance, initBalance) VALUES ('test_account_4', 5, 5, 99999, 99999);
+INSERT INTO accounts (name, group_id, currency_id, currentBalance, initBalance) VALUES ('test_account', 1, 1, 99999, 99999);
+INSERT INTO accounts (name, group_id, currency_id, currentBalance, initBalance) VALUES ('test_account_1', 2, 2, 99999, 99999);
+INSERT INTO accounts (name, group_id, currency_id, currentBalance, initBalance) VALUES ('test_account_2', 3, 3, 99999, 99999);
+INSERT INTO accounts (name, group_id, currency_id, currentBalance, initBalance) VALUES ('test_account_3', 4, 4, 99999, 99999);
+INSERT INTO accounts (name, group_id, currency_id, currentBalance, initBalance) VALUES ('test_account_4', 5, 5, 99999, 99999);
 
 /*Income orders*/
 INSERT INTO orders (amount, date, type, account_id, category_id, contractor_id, expense_id, income_id)

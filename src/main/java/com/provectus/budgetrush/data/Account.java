@@ -27,19 +27,19 @@ public class Account extends BaseEntity {
     private Currency currency;
 
     @Min(0)
-    private BigDecimal balance;
+    private BigDecimal currentBalance;
 
     @Min(0)
     private BigDecimal initBalance;
 
     @JsonProperty
-    public BigDecimal getBalance() {
-        return balance;
+    public BigDecimal getCurrentBalance() {
+        return currentBalance;
     }
 
     @JsonIgnore
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
+    public void setCurrentBalance(BigDecimal currentBalance) {
+        this.currentBalance = currentBalance;
     }
 
 }

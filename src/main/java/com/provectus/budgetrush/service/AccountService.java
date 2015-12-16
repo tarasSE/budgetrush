@@ -41,7 +41,7 @@ public class AccountService extends GenericService<Account, AccountRepository> {
             account.setInitBalance(new BigDecimal(0));
         }
 
-        account.setBalance(account.getInitBalance());
+        account.setCurrentBalance(account.getInitBalance());
         return super.create(account);
     }
 
@@ -55,8 +55,8 @@ public class AccountService extends GenericService<Account, AccountRepository> {
             account.setInitBalance(accountRepository.getOne(id).getInitBalance());
         }
 
-        if (account.getBalance() == null) {
-            account.setBalance(accountRepository.getOne(id).getBalance());
+        if (account.getCurrentBalance() == null) {
+            account.setCurrentBalance(accountRepository.getOne(id).getCurrentBalance());
         }
 
         BigDecimal newInitBalance = account.getInitBalance();
@@ -71,22 +71,22 @@ public class AccountService extends GenericService<Account, AccountRepository> {
 
     @Transactional
     public Account increaseBalance(@NotNull Account account, BigDecimal amount) {
-        BigDecimal balance = account.getBalance();
+        BigDecimal balance = account.getCurrentBalance();
         if (balance == null) {
             balance = new BigDecimal(0);
         }
 
-        account.setBalance(balance.add(amount));
+        account.setCurrentBalance(balance.add(amount));
         return super.update(account, account.getId());
     }
 
     @Transactional
     public Account decreaseBalance(Account account, BigDecimal amount) {
-        BigDecimal balance = account.getBalance();
+        BigDecimal balance = account.getCurrentBalance();
         if (balance == null) {
             balance = new BigDecimal(0);
         }
-        account.setBalance(balance.subtract(amount));
+        account.setCurrentBalance(balance.subtract(amount));
         return update(account, account.getId());
     }
 

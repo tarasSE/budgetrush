@@ -35,12 +35,12 @@ CREATE TABLE currencies (
   ENGINE = InnoDB;
 
 CREATE TABLE accounts (
-  id          INT AUTO_INCREMENT NOT NULL,
-  name        VARCHAR(50)        NOT NULL,
-  group_id    INT                NOT NULL,
-  currency_id INT                NOT NULL,
-  balance     DECIMAL(10, 2)     NOT NULL,
-  initBalance DECIMAL(10, 2)     NOT NULL,
+  id             INT AUTO_INCREMENT NOT NULL,
+  name           VARCHAR(50)        NOT NULL,
+  group_id       INT                NOT NULL,
+  currency_id    INT                NOT NULL,
+  currentBalance DECIMAL(10, 2)     NOT NULL,
+  initBalance    DECIMAL(10, 2)     NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (group_id) REFERENCES groups (id),
   FOREIGN KEY (currency_id) REFERENCES currencies (id)
