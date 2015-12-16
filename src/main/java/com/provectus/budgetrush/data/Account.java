@@ -26,10 +26,10 @@ public class Account extends BaseEntity {
     @ManyToOne(cascade = CascadeType.DETACH)
     private Currency currency;
 
-    @Min(value = 0, message = "Balance can not be negative!")
+    @Min(0)
     private BigDecimal balance;
 
-    @Min(value = 0, message = "Balance can not be negative!")
+    @Min(0)
     private BigDecimal initBalance;
 
     @JsonProperty
