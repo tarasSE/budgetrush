@@ -32,7 +32,7 @@ public class OrderService extends GenericService<Order, OrderRepository> {
     @Transactional
     public Order create(Order order) {
         Order newOrder = super.create(order);
-        accountService.incressBalance(newOrder.getAccount(), newOrder.getAmount());
+        accountService.increaseBalance(newOrder.getAccount(), newOrder.getAmount());
         return newOrder;
     }
 
@@ -43,7 +43,7 @@ public class OrderService extends GenericService<Order, OrderRepository> {
         accountService.decreaseBalance(oldOrder.getAccount(), oldOrder.getAmount());
 
         Order newOrder = super.update(order, id);
-        accountService.incressBalance(newOrder.getAccount(), newOrder.getAmount());
+        accountService.increaseBalance(newOrder.getAccount(), newOrder.getAmount());
 
         return newOrder;
     }

@@ -59,7 +59,7 @@ public class TransferOrderService extends GenericService<TransferOrder, Transfer
         TransferOrder oldTransfer = getById(id);
 
         accountService.decreaseBalance(oldTransfer.getTransferAccount(), oldTransfer.getAmount());
-        accountService.incressBalance(oldTransfer.getAccount(), oldTransfer.getAmount());
+        accountService.increaseBalance(oldTransfer.getAccount(), oldTransfer.getAmount());
 
         return super.delete(id);
     }

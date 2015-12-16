@@ -2,28 +2,28 @@ CREATE TABLE users (
   id       INT AUTO_INCREMENT    NOT NULL,
   name     VARCHAR(20) UNIQUE    NOT NULL,
   password VARCHAR(50)           NOT NULL,
-  email    VARCHAR(20) 			 NOT NULL,
+  email    VARCHAR(20)           NOT NULL,
   role     INT(1)                NOT NULL,
   PRIMARY KEY (id)
 )
   ENGINE = InnoDB;
 
 CREATE TABLE groups (
-  id       INT AUTO_INCREMENT    NOT NULL,
-  name     VARCHAR(20)    NOT NULL,
+  id   INT AUTO_INCREMENT NOT NULL,
+  name VARCHAR(20)        NOT NULL,
   PRIMARY KEY (id)
 )
   ENGINE = InnoDB;
 
 CREATE TABLE users_groups (
-  group_id     INT                NOT NULL,
-  user_id     INT                NOT NULL,
+  group_id INT NOT NULL,
+  user_id  INT NOT NULL,
   PRIMARY KEY (group_id, user_id),
   FOREIGN KEY (group_id) REFERENCES groups (id),
   FOREIGN KEY (user_id) REFERENCES users (id)
 )
   ENGINE = InnoDB;
-  
+
 CREATE TABLE currencies (
   id         INT AUTO_INCREMENT NOT NULL,
   name       VARCHAR(15)        NOT NULL,
@@ -40,25 +40,26 @@ CREATE TABLE accounts (
   group_id    INT                NOT NULL,
   currency_id INT                NOT NULL,
   balance     DECIMAL(10, 2)     NOT NULL,
+  initBalance DECIMAL(10, 2)     NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (group_id) REFERENCES groups (id),
   FOREIGN KEY (currency_id) REFERENCES currencies (id)
 )
   ENGINE = InnoDB;
 
-BEGIN; 
+BEGIN;
 CREATE TABLE categories (
-  id      INT AUTO_INCREMENT NOT NULL,
-  name    VARCHAR(50)        NOT NULL,
-  predefined  BOOLEAN,
-  parent  INT,
-  user_id INT,
+  id         INT AUTO_INCREMENT NOT NULL,
+  name       VARCHAR(50)        NOT NULL,
+  predefined BOOLEAN,
+  parent     INT,
+  user_id    INT,
   PRIMARY KEY (id),
   FOREIGN KEY (parent) REFERENCES categories (id),
   FOREIGN KEY (user_id) REFERENCES users (id)
 )
   ENGINE = InnoDB;
-  
+
 INSERT INTO categories (name, predefined) VALUES ('Food', TRUE);
 INSERT INTO categories (name, predefined) VALUES ('Clothes', TRUE);
 INSERT INTO categories (name, predefined) VALUES ('Transport', TRUE);
@@ -103,12 +104,12 @@ CREATE TABLE orders (
 
 CREATE TABLE budgets (
   id          INT AUTO_INCREMENT NOT NULL,
-  name VARCHAR(40),
-  amount DECIMAL(10,2),
-  startDate  DATE,
-  endDate    DATE,
-  category_id INT            NOT NULL,
-  group_id INT                NOT NULL,
+  name        VARCHAR(40),
+  amount      DECIMAL(10, 2),
+  startDate   DATE,
+  endDate     DATE,
+  category_id INT                NOT NULL,
+  group_id    INT                NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (category_id) REFERENCES categories (id),
   FOREIGN KEY (group_id) REFERENCES groups (id)
