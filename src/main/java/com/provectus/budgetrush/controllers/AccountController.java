@@ -78,7 +78,7 @@ public class AccountController {
 	@PreAuthorize("inGroupOrAdmin(@groupService.getById(#account.getGroup().getId()), 'write')")
 	@RequestMapping(method = POST)
 	@ResponseBody
-	public Account newUser(@RequestBody Account account) {
+	public Account newAccount(@RequestBody Account account) {
 		log.info("Save account " + account.getName());
 		return service.create(account);
 
@@ -87,7 +87,7 @@ public class AccountController {
 	@PreAuthorize("inGroupOrAdmin(@accountService.getById(#id).group, 'write')")
 	@RequestMapping(value = "/{id}", method = PUT)
 	@ResponseBody
-	public Account saveUser(@RequestBody Account account,
+	public Account saveAccount(@RequestBody Account account,
 			@PathVariable Integer id) {
 		log.info("Save account " + account.getName());
 		Account result = service.update(account, id);
