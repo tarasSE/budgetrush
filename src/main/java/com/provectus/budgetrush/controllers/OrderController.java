@@ -7,6 +7,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.util.List;
 
+import com.provectus.budgetrush.data.FilterEnum;
+import com.provectus.budgetrush.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,64 +34,81 @@ import com.provectus.budgetrush.service.OrderService;
 @RestController
 public class OrderController {
 
-	@Autowired
-	private OrderService service;
+    @Autowired
+    private OrderService orderService;
 
-	@Autowired
-	private DateProcessor dateProcessor;
+    @Autowired
+    private AccountService accountService;
 
-	@PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
-	@RequestMapping(method = GET)
-	@ResponseBody
-	public List<Order> listAll(
-			@RequestParam(required = false) PeriodsEnum period,
-			@RequestParam(required = false) String startDate,
-			@RequestParam(required = false) String endDate) {
+    @Autowired
+    private DateProcessor dateProcessor;
 
-		if (period == null) {
-			log.info("Get all orders");
-			return service.getAll();
-		}
+    @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
+    @RequestMapping(method = GET)
+    @ResponseBody
+    public List<Order> listAll(
+            @RequestParam(required = false) PeriodsEnum period,
+            @RequestParam(required = false) String startDate,
+            @RequestParam(required = false) String endDate,
+            @RequestParam(required = false) Integer accountId,
+            @RequestParam(required = false) FilterEnum filter) {
 
-		Period createdPeriod = dateProcessor.createPeriod(period, startDate,
-				endDate);
-		log.info("Get orders by period.");
+        if (period == null && accountId == null) {
+            log.info("Get all orders");
+            return orderService.getAll();
+        }
 
-		return service.getOrdersByPeriod(createdPeriod.getStartDate(),
-				createdPeriod.getEndDate());
+        Period createdPeriod = dateProcessor.createPeriod(period, startDate,
+                endDate);
 
-	}
+        if (period != null && accountId == null) {
 
-	@PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
-	@RequestMapping(value = "/{id}", method = GET)
-	@ResponseBody
-	public Order getById(@PathVariable Integer id) {
-		log.info("Get order by id" + id);
-		return service.getById(id);
-	}
+            log.info("Get orders by period.");
 
-	@PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
-	@RequestMapping(method = POST)
-	@ResponseBody
-	public Order create(@RequestBody Order order) {
-		log.info("Create/update new order");
+            return orderService.getOrdersByPeriod(
+                    createdPeriod.getStartDate(),
+                    createdPeriod.getEndDate());
+        }
 
-		return service.create(order);
-	}
+        return orderService
+                .getOrdersByPeriodAndAccountAndFilter(
+                        accountService.getById(accountId),
+                        createdPeriod.getStartDate(),
+                        createdPeriod.getEndDate(),
+                        filter);
 
-	@PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
-	@RequestMapping(value = "/{id}", method = PUT)
-	@ResponseBody
-	public Order update(@RequestBody Order order, @PathVariable Integer id) {
-		log.info("Create/update order id " + id);
-		return service.update(order, id);
-	}
+    }
 
-	@PreAuthorize("isObjectOwnerOrAdmin(@orderService.getById(#id), 'delete')")
-	@RequestMapping(value = "/{id}", method = DELETE)
-	@ResponseBody
-	public void delete(@PathVariable Integer id) {
-		log.info("Delete order by id" + id);
-		service.delete(id);
-	}
+    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @RequestMapping(value = "/{id}", method = GET)
+    @ResponseBody
+    public Order getById(@PathVariable Integer id) {
+        log.info("Get order by id" + id);
+        return orderService.getById(id);
+    }
+
+    @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
+    @RequestMapping(method = POST)
+    @ResponseBody
+    public Order create(@RequestBody Order order) {
+        log.info("Create/update new order");
+
+        return orderService.create(order);
+    }
+
+    @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
+    @RequestMapping(value = "/{id}", method = PUT)
+    @ResponseBody
+    public Order update(@RequestBody Order order, @PathVariable Integer id) {
+        log.info("Create/update order id " + id);
+        return orderService.update(order, id);
+    }
+
+    @PreAuthorize("isObjectOwnerOrAdmin(@orderService.getById(#id), 'delete')")
+    @RequestMapping(value = "/{id}", method = DELETE)
+    @ResponseBody
+    public void delete(@PathVariable Integer id) {
+        log.info("Delete order by id" + id);
+        orderService.delete(id);
+    }
 }
