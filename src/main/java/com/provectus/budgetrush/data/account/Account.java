@@ -1,7 +1,10 @@
-package com.provectus.budgetrush.data;
+package com.provectus.budgetrush.data.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.provectus.budgetrush.data.BaseEntity;
+import com.provectus.budgetrush.data.currency.Currency;
+import com.provectus.budgetrush.data.group.Group;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

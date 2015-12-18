@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.AccountStatistic;
+import com.provectus.budgetrush.data.account.Account;
+import com.provectus.budgetrush.data.account.AccountStatistic;
 import com.provectus.budgetrush.data.PeriodsEnum;
 import com.provectus.budgetrush.dateprocessor.DateProcessor;
 import com.provectus.budgetrush.dateprocessor.Period;

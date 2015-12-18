@@ -1,16 +1,11 @@
 package com.provectus.budgetrush.jacksontest;
 
-import static java.math.BigDecimal.valueOf;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.File;
-import java.util.Date;
-import java.util.Scanner;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.provectus.budgetrush.data.order.OrderType;
+import com.provectus.budgetrush.data.order.TransferOrder;
+import com.provectus.budgetrush.datatest.InMemoryConfig;
+import com.provectus.budgetrush.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,17 +16,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.OrderType;
-import com.provectus.budgetrush.data.TransferOrder;
-import com.provectus.budgetrush.datatest.InMemoryConfig;
-import com.provectus.budgetrush.service.AccountService;
-import com.provectus.budgetrush.service.CategoryService;
-import com.provectus.budgetrush.service.ContractorService;
-import com.provectus.budgetrush.service.OrderService;
-import com.provectus.budgetrush.service.TransferOrderService;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.io.File;
+import java.util.Date;
+import java.util.Scanner;
 
-import lombok.extern.slf4j.Slf4j;
+import static java.math.BigDecimal.valueOf;
+import static org.junit.Assert.assertNotNull;
 
 @Slf4j
 @DirtiesContext

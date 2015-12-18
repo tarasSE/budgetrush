@@ -1,6 +1,8 @@
-package com.provectus.budgetrush.data;
+package com.provectus.budgetrush.data.category;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.provectus.budgetrush.data.BaseEntity;
+import com.provectus.budgetrush.data.user.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

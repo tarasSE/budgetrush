@@ -1,7 +1,7 @@
 package com.provectus.budgetrush.repository;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.account.Account;
+import com.provectus.budgetrush.data.order.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

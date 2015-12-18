@@ -22,8 +22,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.OrderType;
-import com.provectus.budgetrush.data.TransferOrder;
+import com.provectus.budgetrush.data.order.OrderType;
+import com.provectus.budgetrush.data.order.TransferOrder;
 import com.provectus.budgetrush.service.AccountService;
 import com.provectus.budgetrush.service.CategoryService;
 import com.provectus.budgetrush.service.ContractorService;

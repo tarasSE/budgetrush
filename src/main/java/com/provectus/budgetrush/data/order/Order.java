@@ -1,5 +1,9 @@
-package com.provectus.budgetrush.data;
+package com.provectus.budgetrush.data.order;
 
+import com.provectus.budgetrush.data.BaseEntity;
+import com.provectus.budgetrush.data.category.Category;
+import com.provectus.budgetrush.data.contractor.Contractor;
+import com.provectus.budgetrush.data.account.Account;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

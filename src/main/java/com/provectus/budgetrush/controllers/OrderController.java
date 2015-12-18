@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.order.Order;
 import com.provectus.budgetrush.data.PeriodsEnum;
 import com.provectus.budgetrush.dateprocessor.DateProcessor;
 import com.provectus.budgetrush.dateprocessor.Period;

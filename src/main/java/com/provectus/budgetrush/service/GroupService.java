@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Group;
+import com.provectus.budgetrush.data.group.Group;
 import com.provectus.budgetrush.repository.GroupRepository;
 
 @Service

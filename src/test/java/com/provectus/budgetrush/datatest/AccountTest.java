@@ -1,20 +1,12 @@
 package com.provectus.budgetrush.datatest;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import com.provectus.budgetrush.data.account.Account;
+import com.provectus.budgetrush.data.account.AccountStatistic;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.CurrencyService;
+import com.provectus.budgetrush.service.GroupService;
 import lombok.extern.slf4j.Slf4j;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,11 +17,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.AccountStatistic;
-import com.provectus.budgetrush.service.AccountService;
-import com.provectus.budgetrush.service.CurrencyService;
-import com.provectus.budgetrush.service.GroupService;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
+import static org.junit.Assert.*;
 
 @Slf4j
 @DirtiesContext

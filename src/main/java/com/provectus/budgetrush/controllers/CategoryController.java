@@ -1,6 +1,6 @@
 package com.provectus.budgetrush.controllers;
 
-import com.provectus.budgetrush.data.Category;
+import com.provectus.budgetrush.data.category.Category;
 import com.provectus.budgetrush.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class CategoryController {
 
     @Autowired
-    private CategoryService service;
+    private CategoryService categoryService;
 
     @PostFilter("isObjectOwnerOrAdminOrAll(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<Category> listAll() {
         log.info("Get all categories");
-        return service.getAll();
+        return categoryService.getAll();
     }
 
     @PostAuthorize("isObjectOwnerOrAdminOrAll(returnObject, 'read')")
@@ -35,7 +35,7 @@ public class CategoryController {
     @ResponseBody
     public Category getById(@PathVariable Integer id) {
         log.info("Get category by id " + id);
-        return service.getById(id);
+        return categoryService.getById(id);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#category, 'write')")
@@ -44,7 +44,7 @@ public class CategoryController {
     public Category create(@RequestBody Category category) {
         log.info("Create category");
 
-        return service.create(category);
+        return categoryService.create(category);
     }
 
     @PreAuthorize("isObjectOwnerOrAdminForUpdateAndDelete(#category, 'write')")
@@ -53,7 +53,7 @@ public class CategoryController {
     public Category update(@RequestBody Category category, @PathVariable Integer id) {
         log.info("Update category id " + id);
 
-        return service.update(category, id);
+        return categoryService.update(category, id);
     }
 
     @PreAuthorize("isObjectOwnerOrAdminForUpdateAndDelete(@categoryService.getById(#id), 'delete')")
@@ -61,7 +61,7 @@ public class CategoryController {
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         log.info("Delete category by id " + id);
-        service.delete(id);
+        categoryService.delete(id);
     }
 
 }

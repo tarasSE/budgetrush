@@ -1,9 +1,9 @@
-package com.provectus.budgetrush.data;
-
-import java.math.BigDecimal;
+package com.provectus.budgetrush.data.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor

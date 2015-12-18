@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Currency;
+import com.provectus.budgetrush.data.currency.Currency;
 import com.provectus.budgetrush.service.CurrencyService;
 
 import lombok.extern.slf4j.Slf4j;

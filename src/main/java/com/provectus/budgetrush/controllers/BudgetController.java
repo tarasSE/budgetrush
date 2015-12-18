@@ -1,7 +1,7 @@
 package com.provectus.budgetrush.controllers;
 
-import com.provectus.budgetrush.data.Budget;
-import com.provectus.budgetrush.data.BudgetStatistic;
+import com.provectus.budgetrush.data.budget.Budget;
+import com.provectus.budgetrush.data.budget.BudgetStatistic;
 import com.provectus.budgetrush.service.BudgetService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class BudgetController {
 
     @Autowired
-    private BudgetService service;
+    private BudgetService budgetService;
 
     @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<Budget> listAll() {
         log.info("Get all budgets");
-        return service.getAll();
+        return budgetService.getAll();
     }
 
     @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
@@ -36,7 +36,7 @@ public class BudgetController {
     @ResponseBody
     public Budget getById(@PathVariable Integer id) {
         log.info("Get budget by id " + id);
-        return service.getById(id);
+        return budgetService.getById(id);
     }
 
     @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
@@ -44,7 +44,7 @@ public class BudgetController {
     @ResponseBody
     public List<BudgetStatistic>  getAllBudgetStatistics() {
         log.info("Get all budget statistics");
-        return service.getAllBudgetStatistics();
+        return budgetService.getAllBudgetStatistics();
     }
 
     @PostAuthorize("isObjectOwnerOrAdmin(#budget, 'read')")
@@ -52,9 +52,9 @@ public class BudgetController {
     @ResponseBody
     public BudgetStatistic getBudgetStatistic(@PathVariable int id) {
     	
-    	Budget budget = service.getById(id);
+    	Budget budget = budgetService.getById(id);
         log.info("Get budget statistic");
-        return service.getBudgetStatistic(budget);
+        return budgetService.getBudgetStatistic(budget);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#budget, 'write')")
@@ -63,7 +63,7 @@ public class BudgetController {
     public Budget create(@RequestBody Budget budget) {
         log.info("Create budget");
 
-        return service.create(budget);
+        return budgetService.create(budget);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#budget, 'write')")
@@ -72,7 +72,7 @@ public class BudgetController {
     public Budget update(@RequestBody Budget budget, @PathVariable Integer id) {
         log.info("update budget id " + id);
 
-        return service.update(budget, id);
+        return budgetService.update(budget, id);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(@budgetService.getById(#id), 'delete')")
@@ -80,7 +80,7 @@ public class BudgetController {
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         log.info("Delete budget by id " + id);
-        service.delete(id);
+        budgetService.delete(id);
     }
 
 }

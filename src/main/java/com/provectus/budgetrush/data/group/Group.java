@@ -1,18 +1,13 @@
-package com.provectus.budgetrush.data;
+package com.provectus.budgetrush.data.group;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
+import com.provectus.budgetrush.data.BaseEntity;
+import com.provectus.budgetrush.data.user.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @EqualsAndHashCode(exclude = "users", callSuper = true)
 @ToString(exclude = "users")

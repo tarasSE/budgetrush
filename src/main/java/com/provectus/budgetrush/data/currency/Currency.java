@@ -1,11 +1,12 @@
-package com.provectus.budgetrush.data;
+package com.provectus.budgetrush.data.currency;
+
+import com.provectus.budgetrush.data.BaseEntity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

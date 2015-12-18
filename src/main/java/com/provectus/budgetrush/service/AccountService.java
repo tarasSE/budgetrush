@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.AccountStatistic;
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Group;
+import com.provectus.budgetrush.data.account.Account;
+import com.provectus.budgetrush.data.account.AccountStatistic;
+import com.provectus.budgetrush.data.category.Category;
+import com.provectus.budgetrush.data.group.Group;
 import com.provectus.budgetrush.repository.AccountRepository;
 
 @Slf4j

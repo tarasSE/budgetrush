@@ -1,6 +1,6 @@
 package com.provectus.budgetrush.controllers;
 
-import com.provectus.budgetrush.data.TransferOrder;
+import com.provectus.budgetrush.data.order.TransferOrder;
 import com.provectus.budgetrush.service.TransferOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +20,21 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class TransferOrderController {
 
     @Autowired
-    private TransferOrderService service;
+    private TransferOrderService transferOrderService;
 
     @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<TransferOrder> getTransfers() {
         log.info("Get all orders");
-        return service.getAll();
+        return transferOrderService.getAll();
     }
 
     @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
     @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
-    public TransferOrder getTransfer(@PathVariable int id) {
-        return service.getById(id);
+    public TransferOrder getOne(@PathVariable int id) {
+        return transferOrderService.getById(id);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#transfer, 'write')")
@@ -43,7 +43,7 @@ public class TransferOrderController {
     public TransferOrder transfer(@RequestBody TransferOrder transfer) {
         log.info("Create new order");
 
-        return service.getById(service.create(transfer).getId());
+        return transferOrderService.getById(transferOrderService.create(transfer).getId());
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(@transferOrderService.getById(#id), 'delete')")
@@ -51,6 +51,6 @@ public class TransferOrderController {
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         log.info("Delete order by id" + id);
-        service.delete(id);
+        transferOrderService.delete(id);
     }
 }

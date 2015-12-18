@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.data.user.User;
 import com.provectus.budgetrush.mail.MailSender;
 import com.provectus.budgetrush.mail.ResetPasswordMessageBuilder;
 import com.provectus.budgetrush.service.UserService;
@@ -36,18 +36,18 @@ import com.provectus.budgetrush.service.UserService;
 public class UserController {
 
     @Autowired
-    private UserService service;
-    
+    private UserService userService;
+
     @Autowired
     private MailSender mailSender;
-    
+
     @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     @Transactional
     public List<User> listAll() {
         log.info("Start to send all users");
-        return service.getAll();
+        return userService.getAll();
     }
 
     @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
@@ -56,7 +56,7 @@ public class UserController {
     public User getById(@PathVariable Integer id) {
         log.info("Send user by id " + id);
 
-        return service.getById(id);
+        return userService.getById(id);
 
     }
 
@@ -66,7 +66,7 @@ public class UserController {
     public String getRole(@PathVariable String name) {
 
         log.info("Send user role by name " + name);
-        String role = service.getRoleByName(name).toString();
+        String role = userService.getRoleByName(name).toString();
         return "{\"role\"" + ":" + "\"" + role + "\"}";
 
     }
@@ -75,7 +75,7 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
-        service.delete(id);
+        userService.delete(id);
     }
 
     @PreAuthorize("adminOnly() or isAnonymous()")
@@ -83,7 +83,7 @@ public class UserController {
     @ResponseBody
     public User newUser(@RequestBody User user) {
         log.info("Save user " + user.getName());
-        return service.create(user);
+        return userService.create(user);
 
     }
 
@@ -92,24 +92,24 @@ public class UserController {
     @ResponseBody
     public User saveUser(@RequestBody User user, @PathVariable Integer id) {
         log.info("Save user " + user.getName());
-        return service.update(user, id);
+        return userService.update(user, id);
     }
-    
+
     @PreAuthorize("isAnonymous()")
     @RequestMapping(value = "/reset_pass", method = GET)
     @ResponseBody
     @Transactional
     public void resetPassword(@RequestParam String email, HttpServletResponse response) {
         log.info("Start to reset password by email " + email);
-        User user = service.findByEmail(email);
+        User user = userService.findByEmail(email);
         String newPass = RandomStringUtils.randomAlphanumeric(8);
         user.setPassword(newPass);
-        service.update(user, user.getId());
-        
+        userService.update(user, user.getId());
+
         String emailText = ResetPasswordMessageBuilder.newInstance().setPassword(newPass).setName(user.getName()).build();
 
         mailSender.sendEmail(email, "Password reset message", emailText);
-        
+
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }

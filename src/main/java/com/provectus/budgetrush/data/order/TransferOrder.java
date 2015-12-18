@@ -1,6 +1,7 @@
-package com.provectus.budgetrush.data;
+package com.provectus.budgetrush.data.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.provectus.budgetrush.data.account.Account;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

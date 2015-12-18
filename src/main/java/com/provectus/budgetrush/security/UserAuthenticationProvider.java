@@ -12,7 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.google.common.base.Preconditions;
-import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.data.user.User;
 import com.provectus.budgetrush.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;

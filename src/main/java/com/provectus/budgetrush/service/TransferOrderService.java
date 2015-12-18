@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Order;
-import com.provectus.budgetrush.data.TransferOrder;
+import com.provectus.budgetrush.data.order.Order;
+import com.provectus.budgetrush.data.order.TransferOrder;
 import com.provectus.budgetrush.repository.TransferOrderRepository;
 
 @Slf4j

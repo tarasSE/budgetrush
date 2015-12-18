@@ -1,4 +1,4 @@
-package com.provectus.budgetrush.data;
+package com.provectus.budgetrush.data.contractor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -6,6 +6,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.provectus.budgetrush.data.BaseEntity;
+import com.provectus.budgetrush.data.user.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

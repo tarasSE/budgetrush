@@ -1,6 +1,6 @@
 package com.provectus.budgetrush.datatest;
 
-import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.data.user.User;
 import com.provectus.budgetrush.service.GroupService;
 import com.provectus.budgetrush.service.UserService;
 import lombok.extern.slf4j.Slf4j;

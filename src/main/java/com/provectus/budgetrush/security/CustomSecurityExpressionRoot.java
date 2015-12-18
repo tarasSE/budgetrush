@@ -1,10 +1,9 @@
 package com.provectus.budgetrush.security;
 
 import com.google.common.base.Preconditions;
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Group;
-import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.data.category.Category;
+import com.provectus.budgetrush.data.group.Group;
+import com.provectus.budgetrush.data.user.User;
 
 import lombok.extern.slf4j.Slf4j;
 

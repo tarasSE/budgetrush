@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Category;
+import com.provectus.budgetrush.data.category.Category;
 
 @Repository
 @Transactional(readOnly = true)

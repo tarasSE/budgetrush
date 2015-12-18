@@ -22,7 +22,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.data.user.User;
 import com.provectus.budgetrush.datatest.InMemoryConfig;
 import com.provectus.budgetrush.service.GroupService;
 import com.provectus.budgetrush.service.UserService;

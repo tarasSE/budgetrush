@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.account.Account;
 import com.provectus.budgetrush.data.FilterEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.order.Order;
 import com.provectus.budgetrush.repository.OrderRepository;
 
 @Service

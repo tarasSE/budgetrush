@@ -9,17 +9,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Account;
-import com.provectus.budgetrush.data.AccountStatistic;
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Group;
+import com.provectus.budgetrush.data.account.Account;
+import com.provectus.budgetrush.data.account.AccountStatistic;
+import com.provectus.budgetrush.data.category.Category;
+import com.provectus.budgetrush.data.group.Group;
 
 @Repository
 @Transactional(readOnly = true)
 public interface AccountRepository extends JpaRepository<Account, Integer> {
     public Account findByName(String name);
     
-    @Query("SELECT NEW com.provectus.budgetrush.data.AccountStatistic("
+    @Query("SELECT NEW com.provectus.budgetrush.data.account.AccountStatistic("
             + "o.account, SUM(o.amount)) "
             + "FROM Order o "
             + "WHERE o.account.id = :account_id "
@@ -29,7 +29,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
                                                      @Param("start_date") Date startDate,
                                                      @Param("end_date") Date endDate);
 
-    @Query("SELECT NEW com.provectus.budgetrush.data.AccountStatistic("
+    @Query("SELECT NEW com.provectus.budgetrush.data.account.AccountStatistic("
             + "o.account, SUM(o.amount)) "
             + "FROM Order o "
             + "WHERE o.account.id = :account_id "
@@ -40,7 +40,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
                                                    @Param("start_date") Date startDate,
                                                    @Param("end_date") Date endDate);
 
-    @Query("SELECT NEW com.provectus.budgetrush.data.AccountStatistic("
+    @Query("SELECT NEW com.provectus.budgetrush.data.account.AccountStatistic("
             + "o.account,SUM(o.amount)) "
             + "FROM Order o "
             + "WHERE o.account.id = :account_id "
@@ -51,7 +51,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
                                                     @Param("start_date") Date startDate,
                                                     @Param("end_date") Date endDate);
     
-    @Query("SELECT NEW com.provectus.budgetrush.data.AccountStatistic("
+    @Query("SELECT NEW com.provectus.budgetrush.data.account.AccountStatistic("
             + "o.account, SUM(o.amount)) "
             + "FROM Order o "
             + "WHERE o.category = :category "

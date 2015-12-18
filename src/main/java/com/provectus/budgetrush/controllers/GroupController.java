@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.provectus.budgetrush.data.Group;
+import com.provectus.budgetrush.data.group.Group;
 import com.provectus.budgetrush.service.GroupService;
 
 @Slf4j
@@ -29,14 +29,14 @@ import com.provectus.budgetrush.service.GroupService;
 public class GroupController {
 
     @Autowired
-    private GroupService service;
+    private GroupService groupService;
 
     @PostFilter("inGroupOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<Group> listAll() {
         log.info("Get all accounts");
-        return service.getAll();
+        return groupService.getAll();
     }
 
     @PostAuthorize("inGroupOrAdmin(returnObject, 'read')")
@@ -44,7 +44,7 @@ public class GroupController {
     @ResponseBody
     public Group getById(@PathVariable Integer id) {
         log.info("Get group by id " + id);
-        return service.getById(id);
+        return groupService.getById(id);
 
     }
 
@@ -53,24 +53,24 @@ public class GroupController {
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         log.info("Delete group by id " + id);
-        service.delete(id);
+        groupService.delete(id);
     }
 
     @PreAuthorize("inGroupOrAdmin(#user, 'write')")
     @RequestMapping(method = POST)
     @ResponseBody
-    public Group newUser(@RequestBody Group group) {
+    public Group newGroup(@RequestBody Group group) {
         log.info("Save new group " + group.getName());
-        return service.create(group);
+        return groupService.create(group);
 
     }
 
     @PreAuthorize("inGroupOrAdmin(#user, 'write')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
-    public Group saveUser(@RequestBody Group group, @PathVariable Integer id) {
+    public Group saveGroup(@RequestBody Group group, @PathVariable Integer id) {
         log.info("Save group " + group.getName());
-        return service.update(group, id);
+        return groupService.update(group, id);
     }
 
 }

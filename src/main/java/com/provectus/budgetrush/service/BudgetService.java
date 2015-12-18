@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Budget;
-import com.provectus.budgetrush.data.BudgetStatistic;
-import com.provectus.budgetrush.data.AccountStatistic;
+import com.provectus.budgetrush.data.budget.Budget;
+import com.provectus.budgetrush.data.budget.BudgetStatistic;
+import com.provectus.budgetrush.data.account.AccountStatistic;
 import com.provectus.budgetrush.repository.BudgetRepository;
 
 @Service

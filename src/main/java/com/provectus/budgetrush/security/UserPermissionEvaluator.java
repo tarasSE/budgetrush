@@ -1,9 +1,9 @@
 package com.provectus.budgetrush.security;
 
-import com.provectus.budgetrush.data.Budget;
-import com.provectus.budgetrush.data.Category;
-import com.provectus.budgetrush.data.Contractor;
-import com.provectus.budgetrush.data.User;
+import com.provectus.budgetrush.data.budget.Budget;
+import com.provectus.budgetrush.data.category.Category;
+import com.provectus.budgetrush.data.contractor.Contractor;
+import com.provectus.budgetrush.data.user.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;

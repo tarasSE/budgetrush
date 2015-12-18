@@ -20,7 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provectus.budgetrush.data.Contractor;
+import com.provectus.budgetrush.data.contractor.Contractor;
 import com.provectus.budgetrush.datatest.InMemoryConfig;
 import com.provectus.budgetrush.service.ContractorService;
 

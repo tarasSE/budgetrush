@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.Contractor;
+import com.provectus.budgetrush.data.contractor.Contractor;
 
 @Repository
 @Transactional(readOnly = true)

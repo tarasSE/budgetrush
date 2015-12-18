@@ -1,4 +1,4 @@
-package com.provectus.budgetrush.data;
+package com.provectus.budgetrush.data.budget;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

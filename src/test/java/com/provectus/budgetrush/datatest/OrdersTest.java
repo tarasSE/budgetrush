@@ -1,8 +1,8 @@
 package com.provectus.budgetrush.datatest;
 
-import com.provectus.budgetrush.data.Account;
+import com.provectus.budgetrush.data.account.Account;
 import com.provectus.budgetrush.data.FilterEnum;
-import com.provectus.budgetrush.data.Order;
+import com.provectus.budgetrush.data.order.Order;
 import com.provectus.budgetrush.dateprocessor.DateProcessorBean;
 import com.provectus.budgetrush.dateprocessor.Period;
 import com.provectus.budgetrush.service.AccountService;

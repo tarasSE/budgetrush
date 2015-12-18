@@ -1,6 +1,6 @@
 package com.provectus.budgetrush.controllers;
 
-import com.provectus.budgetrush.data.Contractor;
+import com.provectus.budgetrush.data.contractor.Contractor;
 import com.provectus.budgetrush.service.ContractorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class ContractorController {
 
     @Autowired
-    private ContractorService service;
+    private ContractorService contractorService;
 
     @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<Contractor> listAll() {
         log.info("Get all contractors.");
-        return service.getAll();
+        return contractorService.getAll();
     }
 
     @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
@@ -35,7 +35,7 @@ public class ContractorController {
     @ResponseBody
     public Contractor getById(@PathVariable Integer id) {
         log.info("Get contractor by id " + id);
-        return service.getById(id);
+        return contractorService.getById(id);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#contractor, 'write')")
@@ -44,7 +44,7 @@ public class ContractorController {
     public Contractor create(@RequestBody Contractor contractor) {
         log.info("Create/update new contractor.");
 
-        return service.create(contractor);
+        return contractorService.create(contractor);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(#contractor, 'write')")
@@ -53,7 +53,7 @@ public class ContractorController {
     public Contractor update(@RequestBody Contractor contractor, @PathVariable Integer id) {
         log.info("Create/update contractor id " + id);
 
-        return service.update(contractor, id);
+        return contractorService.update(contractor, id);
     }
 
     @PreAuthorize("isObjectOwnerOrAdmin(@contractorService.getById(#id), 'delete')")
@@ -61,6 +61,6 @@ public class ContractorController {
     @ResponseBody
     public void delete(@PathVariable Integer id) {
         log.info("Delete contractor by id" + id);
-        service.delete(id);
+        contractorService.delete(id);
     }
 }
