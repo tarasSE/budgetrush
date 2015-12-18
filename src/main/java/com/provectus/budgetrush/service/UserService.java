@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.provectus.budgetrush.data.group.Group;
-import com.provectus.budgetrush.data.user.Roles;
+import com.provectus.budgetrush.data.Roles;
 import com.provectus.budgetrush.data.user.User;
 import com.provectus.budgetrush.repository.UserRepository;
 

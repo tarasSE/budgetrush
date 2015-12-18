@@ -2,7 +2,7 @@ package com.provectus.budgetrush.security;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import com.provectus.budgetrush.data.user.Roles;
+import com.provectus.budgetrush.data.Roles;
 
 class UserAuthority implements GrantedAuthority {
 
