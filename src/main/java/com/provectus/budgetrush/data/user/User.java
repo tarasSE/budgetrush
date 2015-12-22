@@ -23,7 +23,7 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     @NotEmpty
-    @Length(min = 4, max = 20)
+    @Length(min = 4)
     private String name;
     
     @NotEmpty
