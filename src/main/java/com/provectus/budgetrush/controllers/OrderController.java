@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.provectus.budgetrush.data.FilterEnum;
 import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.GroupService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,12 @@ public class OrderController {
     private AccountService accountService;
 
     @Autowired
+    private GroupService groupService;
+
+    @Autowired
     private DateProcessor dateProcessor;
 
-    @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
+    @PostFilter("inGroupOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<Order> listAll(
@@ -79,7 +83,7 @@ public class OrderController {
 
     }
 
-    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @PostAuthorize("inGroupOrAdmin(returnObject, 'read')")
     @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     public Order getById(@PathVariable Integer id) {
@@ -87,24 +91,27 @@ public class OrderController {
         return orderService.getById(id);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
+    @PreAuthorize("inGroupOrAdmin(@groupService.getById(" +
+            "@accountService.getById(" +
+            "#order.getAccount().getId()" +
+            ").getGroup().getId()), 'write')") // TODO не мешало бы это разгрести...
     @RequestMapping(method = POST)
     @ResponseBody
     public Order create(@RequestBody Order order) {
-        log.info("Create/update new order");
+        log.info("Create new order");
 
         return orderService.create(order);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#order, 'write')")
+    @PreAuthorize("inGroupOrAdmin(@orderService.getById(#id), 'write')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Order update(@RequestBody Order order, @PathVariable Integer id) {
-        log.info("Create/update order id " + id);
+        log.info("Update order id " + id);
         return orderService.update(order, id);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(@orderService.getById(#id), 'delete')")
+    @PreAuthorize("inGroupOrAdmin(@orderService.getById(#id), 'delete')")
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
