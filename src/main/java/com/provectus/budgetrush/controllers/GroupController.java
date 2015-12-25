@@ -56,7 +56,7 @@ public class GroupController {
         groupService.delete(id);
     }
 
-    @PreAuthorize("inGroupOrAdmin(#user, 'write')")
+    @PreAuthorize("inGroupOrAdmin(#user, 'write')")  // TOdo Откуда здесь вообще юзер? Нужно с этим что-то делать, а то у нас невозможно создать группу
     @RequestMapping(method = POST)
     @ResponseBody
     public Group newGroup(@RequestBody Group group) {
@@ -65,7 +65,7 @@ public class GroupController {
 
     }
 
-    @PreAuthorize("inGroupOrAdmin(#user, 'write')")
+    @PreAuthorize("inGroupOrAdmin(#user, 'write')") // TODO то же самое
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Group saveGroup(@RequestBody Group group, @PathVariable Integer id) {

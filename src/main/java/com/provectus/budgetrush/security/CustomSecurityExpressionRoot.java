@@ -1,12 +1,13 @@
 package com.provectus.budgetrush.security;
 
 import com.google.common.base.Preconditions;
+import com.provectus.budgetrush.data.account.Account;
+import com.provectus.budgetrush.data.budget.Budget;
 import com.provectus.budgetrush.data.category.Category;
 import com.provectus.budgetrush.data.group.Group;
+import com.provectus.budgetrush.data.order.Order;
 import com.provectus.budgetrush.data.user.User;
-
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
@@ -40,8 +41,7 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
     public boolean isObjectOwnerOrAdminOrAll(Category category, Object permission) {
         if (this.hasAuthority("ROLE_ADMIN")) {
             return true;
-        }
-        else  if(category.isPredefined()){
+        } else if (category.isPredefined()) {
             return true;
         }
 
@@ -49,7 +49,7 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
     }
 
     public boolean isObjectOwnerOrAdminForUpdateAndDelete(Category category, Object permission) {
-        if(category.isPredefined()){
+        if (category.isPredefined()) {
             return false;
         }
         if (this.hasAuthority("ROLE_ADMIN")) {
@@ -64,10 +64,21 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
         if (this.hasAuthority("ROLE_ADMIN")) {
             return true;
         }
-        
-        Set<User> users = ((Group) object).getUsers();
-        Assert.notEmpty(users, "Empty group "+((Group) object));
-        
+
+        Set<User> users = null;
+
+       if (object instanceof Group) {
+            users = ((Group) object).getUsers();
+        } else if (object instanceof Order) {
+            users = ((Order) object).getAccount().getGroup().getUsers();
+        } else if (object instanceof Budget) {
+            users = ((Budget) object).getGroup().getUsers();
+        } else if (object instanceof Account) {
+            users = ((Account) object).getGroup().getUsers();
+        } else
+
+            Assert.notEmpty(users, "Empty group in " + (object));
+
         for (User user : users) {
             if (hasPermission(user, permission)) {
                 return true;
@@ -78,7 +89,7 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
 
     }
 
-    public boolean chageRolePermission(Object object) {
+    public boolean changeRolePermission(Object object) {
 
         if (this.hasAuthority("ROLE_ADMIN")) {
             return true;
@@ -114,5 +125,28 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
     public Object getThis() {
         return target;
     }
+
+
+//    private User getUserFromObject(Object object) {
+//
+//        if (object instanceof User) {
+//            return (User) object;
+//        }
+//        if (object instanceof Category) {
+//            return ((Category) object).getUser();
+//        }
+//        if (object instanceof Contractor) {
+//            return ((Contractor) object).getUser();
+//        }
+//        if (object instanceof Budget) {
+//            return ((Budget) object).getCategory().getUser();
+//        }
+//        if (object instanceof Order) {
+//            return ((Order) object).getCategory().getUser();
+//        }
+//
+//            throw new RuntimeException("Unknown class. " + object);
+//
+//    }
 
 }

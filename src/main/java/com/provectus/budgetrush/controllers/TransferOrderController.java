@@ -1,6 +1,8 @@
 package com.provectus.budgetrush.controllers;
 
 import com.provectus.budgetrush.data.order.TransferOrder;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.GroupService;
 import com.provectus.budgetrush.service.TransferOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,13 @@ public class TransferOrderController {
     @Autowired
     private TransferOrderService transferOrderService;
 
-    @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
+    @Autowired
+    private GroupService groupService;
+
+    @Autowired
+    private AccountService accountService;
+
+    @PostFilter("inGroupOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<TransferOrder> getTransfers() {
@@ -30,14 +38,17 @@ public class TransferOrderController {
         return transferOrderService.getAll();
     }
 
-    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @PostAuthorize("inGroupOrAdmin(returnObject, 'read')")
     @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     public TransferOrder getOne(@PathVariable int id) {
         return transferOrderService.getById(id);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#transfer, 'write')")
+    @PreAuthorize("inGroupOrAdmin(@groupService.getById(" +
+            "@accountService.getById(" +
+            "#transfer.getAccount().getId()" +
+            ").getGroup().getId()), 'write')")
     @RequestMapping(method = POST)
     @ResponseBody
     public TransferOrder transfer(@RequestBody TransferOrder transfer) {
@@ -46,7 +57,7 @@ public class TransferOrderController {
         return transferOrderService.getById(transferOrderService.create(transfer).getId());
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(@transferOrderService.getById(#id), 'delete')")
+    @PreAuthorize("inGroupOrAdmin(@transferOrderService.getById(#id), 'delete')")
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {

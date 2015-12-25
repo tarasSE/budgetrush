@@ -3,6 +3,7 @@ package com.provectus.budgetrush.controllers;
 import com.provectus.budgetrush.data.budget.Budget;
 import com.provectus.budgetrush.data.budget.BudgetStatistic;
 import com.provectus.budgetrush.service.BudgetService;
+import com.provectus.budgetrush.service.GroupService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -23,7 +24,10 @@ public class BudgetController {
     @Autowired
     private BudgetService budgetService;
 
-    @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
+    @Autowired
+    private GroupService groupService;
+
+    @PostFilter("inGroupOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
     public List<Budget> listAll() {
@@ -31,7 +35,7 @@ public class BudgetController {
         return budgetService.getAll();
     }
 
-    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @PostAuthorize("inGroupOrAdmin(returnObject, 'read')")
     @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     public Budget getById(@PathVariable Integer id) {
@@ -39,7 +43,7 @@ public class BudgetController {
         return budgetService.getById(id);
     }
 
-    @PostAuthorize("isObjectOwnerOrAdmin(returnObject, 'read')")
+    @PostAuthorize("inGroupOrAdmin(returnObject, 'read')")
     @RequestMapping(value = "/statistics",method = GET)
     @ResponseBody
     public List<BudgetStatistic>  getAllBudgetStatistics() {
@@ -47,7 +51,7 @@ public class BudgetController {
         return budgetService.getAllBudgetStatistics();
     }
 
-    @PostAuthorize("isObjectOwnerOrAdmin(#budget, 'read')")
+    @PostAuthorize("inGroupOrAdmin(#budget, 'read')")
     @RequestMapping(value = "/{id}/statistics",method = GET)
     @ResponseBody
     public BudgetStatistic getBudgetStatistic(@PathVariable int id) {
@@ -57,7 +61,7 @@ public class BudgetController {
         return budgetService.getBudgetStatistic(budget);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#budget, 'write')")
+    @PreAuthorize("inGroupOrAdmin(@groupService.getById(#budget.getGroup().getId()), 'write')")
     @RequestMapping(method = POST)
     @ResponseBody
     public Budget create(@RequestBody Budget budget) {
@@ -66,7 +70,7 @@ public class BudgetController {
         return budgetService.create(budget);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#budget, 'write')")
+    @PreAuthorize("inGroupOrAdmin(@groupService.getById(@budgetService.getById(#id).getGroup().getId()), 'write')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Budget update(@RequestBody Budget budget, @PathVariable Integer id) {
@@ -75,7 +79,7 @@ public class BudgetController {
         return budgetService.update(budget, id);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(@budgetService.getById(#id), 'delete')")
+    @PreAuthorize("inGroupOrAdmin(@budgetService.getById(#id), 'delete')")
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable Integer id) {
