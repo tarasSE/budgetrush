@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.provectus.budgetrush.data.account.Account;
 import com.provectus.budgetrush.data.budget.Budget;
 import com.provectus.budgetrush.data.category.Category;
+import com.provectus.budgetrush.data.contractor.Contractor;
 import com.provectus.budgetrush.data.group.Group;
 import com.provectus.budgetrush.data.order.Order;
 import com.provectus.budgetrush.data.user.User;
@@ -35,7 +36,7 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
             return true;
         }
 
-        return hasPermission(object, permission);
+        return hasPermission((User)getUserFromObject(object), permission);
     }
 
     public boolean isObjectOwnerOrAdminOrAll(Category category, Object permission) {
@@ -127,26 +128,26 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
     }
 
 
-//    private User getUserFromObject(Object object) {
-//
-//        if (object instanceof User) {
-//            return (User) object;
-//        }
-//        if (object instanceof Category) {
-//            return ((Category) object).getUser();
-//        }
-//        if (object instanceof Contractor) {
-//            return ((Contractor) object).getUser();
-//        }
-//        if (object instanceof Budget) {
-//            return ((Budget) object).getCategory().getUser();
-//        }
-//        if (object instanceof Order) {
-//            return ((Order) object).getCategory().getUser();
-//        }
-//
-//            throw new RuntimeException("Unknown class. " + object);
-//
-//    }
+    private User getUserFromObject(Object object) {
+
+        if (object instanceof User) {
+            return (User) object;
+        }
+        if (object instanceof Category) {
+            return (User) ((Category) object).getUser();
+        }
+        if (object instanceof Contractor) {
+            return (User) ((Contractor) object).getUser();
+        }
+        if (object instanceof Budget) {
+            return (User) ((Budget) object).getCategory().getUser();
+        }
+        if (object instanceof Order) {
+            return (User) ((Order) object).getCategory().getUser();
+        }
+
+            throw new RuntimeException("Unknown class. " + object);
+
+    }
 
 }

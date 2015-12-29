@@ -2,6 +2,7 @@ package com.provectus.budgetrush.controllers;
 
 import com.provectus.budgetrush.data.contractor.Contractor;
 import com.provectus.budgetrush.service.ContractorService;
+import com.provectus.budgetrush.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -22,6 +23,9 @@ public class ContractorController {
     @Autowired
     private ContractorService contractorService;
 
+    @Autowired
+    private UserService userService;
+
     @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")
     @RequestMapping(method = GET)
     @ResponseBody
@@ -38,7 +42,7 @@ public class ContractorController {
         return contractorService.getById(id);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#contractor, 'write')")
+    @PreAuthorize("isObjectOwnerOrAdmin(@userService.getById(#contractor.getUser().getId()), 'write')")
     @RequestMapping(method = POST)
     @ResponseBody
     public Contractor create(@RequestBody Contractor contractor) {
@@ -47,7 +51,7 @@ public class ContractorController {
         return contractorService.create(contractor);
     }
 
-    @PreAuthorize("isObjectOwnerOrAdmin(#contractor, 'write')")
+    @PreAuthorize("isObjectOwnerOrAdmin(@contractorService.getById(#id), 'write')")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Contractor update(@RequestBody Contractor contractor, @PathVariable Integer id) {
