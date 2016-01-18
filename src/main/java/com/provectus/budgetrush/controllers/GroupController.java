@@ -1,14 +1,8 @@
 package com.provectus.budgetrush.controllers;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
-import java.util.List;
-
+import com.provectus.budgetrush.data.group.Group;
+import com.provectus.budgetrush.service.GroupService;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
@@ -19,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.provectus.budgetrush.data.group.Group;
-import com.provectus.budgetrush.service.GroupService;
+import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Slf4j
 @Controller
@@ -56,7 +51,7 @@ public class GroupController {
         groupService.delete(id);
     }
 
-    @PreAuthorize("inGroupOrAdmin(#user, 'write')")  // TOdo Откуда здесь вообще юзер? Нужно с этим что-то делать, а то у нас невозможно создать группу
+    @PreAuthorize("inGroupOrAdmin(#user, 'write')")  // TODO Fix group creating and  permission
     @RequestMapping(method = POST)
     @ResponseBody
     public Group newGroup(@RequestBody Group group) {
@@ -65,7 +60,7 @@ public class GroupController {
 
     }
 
-    @PreAuthorize("inGroupOrAdmin(#user, 'write')") // TODO то же самое
+    @PreAuthorize("inGroupOrAdmin(#user, 'write')") // TODO
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseBody
     public Group saveGroup(@RequestBody Group group, @PathVariable Integer id) {
