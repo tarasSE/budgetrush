@@ -1,16 +1,16 @@
-# CREATE TABLE oauth_client_details (
-#   client_id               VARCHAR(128) NOT NULL PRIMARY KEY,
-#   resource_ids            VARCHAR(256)  DEFAULT NULL,
-#   client_secret           VARCHAR(256)  DEFAULT NULL,
-#   scope                   VARCHAR(256)  DEFAULT NULL,
-#   authorized_grant_types  VARCHAR(256)  DEFAULT NULL,
-#   web_server_redirect_uri VARCHAR(256)  DEFAULT NULL,
-#   authorities             VARCHAR(256)  DEFAULT NULL,
-#   access_token_validity   INT(11)       DEFAULT NULL,
-#   refresh_token_validity  INT(11)       DEFAULT NULL,
-#   additional_information  VARCHAR(4096) DEFAULT NULL,
-#   autoapprove             VARCHAR(4096) DEFAULT NULL
-# );
+-- CREATE TABLE oauth_client_details (
+--   client_id               VARCHAR(128) NOT NULL PRIMARY KEY,
+--   resource_ids            VARCHAR(256)  DEFAULT NULL,
+--   client_secret           VARCHAR(256)  DEFAULT NULL,
+--   scope                   VARCHAR(256)  DEFAULT NULL,
+--   authorized_grant_types  VARCHAR(256)  DEFAULT NULL,
+--   web_server_redirect_uri VARCHAR(256)  DEFAULT NULL,
+--   authorities             VARCHAR(256)  DEFAULT NULL,
+--   access_token_validity   INT (11) DEFAULT NULL,
+--   refresh_token_validity  INT (11) DEFAULT NULL,
+--   additional_information  VARCHAR(4096) DEFAULT NULL,
+--   autoapprove             VARCHAR(4096) DEFAULT NULL
+-- );
 
 
 CREATE TABLE oauth_client_details (
@@ -38,20 +38,18 @@ VALUES ('ios_id', 'springsec', 'ios_key', 'trust,read,write', 'client_credential
 
 CREATE TABLE oauth_access_token (
   token_id          VARCHAR(128) DEFAULT NULL,
-  token             BLOB,
+  token             BYTEA,
   authentication_id VARCHAR(256) DEFAULT NULL,
   user_name         VARCHAR(256) DEFAULT NULL,
   client_id         VARCHAR(256) DEFAULT NULL,
-  authentication    BLOB,
+  authentication    BYTEA,
   refresh_token     VARCHAR(256) DEFAULT NULL
-)
-  ENGINE = InnoDB
-  DEFAULT CHARSET = latin1;
+);
+--   DEFAULT CHARSET = latin1;
 
 CREATE TABLE oauth_refresh_token (
   token_id       VARCHAR(128) DEFAULT NULL,
-  token          BLOB,
-  authentication BLOB
-)
-  ENGINE = InnoDB
-  DEFAULT CHARSET = latin1;
+  token          BYTEA,
+  authentication BYTEA
+);
+--   DEFAULT CHARSET = latin1;
