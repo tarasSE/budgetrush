@@ -9,22 +9,22 @@
         http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<bean id="expressionHandler"
-		class="com.provectus.budgetrush.security.CustomSecurityExpressionHandler">
-		<property name="permissionEvaluator" ref="permissionEvaluator" />
-		<property name="roleHierarchy" ref="roleHierarchy" />
-	</bean>
+	<!--<bean id="expressionHandler"-->
+		<!--class="com.provectus.budgetrush.security.CustomSecurityExpressionHandler">-->
+		<!--<property name="permissionEvaluator" ref="permissionEvaluator" />-->
+		<!--<property name="roleHierarchy" ref="roleHierarchy" />-->
+	<!--</bean>-->
 	
-	<bean id="roleHierarchy"
-		class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
-		<property name="hierarchy">
-			<value>
-				ROLE_ADMIN > ROLE_USER
-			</value>
-		</property>
-	</bean>
+	<!--<bean id="roleHierarchy"-->
+		<!--class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">-->
+		<!--<property name="hierarchy">-->
+			<!--<value>-->
+				<!--ROLE_ADMIN > ROLE_USER-->
+			<!--</value>-->
+		<!--</property>-->
+	<!--</bean>-->
 	
-	<bean id="permissionEvaluator" class="com.provectus.budgetrush.security.UserPermissionEvaluator"/>
+	<!--<bean id="permissionEvaluator" class="com.provectus.budgetrush.security.UserPermissionEvaluator"/>-->
 	
 	<security:global-method-security
 		pre-post-annotations="enabled">

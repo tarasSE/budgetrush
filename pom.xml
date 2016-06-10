@@ -39,7 +39,7 @@
 		<spring.security.aouth2.version>2.0.7.RELEASE</spring.security.aouth2.version>
 		<spring.security.version>4.0.2.RELEASE</spring.security.version>
 		<commons-codec.version>1.10</commons-codec.version>
-		<spring.contextt.support.version>4.2.1.RELEASE</spring.contextt.support.version>
+		<spring.context.support.version>4.2.1.RELEASE</spring.context.support.version>
 		<guava.version>19.0-rc2</guava.version>
 		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
 		<velocity.version>1.7</velocity.version>
@@ -48,7 +48,8 @@
 		<mail.version>1.4.7</mail.version>
 		<commons-lang3.version>3.0</commons-lang3.version>
 		<joda-time.version>2.9.1</joda-time.version>
-	</properties>
+        <postgresql.version>9.1-901-1.jdbc4</postgresql.version>
+    </properties>
 
 	<repositories>
 		<repository>
@@ -83,12 +84,12 @@
 			<version>${spring-data-jpa.version}</version>
 		</dependency>
 
-		<!-- AspectJ -->
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>${org.aspectj-version}</version>
-		</dependency>
+		<!--&lt;!&ndash; AspectJ &ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.aspectj</groupId>-->
+			<!--<artifactId>aspectjrt</artifactId>-->
+			<!--<version>${org.aspectj-version}</version>-->
+		<!--</dependency>-->
 
 		<!-- Logging -->
 		<dependency>
@@ -133,12 +134,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- @Inject -->
-		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>${javax.inject.version}</version>
-		</dependency>
+		<!--&lt;!&ndash; @Inject &ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>javax.inject</groupId>-->
+			<!--<artifactId>javax.inject</artifactId>-->
+			<!--<version>${javax.inject.version}</version>-->
+		<!--</dependency>-->
 
 		<!-- Servlet -->
 		<dependency>
@@ -146,16 +147,16 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${javax.servlet-api.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>${jsp-api.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>${jstl.version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>javax.servlet.jsp</groupId>-->
+			<!--<artifactId>jsp-api</artifactId>-->
+			<!--<version>${jsp-api.version}</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>javax.servlet</groupId>-->
+			<!--<artifactId>jstl</artifactId>-->
+			<!--<version>${jstl.version}</version>-->
+		<!--</dependency>-->
 
 		<!-- @DataBase -->
 		<dependency>
@@ -163,7 +164,14 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
-		<dependency>
+
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+
+        <dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
 			<version>${hibernate-jpa.version}</version>
@@ -250,7 +258,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-			<version>${spring.contextt.support.version}</version>
+			<version>${spring.context.support.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
@@ -268,11 +276,11 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate.validator.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>${commons-codec.version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>commons-codec</groupId>-->
+			<!--<artifactId>commons-codec</artifactId>-->
+			<!--<version>${commons-codec.version}</version>-->
+		<!--</dependency>-->
 
 		<!-- Mail notifications -->
 		<dependency>
@@ -287,18 +295,18 @@
 			<version>${mail.version}</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons-lang3.version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.commons</groupId>-->
+			<!--<artifactId>commons-lang3</artifactId>-->
+			<!--<version>${commons-lang3.version}</version>-->
+		<!--</dependency>-->
 
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>${joda-time.version}</version>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
@@ -308,8 +316,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<plugin>

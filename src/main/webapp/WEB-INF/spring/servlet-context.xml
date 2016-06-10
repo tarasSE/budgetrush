@@ -18,24 +18,24 @@
 	
  	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".vm" />
-	</beans:bean>
+	<!--<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+		<!--<beans:property name="prefix" value="/WEB-INF/views/" />-->
+		<!--<beans:property name="suffix" value=".vm" />-->
+	<!--</beans:bean>-->
 
-	<beans:bean class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".vm" />
-	</beans:bean>
+	<!--<beans:bean class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">-->
+		<!--<beans:property name="prefix" value="/WEB-INF/views/" />-->
+		<!--<beans:property name="suffix" value=".vm" />-->
+	<!--</beans:bean>-->
 
 
-	<beans:bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-		<beans:property name="resourceLoaderPath" value="/WEB-INF/views/"/>
-	</beans:bean>
+	<!--<beans:bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">-->
+		<!--<beans:property name="resourceLoaderPath" value="/WEB-INF/views/"/>-->
+	<!--</beans:bean>-->
 
-	<beans:import resource="/secutity/oauth2/oauth2-configuration.xml"/>
-	<beans:import resource="/secutity/authentication-managers.xml"/>
-	<beans:import resource="/secutity/endpoint-configuration.xml"/>
-	<beans:import resource="/secutity/security-configuration.xml"/>
+	<!--<beans:import resource="/security/oauth2/oauth2-configuration.xml"/>-->
+	<!--<beans:import resource="/security/authentication-managers.xml"/>-->
+	<!--<beans:import resource="/security/endpoint-configuration.xml"/>-->
+	<!--<beans:import resource="/security/security-configuration.xml"/>-->
 	
 </beans:beans>

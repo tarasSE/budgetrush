@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -15,6 +16,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:app.properties")
+@ImportResource({
+        "classpath:security/oauth2/oauth2-configuration.xml",
+        "classpath:security/authentication-managers.xml",
+        "classpath:security/endpoint-configuration.xml",
+        "classpath:security/security-configuration.xml"
+})
 public class AppConfig {
 
     @Autowired
@@ -22,7 +29,6 @@ public class AppConfig {
 
     @Bean
     public MailSender mailSender() {
-
         log.info("Creating mail sender.");
         MailService mailService = new MailService();
         mailService.setUserName(env.getProperty("mail-notify.userName"));

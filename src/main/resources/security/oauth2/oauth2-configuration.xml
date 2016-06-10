@@ -30,19 +30,19 @@
 		</security:headers>
 	</security:http>
 	
-	<bean id="oauthAuthenticationEntryPoint"
-		class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
-	</bean>
+	<!--<bean id="oauthAuthenticationEntryPoint"-->
+		<!--class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">-->
+	<!--</bean>-->
 
-	<bean id="clientAuthenticationEntryPoint"
-		class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
-		<property name="realmName" value="springsec/client" />
-		<property name="typeName" value="Basic" />
-	</bean>
+	<!--<bean id="clientAuthenticationEntryPoint"-->
+		<!--class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">-->
+		<!--<property name="realmName" value="springsec/client" />-->
+		<!--<property name="typeName" value="Basic" />-->
+	<!--</bean>-->
 
-	<bean id="oauthAccessDeniedHandler"
-		class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler">
-	</bean>
+	<!--<bean id="oauthAccessDeniedHandler"-->
+		<!--class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler">-->
+	<!--</bean>-->
 
 	<bean id="clientCredentialsTokenEndpointFilter"
 		class="org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter">
@@ -66,16 +66,16 @@
 	<oauth:resource-server id="resourceServerFilter"
 		resource-id="springsec" token-services-ref="tokenServices" />
 
-	<bean id="tokenStore"
-		class="org.springframework.security.oauth2.provider.token.store.JdbcTokenStore">
-		<constructor-arg ref="dataSource" />
-	</bean>
+	<!--<bean id="tokenStore"-->
+		<!--class="org.springframework.security.oauth2.provider.token.store.JdbcTokenStore">-->
+		<!--<constructor-arg ref="dataSource" />-->
+	<!--</bean>-->
 
-	<bean id="tokenServices"
-		class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">
-		<property name="tokenStore" ref="tokenStore" />
-		<property name="supportRefreshToken" value="true" />
-		<property name="accessTokenValiditySeconds" value="1800"></property>
-		<property name="clientDetailsService" ref="clientDetails" />
-	</bean>
+	<!--<bean id="tokenServices"-->
+		<!--class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">-->
+		<!--<property name="tokenStore" ref="tokenStore" />-->
+		<!--<property name="supportRefreshToken" value="true" />-->
+		<!--<property name="accessTokenValiditySeconds" value="1800"></property>-->
+		<!--<property name="clientDetailsService" ref="clientDetails" />-->
+	<!--</bean>-->
 </beans>					  

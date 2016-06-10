@@ -37,6 +37,7 @@
         </init-param>
         <load-on-startup>0</load-on-startup>
     </servlet>
+
     <servlet>
         <servlet-name>Index</servlet-name>
         <servlet-class>org.apache.velocity.tools.view.VelocityViewServlet</servlet-class>
