@@ -5,10 +5,7 @@ import com.provectus.budgetrush.mail.MailSender;
 import com.provectus.budgetrush.mail.MailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -22,6 +19,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         "classpath:security/endpoint-configuration.xml",
         "classpath:security/security-configuration.xml"
 })
+@ComponentScan({
+        "com.provectus.budgetrush",
+        "com.provectus.budgetrush.utils"})
 public class AppConfig {
 
     @Autowired
@@ -39,8 +39,7 @@ public class AppConfig {
 
 
     @Bean
-    public DateProcessorBean dateProcessor(){
-
+    public DateProcessorBean dateProcessor() {
         return new DateProcessorBean();
     }
 
