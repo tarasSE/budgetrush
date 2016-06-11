@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,10 +35,10 @@ import com.provectus.budgetrush.service.UserService;
 @RequestMapping(value = "/v1/users", headers = "Accept=application/json")
 public class UserController {
 
-    @Autowired
+    @Inject
     private UserService userService;
 
-    @Autowired
+    @Inject
     private MailSender mailSender;
 
     @PostFilter("isObjectOwnerOrAdmin(filterObject, 'read')")

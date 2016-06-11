@@ -9,20 +9,20 @@
 					  http://www.springframework.org/schema/security/spring-security.xsd">
 
 
-	<!-- REST API Endpoints -->
-	<http pattern="/.idea" create-session="never"
-		  authentication-manager-ref="authenticationManager"
-		  entry-point-ref="oauthAuthenticationEntryPoint"
-		  xmlns="http://www.springframework.org/schema/security">
-		<intercept-url pattern="/.idea" requires-channel="https"/>
-		<custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
-		<access-denied-handler ref="oauthAccessDeniedHandler" />
-		<csrf disabled="true" />
-		<headers>
-			<hsts
-					include-subdomains="true"
-					max-age-seconds=" 63072000" />
-		</headers>
-	</http>
+	<!--&lt;!&ndash; REST API Endpoints &ndash;&gt;-->
+	<!--<http pattern="/.idea" create-session="never"-->
+		  <!--authentication-manager-ref="authenticationManager"-->
+		  <!--entry-point-ref="oauthAuthenticationEntryPoint"-->
+		  <!--xmlns="http://www.springframework.org/schema/security">-->
+		<!--<intercept-url pattern="/.idea" requires-channel="https"/>-->
+		<!--<custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />-->
+		<!--<access-denied-handler ref="oauthAccessDeniedHandler" />-->
+		<!--<csrf disabled="true" />-->
+		<!--<headers>-->
+			<!--<hsts-->
+					<!--include-subdomains="true"-->
+					<!--max-age-seconds=" 63072000" />-->
+		<!--</headers>-->
+	<!--</http>-->
 
 </beans>

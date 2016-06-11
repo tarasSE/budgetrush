@@ -3,7 +3,7 @@ package com.provectus.budgetrush.controllers;
 import com.provectus.budgetrush.data.category.Category;
 import com.provectus.budgetrush.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +19,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 public class CategoryController {
 
-    @Autowired
+    @Inject
     private CategoryService categoryService;
 
     @PostFilter("isObjectOwnerOrAdminOrAll(filterObject, 'read')")

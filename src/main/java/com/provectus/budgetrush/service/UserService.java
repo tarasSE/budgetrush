@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.velocity.exception.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,10 +23,10 @@ import com.provectus.budgetrush.repository.UserRepository;
 @Transactional(readOnly = true)
 public class UserService extends GenericService<User, UserRepository> {
 
-    @Autowired
+    @Inject
     private UserRepository userRepository;
 
-    @Autowired
+    @Inject
     private GroupService groupService;
 
     @Override

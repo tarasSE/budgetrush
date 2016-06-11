@@ -8,6 +8,4 @@ import com.provectus.budgetrush.data.order.TransferOrder;
 
 @Repository
 @Transactional(readOnly = true)
-public interface TransferOrderRepository extends JpaRepository<TransferOrder, Integer> {
-
-}
+public interface TransferOrderRepository extends JpaRepository<TransferOrder, Integer> {}

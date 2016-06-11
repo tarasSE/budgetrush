@@ -134,12 +134,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!--&lt;!&ndash; @Inject &ndash;&gt;-->
-		<!--<dependency>-->
-			<!--<groupId>javax.inject</groupId>-->
-			<!--<artifactId>javax.inject</artifactId>-->
-			<!--<version>${javax.inject.version}</version>-->
-		<!--</dependency>-->
+		<!-- @Inject -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>${javax.inject.version}</version>
+		</dependency>
 
 		<!-- Servlet -->
 		<dependency>
@@ -307,7 +307,7 @@
 			<version>${joda-time.version}</version>
 		</dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>

@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.provectus.budgetrush.data.account.Account;
 import com.provectus.budgetrush.data.FilterEnum;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +20,10 @@ import com.provectus.budgetrush.repository.OrderRepository;
 @Transactional(readOnly = true)
 public class OrderService extends GenericService<Order, OrderRepository> {
 
-    @Autowired
+    @Inject
     private OrderRepository orderRepository;
 
-    @Autowired
+    @Inject
     private AccountService accountService;
 
     @Override
@@ -99,5 +99,4 @@ public class OrderService extends GenericService<Order, OrderRepository> {
 
         return getRepository().findByAccountAndDateBetween(account, startDate, endDate);
     }
-
 }

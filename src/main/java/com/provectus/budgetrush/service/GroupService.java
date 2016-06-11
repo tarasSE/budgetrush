@@ -9,7 +9,6 @@ import com.provectus.budgetrush.data.group.Group;
 import com.provectus.budgetrush.repository.GroupRepository;
 
 @Service
-@Repository
 @Transactional(readOnly = true)
 public class GroupService extends GenericService<Group, GroupRepository> {
 

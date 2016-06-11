@@ -1,4 +1,4 @@
-package com.provectus.budgetrush.datatest;
+package com.provectus.budgetrush.config;
 
 import java.util.Properties;
 

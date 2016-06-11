@@ -1,25 +1,17 @@
 package com.provectus.budgetrush.server;
 
+import com.google.common.io.Resources;
+import com.provectus.budgetrush.exceptions.CustomException;
+import lombok.extern.slf4j.Slf4j;
+import org.eclipse.jetty.http.HttpVersion;
+import org.eclipse.jetty.server.*;
+import org.eclipse.jetty.util.ssl.SslContextFactory;
+import org.eclipse.jetty.webapp.WebAppContext;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
-import lombok.extern.slf4j.Slf4j;
-
-import org.eclipse.jetty.http.HttpVersion;
-import org.eclipse.jetty.server.Connector;
-import org.eclipse.jetty.server.HttpConfiguration;
-import org.eclipse.jetty.server.HttpConnectionFactory;
-import org.eclipse.jetty.server.SecureRequestCustomizer;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.SslConnectionFactory;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
-import org.eclipse.jetty.webapp.WebAppContext;
-
-import com.google.common.io.Resources;
-import com.provectus.budgetrush.exceptions.CustomException;
 
 @Slf4j
 class JettyServer implements WebServer {
@@ -133,5 +125,4 @@ class JettyServer implements WebServer {
     public void join() throws InterruptedException {
         jettyServer.join();
     }
-
 }

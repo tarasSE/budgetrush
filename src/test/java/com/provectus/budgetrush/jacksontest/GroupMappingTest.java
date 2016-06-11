@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.provectus.budgetrush.data.group.Group;
-import com.provectus.budgetrush.datatest.InMemoryConfig;
+import com.provectus.budgetrush.config.InMemoryConfig;
 import com.provectus.budgetrush.service.GroupService;
 
 import lombok.extern.slf4j.Slf4j;

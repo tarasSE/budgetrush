@@ -5,12 +5,12 @@ import com.provectus.budgetrush.data.budget.BudgetStatistic;
 import com.provectus.budgetrush.service.BudgetService;
 import com.provectus.budgetrush.service.GroupService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -21,10 +21,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 public class BudgetController {
 
-    @Autowired
+    @Inject
     private BudgetService budgetService;
 
-    @Autowired
+    @Inject
     private GroupService groupService;
 
     @PostFilter("inGroupOrAdmin(filterObject, 'read')")

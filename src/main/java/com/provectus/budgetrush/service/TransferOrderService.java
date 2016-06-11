@@ -2,7 +2,7 @@ package com.provectus.budgetrush.service;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,13 +17,13 @@ import com.provectus.budgetrush.repository.TransferOrderRepository;
 @Transactional(readOnly = true)
 public class TransferOrderService extends GenericService<TransferOrder, TransferOrderRepository> {
 
-    @Autowired
+    @Inject
     private TransferOrderRepository transferOrderRepository;
 
-    @Autowired
+    @Inject
     OrderService orderService;
 
-    @Autowired
+    @Inject
     AccountService accountService;
 
     @Override

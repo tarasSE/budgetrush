@@ -5,8 +5,7 @@ public class ResetPasswordMessageBuilder {
     private String password;
     private String name;
 
-    private ResetPasswordMessageBuilder() {
-    }
+    private ResetPasswordMessageBuilder() {}
 
     public static ResetPasswordMessageBuilder newInstance() {
         return new ResetPasswordMessageBuilder();
@@ -37,5 +36,4 @@ public class ResetPasswordMessageBuilder {
 
         return emailText;
     }
-
 }

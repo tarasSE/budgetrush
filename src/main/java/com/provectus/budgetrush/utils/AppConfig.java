@@ -3,6 +3,8 @@ package com.provectus.budgetrush.utils;
 import com.provectus.budgetrush.dateprocessor.DateProcessorBean;
 import com.provectus.budgetrush.mail.MailSender;
 import com.provectus.budgetrush.mail.MailService;
+import com.provectus.budgetrush.utils.security.SecurityConfig;
+import com.provectus.budgetrush.utils.web.ServletConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -22,6 +24,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan({
         "com.provectus.budgetrush",
         "com.provectus.budgetrush.utils"})
+@Import({
+        WebAppInitializer.class,
+        HibernateConfig.class,
+        SecurityConfig.class,
+        ServletConfig.class
+})
 public class AppConfig {
 
     @Autowired

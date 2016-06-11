@@ -5,7 +5,7 @@ import com.provectus.budgetrush.service.AccountService;
 import com.provectus.budgetrush.service.GroupService;
 import com.provectus.budgetrush.service.TransferOrderService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,13 +21,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 public class TransferOrderController {
 
-    @Autowired
+    @Inject
     private TransferOrderService transferOrderService;
 
-    @Autowired
+    @Inject
     private GroupService groupService;
 
-    @Autowired
+    @Inject
     private AccountService accountService;
 
     @PostFilter("inGroupOrAdmin(filterObject, 'read')")

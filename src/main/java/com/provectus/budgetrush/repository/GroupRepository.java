@@ -8,5 +8,4 @@ import com.provectus.budgetrush.data.group.Group;
 
 @Repository
 @Transactional(readOnly = true)
-public interface GroupRepository extends JpaRepository<Group, Integer> {
-}
+public interface GroupRepository extends JpaRepository<Group, Integer> {}

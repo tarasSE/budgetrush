@@ -1,16 +1,15 @@
 package com.provectus.budgetrush.mail;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
-@Component
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 @Slf4j
+@Component
 public class MailSender extends JavaMailSenderImpl {
 
 	public void sendEmail(String recipient, String subject, String text) {

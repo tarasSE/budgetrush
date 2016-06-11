@@ -3,7 +3,7 @@ package com.provectus.budgetrush.jacksontest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.provectus.budgetrush.data.order.OrderType;
 import com.provectus.budgetrush.data.order.TransferOrder;
-import com.provectus.budgetrush.datatest.InMemoryConfig;
+import com.provectus.budgetrush.config.InMemoryConfig;
 import com.provectus.budgetrush.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;

@@ -17,17 +17,17 @@ import com.provectus.budgetrush.data.group.Group;
 @Repository
 @Transactional(readOnly = true)
 public interface AccountRepository extends JpaRepository<Account, Integer> {
-    public Account findByName(String name);
-    
+    Account findByName(String name);
+
     @Query("SELECT NEW com.provectus.budgetrush.data.account.AccountStatistic("
             + "o.account, SUM(o.amount)) "
             + "FROM Order o "
             + "WHERE o.account.id = :account_id "
             + "AND o.date BETWEEN :start_date AND :end_date "
             + "GROUP BY o.account")
-    public List<AccountStatistic> getTurnoverByAccount(@Param("account_id") int accountId,
-                                                     @Param("start_date") Date startDate,
-                                                     @Param("end_date") Date endDate);
+    List<AccountStatistic> getTurnoverByAccount(@Param("account_id") int accountId,
+                                                @Param("start_date") Date startDate,
+                                                @Param("end_date") Date endDate);
 
     @Query("SELECT NEW com.provectus.budgetrush.data.account.AccountStatistic("
             + "o.account, SUM(o.amount)) "
@@ -36,9 +36,9 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
             + "AND o.date BETWEEN :start_date AND :end_date "
             + "AND o.amount > 0.0 "
             + "GROUP BY o.account")
-    public List<AccountStatistic> getIncomeByAccount(@Param("account_id") int accountId,
-                                                   @Param("start_date") Date startDate,
-                                                   @Param("end_date") Date endDate);
+    List<AccountStatistic> getIncomeByAccount(@Param("account_id") int accountId,
+                                              @Param("start_date") Date startDate,
+                                              @Param("end_date") Date endDate);
 
     @Query("SELECT NEW com.provectus.budgetrush.data.account.AccountStatistic("
             + "o.account,SUM(o.amount)) "
@@ -47,10 +47,10 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
             + "AND o.date BETWEEN :start_date AND :end_date "
             + "AND o.amount < 0.0 "
             + "GROUP BY o.account")
-    public List<AccountStatistic> getExpenseByAccount(@Param("account_id") int accountId,
-                                                    @Param("start_date") Date startDate,
-                                                    @Param("end_date") Date endDate);
-    
+    List<AccountStatistic> getExpenseByAccount(@Param("account_id") int accountId,
+                                               @Param("start_date") Date startDate,
+                                               @Param("end_date") Date endDate);
+
     @Query("SELECT NEW com.provectus.budgetrush.data.account.AccountStatistic("
             + "o.account, SUM(o.amount)) "
             + "FROM Order o "
@@ -60,7 +60,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
             + "AND o.amount < 0.0 "
             + "GROUP BY o.account")
     List<AccountStatistic> getExpenseByCategoryAndGroup(@Param("category") Category category,
-    													@Param("group") Group group,
-		                                                @Param("start_date") Date startDate,
-		                                                @Param("end_date") Date endDate);
+                                                        @Param("group") Group group,
+                                                        @Param("start_date") Date startDate,
+                                                        @Param("end_date") Date endDate);
 }

@@ -1,15 +1,14 @@
 package com.provectus.budgetrush.service;
 
-import java.util.List;
-
+import com.provectus.budgetrush.data.BaseEntity;
+import com.provectus.budgetrush.exceptions.CustomException;
+import com.provectus.budgetrush.exceptions.ResourceNotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provectus.budgetrush.data.BaseEntity;
-import com.provectus.budgetrush.exceptions.CustomException;
-import com.provectus.budgetrush.exceptions.ResourceNotFoundException;
+import java.util.List;
 
 @Service
 @Repository
@@ -60,5 +59,4 @@ public abstract class GenericService<E extends BaseEntity, R extends JpaReposito
     }
 
     protected abstract R getRepository();
-
 }

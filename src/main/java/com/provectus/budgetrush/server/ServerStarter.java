@@ -4,10 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ServerStarter {
-
     public static void main(String[] args) {
         try {
-
             WebServer server = new JettyServer();
 
             server.start(getStartType(args));
@@ -18,7 +16,6 @@ public class ServerStarter {
         } catch (Exception exception) {
             log.error("Failed to start server.", exception);
         }
-
     }
 
     private static StartArgs getStartType(String[] args) {
@@ -27,6 +24,5 @@ public class ServerStarter {
             return StartArgs.TEST;
         }
         return StartArgs.NORMAL;
-
     }
 }

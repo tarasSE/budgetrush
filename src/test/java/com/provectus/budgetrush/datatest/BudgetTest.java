@@ -1,56 +1,36 @@
 package com.provectus.budgetrush.datatest;
 
 import com.provectus.budgetrush.data.budget.Budget;
-import com.provectus.budgetrush.service.*;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
+import com.provectus.budgetrush.service.AccountService;
+import com.provectus.budgetrush.service.BudgetService;
+import com.provectus.budgetrush.service.CategoryService;
+import com.provectus.budgetrush.service.GroupService;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
-import static org.junit.Assert.*;
+@ContextConfiguration(classes = {
+        BudgetService.class,
+        CategoryService.class,
+        GroupService.class,
+        AccountService.class})
+public class BudgetTest extends TestGenericService<Budget, BudgetService> {
+    @Inject
+    private BudgetService budgetService;
 
-@Slf4j
-@DirtiesContext
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InMemoryConfig.class, BudgetService.class, OrderService.class,
-        AccountService.class, CategoryService.class, GroupService.class, ContractorService.class })
-@WebAppConfiguration
-public class BudgetTest {
-
-    @Resource
-    private EntityManagerFactory emf;
-    protected EntityManager em;
-
-    @Autowired
-    private BudgetService service;
-
-    @Autowired
+    @Inject
     private CategoryService categoryService;
 
-    @Autowired
+    @Inject
     private GroupService groupService;
 
-    @Before
-    public void setUp() throws Exception {
-        log.info("Init entity manager");
-        em = emf.createEntityManager();
-    }
+    @Inject
+    private AccountService accountService;
 
-    private Budget saveTestBudget() {
-        log.info("Start save test category");
+    @Override
+    protected Budget getEntity() {
         Budget budget = new Budget();
 
         budget.setId(1);
@@ -61,49 +41,15 @@ public class BudgetTest {
         budget.setGroup(groupService.getById(1));
         budget.setAmount(BigDecimal.ONE);
 
-        return service.create(budget);
+        return budget;
     }
 
-    @Test
-    @Transactional
-    public void saveBudgetTest() throws Exception {
-
-        Budget budget = saveTestBudget();
-        Budget budget1 = service.getById(budget.getId());
-        assertNotNull(budget1.getId());
-
+    protected BudgetService getService() {
+        return budgetService;
     }
 
-    @Test
-    @Transactional
-    public void getAllBudgetsTest() throws Exception {
-        log.info("Start get all test");
-        int size = service.getAll().size();
-        saveTestBudget();
-        List<Budget> budgets = service.getAll();
-        for (Budget budget : budgets) {
-            log.info("Budget " + budget.getName() + " id " + budget.getId());
-        }
-
-        assertNotEquals(size, budgets.size());
-    }
-
-    @Test
-    @Transactional
-    public void getByIdTest() throws Exception {
-        Budget budget = saveTestBudget();
-        Budget budget1 = service.getById(budget.getId());
-
-        assertEquals(budget.getId(), budget1.getId());
-        log.info("id1 " + budget.getId() + " id2 " + budget1.getId());
-    }
-
-    @Test
-    @Transactional
-    public void deleteBudgetTest() throws Exception {
-        Budget budget = saveTestBudget();
-        service.delete(budget.getId());
-
-        log.info("id  " + budget.getId());
+    @Override
+    public void delete() {
+        //do nothing
     }
 }

@@ -1,24 +1,21 @@
 package com.provectus.budgetrush.service;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
-
-import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
-
 import com.provectus.budgetrush.data.account.Account;
 import com.provectus.budgetrush.data.account.AccountStatistic;
 import com.provectus.budgetrush.data.category.Category;
 import com.provectus.budgetrush.data.group.Group;
 import com.provectus.budgetrush.repository.AccountRepository;
+import lombok.extern.slf4j.Slf4j;
+import javax.inject.Inject;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -26,7 +23,7 @@ import com.provectus.budgetrush.repository.AccountRepository;
 @Transactional(readOnly = true)
 public class AccountService extends GenericService<Account, AccountRepository> {
 
-    @Autowired
+    @Inject
     private AccountRepository accountRepository;
 
     @Override

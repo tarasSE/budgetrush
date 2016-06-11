@@ -40,6 +40,5 @@ public class UserPermissionEvaluator implements PermissionEvaluator {
         } else {
             throw new RuntimeException("Unknown class.");
         }
-
     }
 }

@@ -9,6 +9,6 @@ import com.provectus.budgetrush.data.budget.Budget;
 @Repository
 @Transactional(readOnly = true)
 public interface BudgetRepository extends JpaRepository<Budget, Integer> {
-    public Budget findByName(String name);
+    Budget findByName(String name);
 }   
                                                      

@@ -3,7 +3,6 @@ package com.provectus.budgetrush.controllers;
 import com.provectus.budgetrush.data.group.Group;
 import com.provectus.budgetrush.service.GroupService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.inject.Inject;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -23,7 +23,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping(value = "/v1/groups", headers = "Accept=application/json")
 public class GroupController {
 
-    @Autowired
+    @Inject
     private GroupService groupService;
 
     @PostFilter("inGroupOrAdmin(filterObject, 'read')")

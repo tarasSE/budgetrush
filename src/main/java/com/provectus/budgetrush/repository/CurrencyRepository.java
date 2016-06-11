@@ -9,5 +9,5 @@ import com.provectus.budgetrush.data.currency.Currency;
 @Repository
 @Transactional(readOnly = true)
 public interface CurrencyRepository extends JpaRepository<Currency, Integer> {
-    public Currency findByName(String name);
+    Currency findByName(String name);
 }

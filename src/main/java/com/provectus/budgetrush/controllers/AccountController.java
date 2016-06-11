@@ -1,34 +1,24 @@
 package com.provectus.budgetrush.controllers;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
-import java.util.List;
-
 import com.provectus.budgetrush.data.FilterEnum;
-import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PostFilter;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.provectus.budgetrush.data.PeriodsEnum;
 import com.provectus.budgetrush.data.account.Account;
 import com.provectus.budgetrush.data.account.AccountStatistic;
-import com.provectus.budgetrush.data.PeriodsEnum;
 import com.provectus.budgetrush.dateprocessor.DateProcessor;
 import com.provectus.budgetrush.dateprocessor.Period;
 import com.provectus.budgetrush.service.AccountService;
 import com.provectus.budgetrush.service.GroupService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import javax.inject.Inject;
+import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Slf4j
 @RequestMapping(value = "/v1/accounts", headers = "Accept=application/json")
@@ -36,13 +26,13 @@ import com.provectus.budgetrush.service.GroupService;
 @RestController
 public class AccountController {
 
-    @Autowired
+    @Inject
     private AccountService accountService;
 
-    @Autowired
+    @Inject
     private GroupService groupService;
 
-    @Autowired
+    @Inject
     private DateProcessor dateProcessor;
 
     @PostFilter("inGroupOrAdmin(filterObject.group, 'read')")

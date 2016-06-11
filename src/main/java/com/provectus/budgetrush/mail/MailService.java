@@ -13,7 +13,6 @@ public class MailService {
     @Setter
     private String userName;
 
-
     @Getter
     @Setter
     private String password;
@@ -45,7 +44,4 @@ public class MailService {
 
         return mailSender;
     }
-
-
-
 }

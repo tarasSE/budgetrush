@@ -9,7 +9,7 @@ import com.provectus.budgetrush.service.AccountService;
 import com.provectus.budgetrush.service.GroupService;
 import com.provectus.budgetrush.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,16 +25,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 public class OrderController {
 
-    @Autowired
+    @Inject
     private OrderService orderService;
 
-    @Autowired
+    @Inject
     private AccountService accountService;
 
-    @Autowired
+    @Inject
     private GroupService groupService;
 
-    @Autowired
+    @Inject
     private DateProcessor dateProcessor;
 
     @PostFilter("inGroupOrAdmin(filterObject, 'read')")

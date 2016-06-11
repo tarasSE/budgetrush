@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,14 +15,13 @@ import com.provectus.budgetrush.data.account.AccountStatistic;
 import com.provectus.budgetrush.repository.BudgetRepository;
 
 @Service
-@Repository
 @Transactional(readOnly = true)
 public class BudgetService extends GenericService<Budget, BudgetRepository> {
 
-    @Autowired
+    @Inject
     private BudgetRepository budgetRepository;
 
-    @Autowired
+    @Inject
     private AccountService accountService;
 
     @Override

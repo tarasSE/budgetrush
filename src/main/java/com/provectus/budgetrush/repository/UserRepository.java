@@ -10,9 +10,9 @@ import com.provectus.budgetrush.data.user.User;
 @Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    public User findByNameAndPassword(String name, String password);
+    User findByNameAndPassword(String name, String password);
 
-    public User findByName(String name);
-    
-    public User findByEmail(String email);
+    User findByName(String name);
+
+    User findByEmail(String email);
 }

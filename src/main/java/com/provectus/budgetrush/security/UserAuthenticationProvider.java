@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,8 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserAuthenticationProvider implements AuthenticationProvider {
 
-    @Autowired
-    private UserService service;
+    @Inject
+    private UserService userService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -32,13 +32,13 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         String hexPassword = DigestUtils.md5Hex(authentication.getCredentials().toString());
         User user = null;
         try {
-            user = service.find(authentication.getPrincipal().toString(), hexPassword);
+            user = userService.find(authentication.getPrincipal().toString(), hexPassword);
         } catch (Exception exception) {
             log.info("Can`t find user by hex pass. " + exception);
         }
         if (user == null) {
             try {
-                user = service.find(authentication.getPrincipal().toString(),
+                user = userService.find(authentication.getPrincipal().toString(),
                         authentication.getCredentials().toString());
             } catch (Exception exception) {
                 log.info("Can`t find user by pass. " + exception);
